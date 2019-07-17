@@ -1,0 +1,205 @@
+*{
+  /* font-family: 'Lato', sans-serif;
+   */
+   font-family: 'Poppins', sans-serif;
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root{
+  --fire-border: 0.2em solid #DB3B30;
+  --fire-bg: #f19823;
+  --grass-border:0.2em solid rgb(37, 204, 98);
+  --grass-bg:#30DB6E;
+  --water-border: 0.2em solid #0079B2;
+  --water-bg:#30B3DB;
+  --electric-bg:#FFE100;
+  --electric-border: 0.2em solid rgb(228, 205, 4);
+  --ground-bg:#AD8B01;
+  --ground-border: 0.2em solid #C6AF00;
+  --rock-bg:#C6AF00;
+  --rock-border:0.2em solid #AD8B01;
+  --ice-bg:#a4c5fa;
+  --ice-border: 0.2em solid	#cee7ff;
+  --normal-bg:#898565;
+  --normal-border:0.2em solid rgb(163, 163, 163);
+  --flying--bg:#7D50D8;
+  --flying-border:0.2em solid #C8ADFF;
+  --poison-bg:#5D0A84;
+  --poision-border: 0.2em solid #782B9B;
+  --bug-bg:#94B548;
+  --bug-border:0.2em solid rgb(199, 230, 126);
+  --fairy-bg:#EA72C2;
+  --fairy-border: 0.2em solid rgb(251, 164, 222);
+  --fighting-bg:#D12600;
+  --fighting-border:0.2em solid #ec5635;
+  --psychic-bg:#ED3884;
+  --phsychic-border:0.2em solid #ff7db3;
+  --steel-bg:#CCCCCC;
+  --steel-border:0.2em solid rgb(163, 163, 163);
+  --dragon-bg:rgb(100, 38, 255);
+  --dragon-border:0.2em solid rgb(134, 86, 255); 
+}
+
+.main{
+  background: #f2f2f2;
+  padding: 1em 0
+}
+
+.pkmn-list{
+  display: grid;
+  width: 100vw;
+  margin: auto;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+}
+
+.pkmn-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 22.3vh;
+  width: 40vw;
+  margin: auto;
+  /* padding: 1em; */
+  border-radius: 2.5em
+}
+
+.pkmn-name{
+  text-align: center;
+  text-transform: uppercase;
+  background: #030e084d;
+  color: whitesmoke;
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 3em 3em 0em 0em;
+  z-index: 1;
+  font-size: .9em;
+}
+
+.asset{
+  display: flex;
+  justify-content: center;
+}
+
+.type{
+  text-transform: uppercase;
+}
+
+.types{
+  border-radius: 0.7em;
+  padding: .2em .5em;
+  margin: 0.1em
+}
+
+
+  .electric{
+    background: var(--electric-bg);
+    border:var(--electric-border);
+  }
+
+  .ice{
+    background: var(--ice-bg);
+    border:var(--ice-border);
+    color: white;
+  }
+
+
+
+  .normal{
+    background: var(--normal-bg);
+    border: var(--normal-border);
+  }
+
+  .ground{
+    background: var(--ground-bg);
+    border:var(--ground-border);
+  }
+
+  .flying{
+    background: var(--flying--bg);
+    border: var(--flying-border);
+  }
+
+  .poison{
+    background: var(--poison-bg);
+    border: var(--poision-border);
+  }
+
+  .bug{
+    background: var(--bug-bg);
+    border: var(--bug-border);
+  }
+
+  .fairy{
+    background: var(--fairy-bg);
+    border:var(--fairy-border);
+  }
+
+  .fighting{
+    background:var(--fighting-bg);
+    border: var(--fighting-border);
+  }
+
+  .psychic{
+    background: var(--psychic-bg);
+    border:var(--phsychic-border);
+  }
+
+  .steel{
+    background: var(--steel-bg);
+    border:var(--steel-border);
+    color: rgb(61, 61, 61)
+  }
+
+  .dragon{
+    background: var(--dragon-bg);
+    border: var(--dragon-border);
+  }
+
+  .fire{
+    background: var(--fire-bg);
+    border: var(--fire-border);
+  }
+  
+  .grass{
+    background: var(--grass-bg);
+    border: var(--grass-border);
+  }
+  
+  .water{
+    background: var(--water-bg);
+    border: var(--water-border);
+    color: rgb(245, 245, 245);
+  }
+
+  .rock{
+    background:var(--rock-bg);
+    border: var(--rock-border);
+  }
+
+
+  .dragon,
+  .poison,
+  .flying,
+  .water,
+  .normal,
+  .ground,
+  .fairy,
+  .fighting,
+  .psychic,
+  .rock,
+  .fire{
+    color: whitesmoke;
+  }
+
+
+.stats{
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 40%;
+}
