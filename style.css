@@ -62,7 +62,8 @@
   align-items: center;
   height: 22.3vh;
   width: 40vw;
-  margin: auto;
+  margin-right: auto;
+  margin-left: auto;
   /* padding: 1em; */
   border-radius: 2.5em;
   transition: all .3s;
