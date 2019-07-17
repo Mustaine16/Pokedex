@@ -17,9 +17,9 @@
   --electric-bg:#FFE100;
   --electric-border: 0.2em solid rgb(228, 205, 4);
   --ground-bg:#AD8B01;
-  --ground-border: 0.2em solid #C6AF00;
+  --ground-border: 0.2em solid rgb(212, 190, 24);
   --rock-bg:#C6AF00;
-  --rock-border:0.2em solid #AD8B01;
+  --rock-border:0.2em solid rgb(175, 141, 6);
   --ice-bg:#a4c5fa;
   --ice-border: 0.2em solid	#cee7ff;
   --normal-bg:#898565;
@@ -207,12 +207,13 @@
 
 /* When the card is full open */
 
-.open{
+.card-open{
   position: fixed;
   width: 100vw;
   height: 100vh;
   z-index: 2;
-  transition: all .2s
+  border-radius: 0;
+  transition: all .2s;
 }
 
 .stats-open{
@@ -222,4 +223,8 @@
   align-items: center;
   height: 40%;
 
+}
+
+.name-open{
+  border-radius: 0;
 }
