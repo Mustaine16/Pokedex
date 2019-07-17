@@ -1,14 +1,20 @@
 var log = console.log
+var ok = false
 
 async function consumirApi() {
   for (let i = 1; i <= 151; i++) {
+
     await fetchear(i); 
+
+    if (i == 151) {
+      showFullCard()//Cuando por fin todo esta cargado correctamente, se habilita la expansion de tarjetas de cada pokemon
+    }
+
   }
 }
 
 async function fetchear(id) {
 
-  log(`pokemon : ${id}:`)
   await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then(data => data.json())
     .then(pkmn => showPokemons(pkmn))
@@ -101,5 +107,6 @@ function showPokemons(pkmn) {
 }
 
 consumirApi();
+
 
 

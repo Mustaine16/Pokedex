@@ -44,7 +44,7 @@
 
 .main{
   background: #f2f2f2;
-  padding: 1em 0
+  /* padding: 1em 0 */
 }
 
 .pkmn-list{
@@ -77,11 +77,13 @@
   border-radius: 3em 3em 0em 0em;
   z-index: 1;
   font-size: .9em;
+  pointer-events: none;
 }
 
 .asset{
   display: flex;
   justify-content: center;
+  pointer-events: none;
 }
 
 .type{
@@ -198,8 +200,23 @@
 
 .stats{
   display: none;
+  pointer-events: none;
+}
+
+/* When the card is full open */
+
+.open{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+
+.stats-open{
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   height: 40%;
+
 }
