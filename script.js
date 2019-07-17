@@ -2,11 +2,11 @@ var log = console.log
 var ok = false
 
 async function consumirApi() {
-  for (let i = 1; i <= 151; i++) {
+  for (let i = 1; i <= 300; i++) {
 
     await fetchear(i); 
 
-    if (i == 151) {
+    if (i == 300) {
       showFullCard()//Cuando por fin todo esta cargado correctamente, se habilita la expansion de tarjetas de cada pokemon
     }
 
