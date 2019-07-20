@@ -2,19 +2,24 @@
 
 
 function showFullCard() {
+  console.log("dd");
+  
   const cards = document.querySelectorAll(".pkmn-card");
-  console.log(cards);
+  // console.log(cards);
   
   
   cards.forEach(card => {
     card.addEventListener("click", function (event) {
       let card = event.target;
-      console.log(card);
+      // console.log(card);
       
 
       card.classList.toggle("card-open");
-      card.childNodes[2].classList.toggle("stats-open")
       card.childNodes[0].classList.toggle("name-open")
+      card.childNodes[1].childNodes[1].classList.toggle("types-open")
+      card.childNodes[2].classList.toggle("stats-open")
+      card.childNodes[3].classList.toggle("evs-open")
+
 
       bodyScrollLock.disableBodyScroll(card);//Blockea el scroll de fondo
 
