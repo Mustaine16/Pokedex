@@ -17,6 +17,7 @@ async function consumirApi() {
       for (let i= 0; i < pokemonList.length; i++) {
         pokemonList[i].getEvolutionSprites();
         pokemonList[i].incrustEvolutions();
+
       }
 
       showFullCard()//Cuando por fin todo esta cargado correctamente, se habilita la expansion de tarjetas de cada pokemon

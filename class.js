@@ -35,17 +35,18 @@ class Pokemon {
             
             let evoChain = [];
             let evoData = data.chain;
-
+            
+            evoChain.push({
+              "name": evoData.species.name,
+            });
+            
             do {
+
               let numberOfEvolutions = evoData.evolves_to.length;  
             
-              evoChain.push({
-                "name": evoData.species.name,
-              });
-              
-              if (numberOfEvolutions > 1) {
+              if (numberOfEvolutions >= 1) {
 
-                for (let i = 1;i < numberOfEvolutions; i++) { 
+                for (let i = 0;i < numberOfEvolutions; i++) { 
                   evoChain.push({
                     "name": evoData.evolves_to[i].species.name,
                     "min_level": !evoData.evolves_to[i]? 1 : evoData.evolves_to[i].evolution_details[0].min_level,
@@ -167,20 +168,27 @@ class Pokemon {
       const pokeCard = document.querySelector(`.${this.name}`)
       const containerEvolutions = document.createElement("div")
       const containerEvolutionsBrand = document.createElement("div")
-      // let arrow = document.createElement("img")
-      containerEvolutions.classList.add("evs-container")
-      containerEvolutionsBrand.classList.add("evolutions-title")
-      containerEvolutionsBrand.innerText = "Evolutions"
+      const arrowDiv = document.createElement("div")
+      const arrow = document.createElement("img")
+      const arrowText = document.createElement("span")
       const evsList = document.createElement("div")
       const baseEv = document.createElement("div")
       const firstEv = document.createElement("div")
       const secondEv = document.createElement("div")
-
+      
+      containerEvolutions.classList.add("evs-container")
+      containerEvolutionsBrand.classList.add("evolutions-title")
+      containerEvolutionsBrand.innerText = "Evolutions"
       evsList.classList.add("evs-list")
       baseEv.classList.add("ev")
       firstEv.classList.add("ev")
       secondEv.classList.add("ev")
-      // arrow.src = "./img/arrow.png"
+      arrowDiv.classList.add("arrow-div")
+      arrow.classList.add("arrow")
+      arrow.src = "./img/arrow.svg"
+      arrowText.innerText = this.incrustEvolutionsTriggers(1)
+      arrowDiv.appendChild(arrow)
+      arrowDiv.appendChild(arrowText)
       
 
 
@@ -199,11 +207,7 @@ class Pokemon {
       baseEv.appendChild(baseName)
       containerEvolutions.appendChild(containerEvolutionsBrand)
       evsList.appendChild(baseEv)
-      // evsList.appendChild(arrow)
-      containerEvolutions.appendChild(evsList)
-      pokeCard.appendChild(containerEvolutions)
-
-
+      evsList.appendChild(arrowDiv)
 
       //First Evolution-----------------------------------
         
@@ -218,50 +222,60 @@ class Pokemon {
       pokeCard.append(containerEvolutions)
 
 
+
+
       //Second Evolution-----------------------------------
 
       if (this.evolutions.length === 3) {
+        const secondEvDiv = document.createElement("div")
+
+        const firstEvClone = firstEv.cloneNode(true)
+        const arrowDivClone = arrowDiv.cloneNode()
+        const arrowClone = arrow.cloneNode(true)
+        const arrowTextClone = arrowText.cloneNode();
+        
+
         const secondEvName = document.createElement("span")
-        let secondSprite = document.createElement("img")
+        let secondEvSprite = document.createElement("img")
+
+        secondEvDiv.classList.add("evs-list")
+
         secondEvName.innerText = `${this.evolutions[2].name}`
-        secondSprite.src = `${this.evolutions[2].sprite.src}`
-        secondEv.appendChild(secondSprite)
+        secondEvSprite.src = `${this.evolutions[2].sprite.src}`
+        secondEv.appendChild(secondEvSprite)
         secondEv.appendChild(secondEvName)
-        evsList.appendChild(secondEv)
-        containerEvolutions.append(evsList)
+
+        secondEvDiv.appendChild(firstEvClone)
+
+        arrowTextClone.innerText = this.incrustEvolutionsTriggers(2)
+        arrowDivClone.appendChild(arrowClone)
+        arrowDivClone.appendChild(arrowTextClone)
+
+        secondEvDiv.appendChild(arrowDivClone)
+        secondEvDiv.appendChild(secondEv)
+        containerEvolutions.append(secondEvDiv)
         pokeCard.append(containerEvolutions)
       }
       
 
       //Eevees----------------------------------------------
 
-      if (this.evolutions.length === 9) {
+      if (this.evolutions.length > 3) {
 
-        
-        for (let i = 2; i <= 8; i++) {
+        if (this.evolutions.length === 9) {
+          for (let i = 2; i < 8; i++) {
 
-          if (i != 7) {
+          
             //Base-------------------------------------------
-            const baseEve = document.createElement("div")
-            const baseEveName = document.createElement("span")
-            let baseEveSprite = document.createElement("img")
-            baseEve.classList.add("ev")
-            let eeveeEvolution = document.createElement("div")
 
+            const firstEeveeClone = baseEv.cloneNode(true)
+            const arrowDivClone = arrowDiv.cloneNode()
+            const arrowClone = arrow.cloneNode(true)
+            const arrowTextClone = arrowText.cloneNode();
 
-            baseEveName.innerText = `${this.evolutions[0].name}`
-
-            baseEveSprite.src = `${this.evolutions[0].sprite.src}`
-
-            baseEve.appendChild(baseEveSprite)
-            baseEve.appendChild(baseEveName)
-            evsList.appendChild(baseEve)
-            containerEvolutions.appendChild(evsList)
-            pokeCard.appendChild(containerEvolutions)
-    
 
             //Eevee Evolution--------------------------------
-
+            let eeveeEvolution = document.createElement("div")
             let eveEvo = document.createElement("div")
             let eveName = document.createElement("span")
             let eveSprite = document.createElement("img")
@@ -274,14 +288,57 @@ class Pokemon {
 
             eeveeEvolution.appendChild(eveSprite)
             eeveeEvolution.appendChild(eveName)
-            eveEvo.appendChild(baseEve)
+            eveEvo.appendChild(firstEeveeClone)
+          
+            arrowTextClone.innerText = this.incrustEvolutionsTriggers(i)
+            arrowDivClone.appendChild(arrowClone)
+            arrowDivClone.appendChild(arrowTextClone)
+            eveEvo.appendChild(arrowDivClone)
+
             eveEvo.appendChild(eeveeEvolution)
             containerEvolutions.appendChild(eveEvo)
             pokeCard.append(containerEvolutions)
-          } 
-        } 
-      }
+          }
+        } else {
 
+          for (let i = 2; i < this.evolutions.length; i++) {
+
+            //Base-------------------------------------------
+
+            const firstEeveeClone = baseEv.cloneNode(true)
+            const arrowDivClone = arrowDiv.cloneNode()
+            const arrowClone = arrow.cloneNode(true)
+            const arrowTextClone = arrowText.cloneNode();
+
+
+            //Eevee Evolution--------------------------------
+            let eeveeEvolution = document.createElement("div")
+            let eveEvo = document.createElement("div")
+            let eveName = document.createElement("span")
+            let eveSprite = document.createElement("img")
+
+
+            eveName.innerText = `${this.evolutions[i].name}`
+            eveSprite.src = `${this.evolutions[i].sprite.src}`
+            eveEvo.classList.add("evs-list")
+            eeveeEvolution.classList.add("ev")
+
+            eeveeEvolution.appendChild(eveSprite)
+            eeveeEvolution.appendChild(eveName)
+            eveEvo.appendChild(firstEeveeClone)
+          
+            arrowTextClone.innerText = this.incrustEvolutionsTriggers(i)
+            arrowDivClone.appendChild(arrowClone)
+            arrowDivClone.appendChild(arrowTextClone)
+            eveEvo.appendChild(arrowDivClone)
+
+            eveEvo.appendChild(eeveeEvolution)
+            containerEvolutions.appendChild(eveEvo)
+            pokeCard.append(containerEvolutions)
+          }
+        }
+      } 
+    
     } else {
 
       //En caso de que el pokemon no tenga evoluciones
@@ -290,14 +347,28 @@ class Pokemon {
       const containerEvolutions = document.createElement("div")
       const containerEvolutionsBrand = document.createElement("div")
       const noEvolutions = document.createElement("div")
+
       containerEvolutions.classList.add("evs-container")
       containerEvolutionsBrand.classList.add("evolutions-title")
+      noEvolutions.classList.add("empty")
       containerEvolutionsBrand.innerText = "Evolutions"
       noEvolutions.innerText = `${this.name} has not evolutions`
 
       containerEvolutions.appendChild(containerEvolutionsBrand)
       containerEvolutions.appendChild(noEvolutions)
       pokeCard.appendChild(containerEvolutions)
+    }
+  }
+
+  incrustEvolutionsTriggers(i) {
+    if (this.evolutions[i].min_level != null) {
+      return `level ${this.evolutions[i].min_level}`
+    } else if(this.evolutions[i].trigger == "use-item"){
+      return `using ${this.evolutions[i].item.name}`
+    } else if (this.evolutions[i].trigger == "trade") { 
+      return 'at trade'
+    } else{
+      return 'at high friendship'
     }
   }
 }

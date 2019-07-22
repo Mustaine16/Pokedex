@@ -46,7 +46,7 @@
   --fairy-bg-open:#fc7fd2;
   --fighting-border:0.2em solid #ec5635;
   --fighting-bg:#D12600;
-  --fighting-bg-open:#ec5635;
+  --fighting-bg-open:#ee4832;
   --phsychic-border:0.2em solid #ff7db3;
   --psychic-bg:#ED3884;
   --psychic-bg-open:#fa63a2;
@@ -361,6 +361,7 @@
   flex-direction: column;
   justify-content: center;
 }
+
 .stats-open{
   display: flex;
   flex-direction: column;
@@ -374,23 +375,30 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .evs-list{
   display: flex;
-  min-width: 95vw;
   justify-content: space-between;
+  align-items: center;
+  min-width: 95vw;
 }
 
 .evs-list span{
-  text-transform: capitalize
+  text-align: center;
+  text-transform: uppercase;
+  font-size: .8em;
+  font-weight: 300;
 }
 
 .ev{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
 }
 
 .ev img{
@@ -408,4 +416,23 @@
   font-size: .9em;
   pointer-events: none;
 }
+
+.arrow{
+  fill: #030e084d
+}
+
+.arrow-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  align-self: flex-end;
+}
+
+.empty{
+  text-transform: uppercase
+}
+
+
 

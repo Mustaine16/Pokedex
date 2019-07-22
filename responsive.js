@@ -5,8 +5,6 @@ function showFullCard() {
   console.log("dd");
   
   const cards = document.querySelectorAll(".pkmn-card");
-  // console.log(cards);
-  
   
   cards.forEach(card => {
     card.addEventListener("click", function (event) {
