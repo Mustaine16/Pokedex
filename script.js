@@ -5,14 +5,13 @@ var ev = [];
 
 async function consumirApi() {
 
-  for (let i = 1; i <= 30; i++) {
+  for (let i = 1; i <= 494; i++) {
 
     await fetchear(i, pokemonList); 
-    if (i == 20) {
+    if (i == 494) {
 
       for (let i= 0; i < pokemonList.length; i++) {
         await pokemonList[i].getEvolutions()
-        setTimeout( pokemonList[i].createCard(),20)
       }
 
       for (let i= 0; i < pokemonList.length; i++) {
@@ -34,7 +33,7 @@ async function fetchear(id) {
     .then(async pkmn => {
 
       const pokemon = new Pokemon(pkmn);
-
+      setTimeout( pokemon.createCard(),1)
       pokemonList.push(pokemon)
     })
   
