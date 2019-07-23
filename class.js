@@ -124,7 +124,12 @@ class Pokemon {
       //Bar color
       const statBarColor = document.createElement("div")
       statBarColor.classList.add("stat-bar-bg")
-      statBarColor.style.width = `${(stats[i] / 1.6)}%`
+      if (this.name == "chansey" || this.name == "wobbuffet" || this.name == "steelix" || this.name =="shuckle") {
+        statBarColor.style.width = `${(stats[i] / 2.55)}%`
+      } else {
+        statBarColor.style.width = `${(stats[i] / 1.7)}%`
+      }
+
       
       //Incrust
       statBar.appendChild(statValue)
