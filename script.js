@@ -4,23 +4,34 @@ var pokemonList = [];
 var ev = [];
 
 async function consumirApi() {
-
+  const startTime = performance.now();
   for (let i = 1; i <= 494; i++) {
 
     await fetchear(i, pokemonList); 
     if (i == 494) {
+      const duration = performance.now() - startTime;
+      console.log(`fetchear todos los pokemones${duration}ms`);
 
+      const startTime2 = performance.now();
       for (let i= 0; i < pokemonList.length; i++) {
         await pokemonList[i].getEvolutions()
       }
-
+      const duration2 = performance.now() - startTime2;
+      console.log(`getEvolutions todos los pokemones${duration2}ms`);
+      
+      const startTime3 = performance.now();
       for (let i= 0; i < pokemonList.length; i++) {
         pokemonList[i].getEvolutionSprites();
         pokemonList[i].incrustEvolutions();
-
       }
+      const duration3 = performance.now() - startTime3;
+      console.log(`getEvSprites y todos los pokemones ${duration3}ms`);
 
       showFullCard()//Cuando por fin todo esta cargado correctamente, se habilita la expansion de tarjetas de cada pokemon
+      
+      const loader = document.querySelector(".loader-div")
+      loader.style.display = "none"
+
     }
 
   }
@@ -28,6 +39,7 @@ async function consumirApi() {
 }
 
 async function fetchear(id) {
+
 
   await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then(data => data.json())
@@ -37,6 +49,7 @@ async function fetchear(id) {
       setTimeout( pokemon.createCard(),1)
       pokemonList.push(pokemon)
     })
+
   
 }
 

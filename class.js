@@ -25,7 +25,6 @@ class Pokemon {
   }
 
   async getEvolutions() {
-    var pokeEvolutions = [];
     await fetch(`${this.evolutionsUrl}`)
       .then(data => data.json())
       .then(async data => {
@@ -86,12 +85,55 @@ class Pokemon {
     assetDiv.appendChild(asset);
 
     //---Stats
-    const data = document.createElement("div");
-    data.classList.add("stats")
 
-    const hp = document.createElement("p")
-    const attack = document.createElement("p")
-    const defense = document.createElement("p")
+    const stats = [this.hp, this.attack, this.defense];
+          
+    const statsContainer = document.createElement("div");
+    statsContainer.classList.add("stats-container")
+
+    for (let i = 0; i < stats.length;i++){
+
+      //Each Stat Row Container
+      const statRow = document.createElement("div");
+      statRow.classList.add("stats-row")
+
+      //Stat row content (Name --- Value)
+      const statName = document.createElement("span")
+      switch(i) {
+        case 0:
+          statName.innerText = "HP"
+          break;
+        case 1:
+          statName.innerText = "Attack"
+          break;
+        case 2:
+          statName.innerText = "Defense"
+          break;
+      }
+
+      //Stat Bar
+      const statBar = document.createElement("div")
+      statBar.classList.add("stat-bar")
+      
+
+      //Stat-bar Value
+      const statValue = document.createElement("span")
+      statValue.classList.add("stat-value")
+      statValue.innerText = stats[i]
+
+      //Bar color
+      const statBarColor = document.createElement("div")
+      statBarColor.classList.add("stat-bar-bg")
+      statBarColor.style.width = `${(stats[i] / 1.6)}%`
+      
+      //Incrust
+      statBar.appendChild(statValue)
+      statBar.appendChild(statBarColor)
+      statRow.appendChild(statName)
+      statRow.appendChild(statBar)
+      statsContainer.appendChild(statRow)
+    }
+    
 
     //---Types
 
@@ -126,26 +168,15 @@ class Pokemon {
       card.classList.add(`${typeArr[0]}`)
     }
 
-    assetDiv.appendChild(type) //Incrustar los types al lado del sprite
-
-    //Resto de stats
-
-    hp.innerText = `HP: ${this.hp}`
-    attack.innerText = `Attack: ${this.attack}`
-    defense.innerText = `Defense: ${this.defense}`
-
-
-    //Incrustar todo los stats
-    data.appendChild(hp)
-    data.appendChild(attack)
-    data.appendChild(defense)
-
+    
     ///Incrustar TODO    
+    
+    assetDiv.appendChild(type) //Incrustar los types al lado del sprite
     const pkmnList = document.querySelector(".pkmn-list")
 
     card.appendChild(name)
     card.appendChild(assetDiv)
-    card.appendChild(data)
+    card.appendChild(statsContainer)
     pkmnList.appendChild(card)
 
   }
@@ -258,11 +289,12 @@ class Pokemon {
       }
       
 
-      //Eevees----------------------------------------------
+      //Eevees, Tyrogue, Gardevoir----------------------------------------------
 
       if (this.evolutions.length > 3) {
 
         if (this.evolutions.length === 9) {
+
           for (let i = 2; i < 8; i++) {
 
           
@@ -301,44 +333,81 @@ class Pokemon {
           }
         } else {
 
-          for (let i = 2; i < this.evolutions.length; i++) {
+          if (this.evolutions[0].name == "tyrogue") {
+            for (let i = 2; i < this.evolutions.length; i++) {
 
-            //Base-------------------------------------------
+              //Base-------------------------------------------
 
-            const firstEeveeClone = baseEv.cloneNode(true)
-            const arrowDivClone = arrowDiv.cloneNode()
-            const arrowClone = arrow.cloneNode(true)
-            const arrowTextClone = arrowText.cloneNode();
-
-
-            //Eevee Evolution--------------------------------
-            let eeveeEvolution = document.createElement("div")
-            let eveEvo = document.createElement("div")
-            let eveName = document.createElement("span")
-            let eveSprite = document.createElement("img")
+              const firstEeveeClone = baseEv.cloneNode(true)
+              const arrowDivClone = arrowDiv.cloneNode()
+              const arrowClone = arrow.cloneNode(true)
+              const arrowTextClone = arrowText.cloneNode();
 
 
-            eveName.innerText = `${this.evolutions[i].name}`
-            eveSprite.src = `${this.evolutions[i].sprite.src}`
-            eveEvo.classList.add("evs-list")
-            eeveeEvolution.classList.add("ev")
+              //Eevee Evolution--------------------------------
+              let eeveeEvolution = document.createElement("div")
+              let eveEvo = document.createElement("div")
+              let eveName = document.createElement("span")
+              let eveSprite = document.createElement("img")
 
-            eeveeEvolution.appendChild(eveSprite)
-            eeveeEvolution.appendChild(eveName)
-            eveEvo.appendChild(firstEeveeClone)
+
+              eveName.innerText = `${this.evolutions[i].name}`
+              eveSprite.src = `${this.evolutions[i].sprite.src}`
+              eveEvo.classList.add("evs-list")
+              eeveeEvolution.classList.add("ev")
+
+              eeveeEvolution.appendChild(eveSprite)
+              eeveeEvolution.appendChild(eveName)
+              eveEvo.appendChild(firstEeveeClone)
           
-            arrowTextClone.innerText = this.incrustEvolutionsTriggers(i)
-            arrowDivClone.appendChild(arrowClone)
-            arrowDivClone.appendChild(arrowTextClone)
-            eveEvo.appendChild(arrowDivClone)
+              arrowTextClone.innerText = this.incrustEvolutionsTriggers(i)
+              arrowDivClone.appendChild(arrowClone)
+              arrowDivClone.appendChild(arrowTextClone)
+              eveEvo.appendChild(arrowDivClone)
 
-            eveEvo.appendChild(eeveeEvolution)
-            containerEvolutions.appendChild(eveEvo)
-            pokeCard.append(containerEvolutions)
+              eveEvo.appendChild(eeveeEvolution)
+              containerEvolutions.appendChild(eveEvo)
+              pokeCard.append(containerEvolutions)
+            }
+          } else {
+            for (let i = 2; i < this.evolutions.length; i++) {
+
+              //Base-------------------------------------------
+
+              const firstEvoClone = firstEv.cloneNode(true)
+              const arrowDivClone = arrowDiv.cloneNode()
+              const arrowClone = arrow.cloneNode(true)
+              const arrowTextClone = arrowText.cloneNode();
+
+
+              //Kirlia Evolution--------------------------------
+              let eeveeEvolution = document.createElement("div")
+              let eveEvo = document.createElement("div")
+              let eveName = document.createElement("span")
+              let eveSprite = document.createElement("img")
+
+
+              eveName.innerText = `${this.evolutions[i].name}`
+              eveSprite.src = `${this.evolutions[i].sprite.src}`
+              eveEvo.classList.add("evs-list")
+              eeveeEvolution.classList.add("ev")
+
+              eeveeEvolution.appendChild(eveSprite)
+              eeveeEvolution.appendChild(eveName)
+              eveEvo.appendChild(firstEvoClone)
+          
+              arrowTextClone.innerText = this.incrustEvolutionsTriggers(i)
+              arrowDivClone.appendChild(arrowClone)
+              arrowDivClone.appendChild(arrowTextClone)
+              eveEvo.appendChild(arrowDivClone)
+
+              eveEvo.appendChild(eeveeEvolution)
+              containerEvolutions.appendChild(eveEvo)
+              pokeCard.append(containerEvolutions)
+            }
           }
         }
       } 
-    
     } else {
 
       //En caso de que el pokemon no tenga evoluciones
