@@ -116,10 +116,10 @@ class Pokemon {
           statName.innerText = "Speed"
         break;
         case 4:
-          statName.innerText = "Special At."
+          statName.innerText = "Sp Att"
         break;
         case 5:
-          statName.innerText = "Special Df."
+          statName.innerText = "Sp Def"
           break;
       }
 
