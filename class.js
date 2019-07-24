@@ -105,6 +105,8 @@ class Pokemon {
 
             this.evolutions = evoChain;
 
+          })
+      })
   }
 
   getEvolutionsSprites() {
