@@ -8,6 +8,9 @@ class Pokemon {
     this.hp = pk.stats[5].base_stat;
     this.attack = pk.stats[4].base_stat;
     this.defense = pk.stats[3].base_stat;
+    this.speed = pk.stats[0].base_stat;
+    this.attackSp =pk.stats[2].base_stat;
+    this.defenseSp = pk.stats[1].base_stat;
     this.evolutionsUrl = pk.species.url;
   }
 
@@ -86,7 +89,7 @@ class Pokemon {
 
     //---Stats
 
-    const stats = [this.hp, this.attack, this.defense];
+    const stats = [this.hp, this.attack, this.defense,this.speed,this.attackSp,this.defenseSp];
           
     const statsContainer = document.createElement("div");
     statsContainer.classList.add("stats-container")
@@ -109,12 +112,24 @@ class Pokemon {
         case 2:
           statName.innerText = "Defense"
           break;
+        case 3:
+          statName.innerText = "Speed"
+        break;
+        case 4:
+          statName.innerText = "Special At."
+        break;
+        case 5:
+          statName.innerText = "Special Df."
+          break;
       }
 
       //Stat Bar
       const statBar = document.createElement("div")
       statBar.classList.add("stat-bar")
       
+      //Value and Bar container
+      const statBarContainer = document.createElement("div")
+      statBarContainer.classList.add("stats-value-and-bar")
 
       //Stat-bar Value
       const statValue = document.createElement("span")
@@ -124,18 +139,21 @@ class Pokemon {
       //Bar color
       const statBarColor = document.createElement("div")
       statBarColor.classList.add("stat-bar-bg")
-      if (this.name == "chansey" || this.name == "wobbuffet" || this.name == "steelix" || this.name =="shuckle") {
+      if (stats[i] >= 170 ) {
         statBarColor.style.width = `${(stats[i] / 2.55)}%`
       } else {
-        statBarColor.style.width = `${(stats[i] / 1.7)}%`
+        statBarColor.style.width = `${(stats[i] / 1.8)}%`
       }
 
       
       //Incrust
-      statBar.appendChild(statValue)
       statBar.appendChild(statBarColor)
+      statBarContainer.appendChild(statValue)
+      statBarContainer.appendChild(statBar)
       statRow.appendChild(statName)
-      statRow.appendChild(statBar)
+      statRow.appendChild(statBarContainer)
+      //statRow.appendChild(statValue)
+      //statRow.appendChild(statBar)
       statsContainer.appendChild(statRow)
     }
     

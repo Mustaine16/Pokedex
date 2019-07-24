@@ -17,9 +17,9 @@
   --water-border: 0.2em solid #82daf5;
   --water-bg:#30B3DB;
   --water-bg-open:#56ccf0;
-  --electric-border: 0.2em solid #ffef5e;
-  --electric-bg:#FFE100;
-  --electric-bg-open:#eec81f;
+  --electric-border: 0.2em solid #ebda48;
+  --electric-bg:#f1cb20;
+  --electric-bg-open:#FFE100;
   --ground-border: 0.2em solid #d4be18;
   --ground-bg:#AD8B01;
   --ground-bg-open:#e2c806;
@@ -127,9 +127,10 @@
     background: var(--electric-bg);
     border: var(--electric-border)
   }
-  .electric p, .electric span{
+  .electric p, .electric span, .electric .empty{
     color: rgb(26, 26, 26)
   }
+
 
   .normal{
     background: var(--normal-bg);
@@ -217,6 +218,10 @@
     background: var(--steel-bg);
     border:var(--steel-border);
     color: rgb(61, 61, 61)
+  }
+
+  .steel span, .steel .empty{
+    color: black
   }
 
 
@@ -366,14 +371,24 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 70%;
   height: 30%;
+  padding: 0.5em 0;
 }
 
 .stats-row{
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.stats-value-and-bar{
+  height: 100%;
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .stat-bar{
@@ -385,9 +400,6 @@
 }
 
 .stat-value{
-  position: absolute;
-  top: -5.5px;
-  left: 110px;
   color: whitesmoke;
   z-index: 1;
 }
