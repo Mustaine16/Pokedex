@@ -507,3 +507,18 @@
   100% { transform: rotate(360deg); }
 }
 
+
+
+.modal{
+  height: 100vh;
+  width: 100vw;
+  transform: translateY(-99vh);
+  position: absolute;
+  background: rgb(16, 112, 104);
+  transition: all .5s;
+  z-index: 2;
+}
+
+.modal-open{
+  transform: translateY(-9vh);
+}

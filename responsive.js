@@ -1,11 +1,14 @@
 
 
 
-function showFullCard() {
+function showFullCard(event) {
   console.log("dd");
+  const modal = document.querySelector(".modal")
+  modal.classList.toggle("modal-open")
+
+  console.log(event.target);
   
-  const cards = document.querySelectorAll(".pkmn-card");
-  
+  /*
   for (i = 0; i < cards.length; i++) {
     cards[i].addEventListener("click", function (event) {
       let card = event.target;
@@ -26,5 +29,5 @@ function showFullCard() {
        bodyScrollLock.enableBodyScroll(card);
       }
     })
-  };
+  };*/
 }
