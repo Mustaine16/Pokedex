@@ -92,6 +92,22 @@
   transition: all .2s ease-out;
 }
 
+.modal{
+  width: 100vw;
+  transform: translateY(-100vh);
+  position: absolute;
+  background: rgb(16, 112, 104);
+  transition: all .2s;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
 .pkmn-name{
   text-align: center;
   text-transform: uppercase;
@@ -103,24 +119,6 @@
   z-index: 1;
   font-size: .9em;
   pointer-events: none;
-}
-
-.asset{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.type{
-  text-transform: uppercase;
-}
-
-.types{
-  text-align: center;
-  border-radius: 0.7em;
-  padding: .2em .5em;
-  margin: 0.1em
 }
 
   .electric{
@@ -322,17 +320,7 @@
 
 
 .stats-container{
-  display: none;
   pointer-events: none;
-}
-
-.type{
-  display: none;
-}
-
-.evs-container{
-  pointer-events: none;
-  display: none
 }
 
 
@@ -344,35 +332,63 @@
 /* ------------------------------------- -------------------*/
 /* ------------------------------------- -------------------*/
 
-.card-open{
+.modal-open{
   position: fixed;
-  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 100vh;
+  transform: translateY(0vh);
+  overflow: auto;
+  border: none !important;
+  transition: transform .3s;
   z-index: 2;
-  border-radius: 0;
-  transition: all .3s ease;
-  border: none;
-  overflow: auto
-
 }
+
 
 .name-open{
   border-radius: 0;
 }
 
-.types-open{
+.pkmn-specs-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 55vh;
+}
+
+.sprite-and-type{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  pointer-events: none;
 }
 
-.stats-open{
+.types{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 0.7em;
+}
+
+.type{
+  border-radius: 0.7em;
+  padding: .2em .5em;
+  margin: 0.1em
+}
+
+
+.stats-container{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   width: 70%;
-  height: 30%;
+  height: 40%;
   padding: 0.5em 0;
 }
 
@@ -412,11 +428,11 @@
   border-radius: 50px;
 }
 
-.evs-open{
+.evs-container{
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -509,16 +525,3 @@
 
 
 
-.modal{
-  height: 100vh;
-  width: 100vw;
-  transform: translateY(-99vh);
-  position: absolute;
-  background: rgb(16, 112, 104);
-  transition: all .5s;
-  z-index: 2;
-}
-
-.modal-open{
-  transform: translateY(-9vh);
-}

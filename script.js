@@ -4,37 +4,50 @@ var pokemonList = [];
 var ev = [];
 
 async function consumirApi() {
+
   const startTime = performance.now();
-  for (let i = 1; i <= 3; i++) {
+
+  for (let i = 1; i <= 494; i++) {
 
     await fetchear(i, pokemonList); 
 
-    if (i == 3) {
-      const loader = document.querySelector(".loader-div")
-      const cards = document.querySelectorAll(".pkmn-card")
-      log(cards)
+  }  
 
-      cards.forEach((card, i) => {
+  const loader = document.querySelector(".loader-div")
+  const cards = document.querySelectorAll(".pkmn-card")
+  const modal = document.querySelector(".modal")
 
-        card.addEventListener("click", function () {
+  cards.forEach((card, i) => {
 
-          const modal = document.querySelector(".modal")
-          modal.classList.add("modal-open")
-        
-          pokemonList[i].getEvolutions();
-          pokemonList[i].getEvolutionsSprites();
-          pokemonList[i].incrustEvolutions();
-          
-        })
-      })
+    card.addEventListener("click", async function () {
 
-      loader.style.display = "none"
+      modal.classList.add("modal-open")
+      modal.innerHTML = ""
+    
+      await pokemonList[i].getEvolutions()
+      pokemonList[i].getEvolutionsSprites()
+      pokemonList[i].incrustStats(this, modal);
+      pokemonList[i].incrustEvolutions(modal)
+      //Blockea el scroll de fondo
+      bodyScrollLock.disableBodyScroll(modal);
 
+    })
+  })
+
+  modal.addEventListener("click", () => {
+    modal.classList.toggle("modal-open")
+    modal.classList.remove(`${modal.classList[1]}`)
+    if (!(modal.classList.contains("modal-open"))) {
+     bodyScrollLock.enableBodyScroll(modal);
     }
+  })
+  const result = (performance.now() - startTime)
+  console.log(result);
+  loader.style.display = "none"
 
-  }
-  // log(pokemonList)
 }
+
+
 
 async function fetchear(id) {
 
@@ -52,8 +65,6 @@ async function fetchear(id) {
 }
 
 
-
-
 consumirApi();
-console.log(pokemonList);
+
 
