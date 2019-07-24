@@ -14,6 +14,47 @@ class Pokemon {
     this.evolutionsUrl = pk.species.url;
   }
 
+  createCard() {
+
+    //Card para cada pokemon
+    const card = document.createElement("div");
+    card.classList.add("pkmn-card");
+    card.classList.add(`${this.name}`)
+
+    //----Nombre
+    const name = document.createElement("div")
+    name.classList.add("pkmn-name")
+    name.innerText = this.name;
+    
+    //---Sprites
+    const assetDiv = document.createElement("div")
+    assetDiv.classList.add("asset")
+    const asset = this.sprite
+    asset.classList.add(`sprite-${this.name}`)
+    assetDiv.appendChild(asset);
+
+    //Types
+
+    const typeArr = this.getTypes();
+
+    //Para definir el fondo de cada mini-card dependiendo de su tipo
+    if (typeArr.length > 1) {
+      card.classList.add(`${typeArr[1]}`)
+    } else {
+      card.classList.add(`${typeArr[0]}`)
+    }
+    
+    ///Incrustar TODO    
+    
+    
+    const pkmnList = document.querySelector(".pkmn-list")
+
+    card.appendChild(name)
+    card.appendChild(assetDiv)
+    pkmnList.appendChild(card)
+
+  }
+
   getTypes() {
     //Verificar la cantidad de tipos que puede ser un pokemon (Por ejemplo Blubasaur es tipo planta y veneno)
 
@@ -64,147 +105,9 @@ class Pokemon {
 
             this.evolutions = evoChain;
 
-                      })
-                  })
-              }
-
-  createCard() {
-
-    //Card para cada pokemon
-    const card = document.createElement("div");
-    card.classList.add("pkmn-card");
-    card.classList.add(`${this.name}`)
-
-    //----Nombre
-    const name = document.createElement("div")
-    name.classList.add("pkmn-name")
-    name.innerText = this.name;
-    
-    //---Sprites
-    const assetDiv = document.createElement("div")
-    assetDiv.classList.add("asset")
-    const asset = this.sprite
-    asset.classList.add(`sprite-${this.name}`)
-    assetDiv.appendChild(asset);
-
-    //---Stats
-
-    const stats = [this.hp, this.attack, this.defense,this.speed,this.attackSp,this.defenseSp];
-          
-    const statsContainer = document.createElement("div");
-    statsContainer.classList.add("stats-container")
-
-    for (let i = 0; i < stats.length;i++){
-
-      //Each Stat Row Container
-      const statRow = document.createElement("div");
-      statRow.classList.add("stats-row")
-
-      //Stat row content (Name --- Value)
-      const statName = document.createElement("span")
-      switch(i) {
-        case 0:
-          statName.innerText = "HP"
-          break;
-        case 1:
-          statName.innerText = "Attack"
-          break;
-        case 2:
-          statName.innerText = "Defense"
-          break;
-        case 3:
-          statName.innerText = "Speed"
-        break;
-        case 4:
-          statName.innerText = "Sp Att"
-        break;
-        case 5:
-          statName.innerText = "Sp Def"
-          break;
-      }
-
-      //Stat Bar
-      const statBar = document.createElement("div")
-      statBar.classList.add("stat-bar")
-      
-      //Value and Bar container
-      const statBarContainer = document.createElement("div")
-      statBarContainer.classList.add("stats-value-and-bar")
-
-      //Stat-bar Value
-      const statValue = document.createElement("span")
-      statValue.classList.add("stat-value")
-      statValue.innerText = stats[i]
-
-      //Bar color
-      const statBarColor = document.createElement("div")
-      statBarColor.classList.add("stat-bar-bg")
-      if (stats[i] >= 170 ) {
-        statBarColor.style.width = `${(stats[i] / 2.55)}%`
-      } else {
-        statBarColor.style.width = `${(stats[i] / 1.8)}%`
-      }
-
-      
-      //Incrust
-      statBar.appendChild(statBarColor)
-      statBarContainer.appendChild(statValue)
-      statBarContainer.appendChild(statBar)
-      statRow.appendChild(statName)
-      statRow.appendChild(statBarContainer)
-      //statRow.appendChild(statValue)
-      //statRow.appendChild(statBar)
-      statsContainer.appendChild(statRow)
-    }
-    
-
-    //---Types
-
-    const typeArr = this.getTypes();
-    
-    const type = document.createElement("div")
-    type.classList.add("type")
-
-    //Incrustar los Tipos en los stats del pokemon
-
-    if (typeArr.length > 1) {
-      const typeElement1 = document.createElement("span")
-      typeElement1.innerText = `${typeArr[1]}`
-      typeElement1.classList.add(`${typeArr[1]}-cardy`)
-      typeElement1.classList.add("types")
-      card.classList.add(`${typeArr[1]}`)
-      type.appendChild(typeElement1)
-
-      const typeElement2 = document.createElement("span")
-      typeElement2.innerText = `${typeArr[0]}`
-      typeElement2.classList.add(`${typeArr[0]}-cardy`)
-      typeElement2.classList.add("types")
-      // card.classList.add(`${typeArr[0]}`)
-      type.appendChild(typeElement2)
-
-    } else {
-      const typeElement = document.createElement("span")
-      typeElement.innerText = `${typeArr[0]}`
-      typeElement.classList.add(`${typeArr[0]}-cardy`)
-      typeElement.classList.add("types")
-      type.appendChild(typeElement)
-      card.classList.add(`${typeArr[0]}`)
-    }
-
-    
-    ///Incrustar TODO    
-    
-    assetDiv.appendChild(type) //Incrustar los types al lado del sprite
-    const pkmnList = document.querySelector(".pkmn-list")
-
-    card.appendChild(name)
-    card.appendChild(assetDiv)
-    card.appendChild(statsContainer)
-    pkmnList.appendChild(card)
-
   }
 
-  getEvolutionSprites() {
+  getEvolutionsSprites() {
   
     this.evolutions.forEach(ev => {
       ev.sprite = (document.querySelector(`.sprite-${ev.name}`))
@@ -212,14 +115,12 @@ class Pokemon {
 
   }
 
-  
-  incrustEvolutions() {
+  incrustEvolutions(pokeCard) {
   
     if (this.evolutions.length > 1) {
 
       //------------Evolutions---------------------
 
-      const pokeCard = document.querySelector(`.${this.name}`)
       const containerEvolutions = document.createElement("div")
       const containerEvolutionsBrand = document.createElement("div")
       const arrowDiv = document.createElement("div")
@@ -273,7 +174,7 @@ class Pokemon {
       firstEv.appendChild(firstEvName)
       evsList.appendChild(firstEv)
       containerEvolutions.append(evsList)
-      pokeCard.append(containerEvolutions)
+      pokeCard.appendChild(containerEvolutions)
 
 
 
@@ -434,8 +335,7 @@ class Pokemon {
     } else {
 
       //En caso de que el pokemon no tenga evoluciones
-      
-      const pokeCard = document.querySelector(`.${this.name}`)
+    
       const containerEvolutions = document.createElement("div")
       const containerEvolutionsBrand = document.createElement("div")
       const noEvolutions = document.createElement("div")
@@ -462,6 +362,150 @@ class Pokemon {
     } else{
       return 'at high friendship'
     }
+  }
+
+  incrustStats(miniCard, modal) {
+
+    //Container de Sprite y Stats
+    const spriteAndStats = document.createElement("div")
+    spriteAndStats.classList.add("pkmn-specs-container")
+
+
+    //Name
+    const nameDiv = miniCard.children[0].cloneNode(true);
+    nameDiv.classList.add("name-open")
+
+    
+    //Sprite and Type container
+
+    const spriteAndType = document.createElement("div")
+    spriteAndType.classList.add("sprite-and-type")
+    
+
+    //Sprite
+
+    const spriteDiv = miniCard.children[1].cloneNode(true);
+    spriteAndType.appendChild(spriteDiv)
+
+
+    //---Types
+
+    const typeArr = this.getTypes();
+    
+    const type = document.createElement("div")
+    type.classList.add("types")
+
+    //Incrustar los Tipos en los stats del pokemon
+
+    if (typeArr.length > 1) {
+      const typeElement1 = document.createElement("span")
+      typeElement1.innerText = `${typeArr[1]}`
+      typeElement1.classList.add(`${typeArr[1]}-cardy`)
+      typeElement1.classList.add("type")
+      type.appendChild(typeElement1)
+      modal.classList.add(`${typeArr[1]}`)
+
+
+      const typeElement2 = document.createElement("span")
+      typeElement2.innerText = `${typeArr[0]}`
+      typeElement2.classList.add(`${typeArr[0]}-cardy`)
+      typeElement2.classList.add("type")
+      type.appendChild(typeElement2)
+      spriteAndType.appendChild(type)
+
+    } else {
+      const typeElement = document.createElement("span")
+      typeElement.innerText = `${typeArr[0]}`
+      typeElement.classList.add(`${typeArr[0]}-cardy`)
+      typeElement.classList.add("types")
+      modal.classList.add(`${typeArr[0]}`)
+      type.appendChild(typeElement)
+      spriteAndType.appendChild(type)
+    }
+
+    
+    //---Stats
+
+    const stats = [
+      this.hp,
+      this.attack,
+      this.defense,
+      this.speed,
+      this.attackSp,
+      this.defenseSp
+    ];
+          
+    const statsContainer = document.createElement("div");
+    statsContainer.classList.add("stats-container")
+
+    for (let i = 0; i < stats.length;i++){
+
+      //Each Stat Row Container
+      const statRow = document.createElement("div");
+      statRow.classList.add("stats-row")
+
+      //Stat row content (Name --- Value)
+      const statName = document.createElement("span")
+      switch(i) {
+        case 0:
+          statName.innerText = "HP"
+          break;
+        case 1:
+          statName.innerText = "Attack"
+          break;
+        case 2:
+          statName.innerText = "Defense"
+          break;
+        case 3:
+          statName.innerText = "Speed"
+        break;
+        case 4:
+          statName.innerText = "Sp Att."
+        break;
+        case 5:
+          statName.innerText = "Sp Def."
+          break;
+      }
+
+      //Stat Bar
+      const statBar = document.createElement("div")
+      statBar.classList.add("stat-bar")
+      
+      //Value and Bar container
+      const statBarContainer = document.createElement("div")
+      statBarContainer.classList.add("stats-value-and-bar")
+
+      //Stat-bar Value
+      const statValue = document.createElement("span")
+      statValue.classList.add("stat-value")
+      statValue.innerText = stats[i]
+
+      //Bar color
+      const statBarColor = document.createElement("div")
+      statBarColor.classList.add("stat-bar-bg")
+      if (stats[i] >= 170 ) {
+        statBarColor.style.width = `${(stats[i] / 2.55)}%`
+      } else {
+        statBarColor.style.width = `${(stats[i] / 1.8)}%`
+      }
+
+      
+      //Incrust
+      statBar.appendChild(statBarColor)
+      statBarContainer.appendChild(statValue)
+      statBarContainer.appendChild(statBar)
+      statRow.appendChild(statName)
+      statRow.appendChild(statBarContainer)
+      statsContainer.appendChild(statRow)
+    }
+
+    //Incrustar Todo
+    // spriteAndStats.appendChild(spriteAndType)
+    // spriteAndStats.appendChild(statsContainer)
+    modal.appendChild(nameDiv)
+    modal.appendChild(spriteAndType)
+    modal.appendChild(statsContainer)
+
   }
 }
   
