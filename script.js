@@ -35,8 +35,11 @@ async function consumirApi() {
 
       await pokemonList[i].getEvolutions()
       pokemonList[i].getEvolutionsSprites()
-      pokemonList[i].incrustStats(this, modal);
-      pokemonList[i].incrustEvolutions(modal)
+      
+      if (modal.classList.contains("modal-open")) {
+        pokemonList[i].incrustStats(this, modal);
+        pokemonList[i].incrustEvolutions(modal)
+      }
 
       modalLoader.style.display = "none"
 
