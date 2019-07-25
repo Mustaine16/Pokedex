@@ -117,7 +117,7 @@ class Pokemon {
 
   }
 
-  incrustEvolutions(pokeCard) {
+  incrustEvolutions(modal) {
   
     if (this.evolutions.length > 1) {
 
@@ -176,7 +176,7 @@ class Pokemon {
       firstEv.appendChild(firstEvName)
       evsList.appendChild(firstEv)
       containerEvolutions.append(evsList)
-      pokeCard.appendChild(containerEvolutions)
+      modal.appendChild(containerEvolutions)
 
 
 
@@ -211,7 +211,7 @@ class Pokemon {
         secondEvDiv.appendChild(arrowDivClone)
         secondEvDiv.appendChild(secondEv)
         containerEvolutions.append(secondEvDiv)
-        pokeCard.append(containerEvolutions)
+        modal.append(containerEvolutions)
       }
       
 
@@ -255,7 +255,7 @@ class Pokemon {
 
             eveEvo.appendChild(eeveeEvolution)
             containerEvolutions.appendChild(eveEvo)
-            pokeCard.append(containerEvolutions)
+            modal.append(containerEvolutions)
           }
         } else {
 
@@ -293,7 +293,7 @@ class Pokemon {
 
               eveEvo.appendChild(eeveeEvolution)
               containerEvolutions.appendChild(eveEvo)
-              pokeCard.append(containerEvolutions)
+              modal.append(containerEvolutions)
             }
           } else {
             for (let i = 2; i < this.evolutions.length; i++) {
@@ -329,7 +329,7 @@ class Pokemon {
 
               eveEvo.appendChild(eeveeEvolution)
               containerEvolutions.appendChild(eveEvo)
-              pokeCard.append(containerEvolutions)
+              modal.append(containerEvolutions)
             }
           }
         }
@@ -350,7 +350,7 @@ class Pokemon {
 
       containerEvolutions.appendChild(containerEvolutionsBrand)
       containerEvolutions.appendChild(noEvolutions)
-      pokeCard.appendChild(containerEvolutions)
+      modal.appendChild(containerEvolutions)
     }
   }
 
@@ -367,11 +367,6 @@ class Pokemon {
   }
 
   incrustStats(miniCard, modal) {
-
-    //Container de Sprite y Stats
-    const spriteAndStats = document.createElement("div")
-    spriteAndStats.classList.add("pkmn-specs-container")
-
 
     //Name
     const nameDiv = miniCard.children[0].cloneNode(true);

@@ -64,18 +64,46 @@
   --dark-bg-open:#1f1e1e;
 }
 
+html, 
+body {
+    height: 100%;
+}
+
 .main{
   background: #f2f2f2;
-  /* padding: 1em 0 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  padding: 1em
+}
+
+.search-input{
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 0.5em 1em;
+  width: 80%;
+  color: black !important
 }
 
 
 .pkmn-list{
   display: grid;
   width: 100vw;
-  margin: auto;
+  margin-right: auto;
+  margin-left: auto;
   grid-template-columns: repeat(2, 1fr);
   gap: 1em;
+  padding: 1em 0;
 }
 
 .pkmn-card{
@@ -83,7 +111,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 22.3vh;
+  height: 100%;
   width: 40vw;
   margin-right: auto;
   margin-left: auto;
@@ -94,7 +122,7 @@
 
 .modal{
   width: 100vw;
-  transform: translateY(-100vh);
+  transform: translateY(-200vh);
   position: absolute;
   background: rgb(16, 112, 104);
   transition: all .2s;
@@ -400,7 +428,7 @@
 }
 
 .stats-value-and-bar{
-  height: 100%;
+  height: 40%;
   width: 70%;
   display: flex;
   justify-content: space-around;

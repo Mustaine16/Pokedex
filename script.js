@@ -1,7 +1,9 @@
 var log = console.log
-var ok = false
 var pokemonList = [];
-var ev = [];
+const loader = document.querySelector(".loader-div")
+const cards = document.querySelectorAll(".pkmn-card")
+const modal = document.querySelector(".modal")
+const search = document.querySelector(".search-input")
 
 async function consumirApi() {
 
@@ -13,21 +15,30 @@ async function consumirApi() {
 
   }  
 
-  const loader = document.querySelector(".loader-div")
-  const cards = document.querySelectorAll(".pkmn-card")
-  const modal = document.querySelector(".modal")
-
+  loader.style.display = "none"
+  bodyScrollLock.enableBodyScroll(loader)
+  
   cards.forEach((card, i) => {
 
     card.addEventListener("click", async function () {
 
-      modal.classList.add("modal-open")
+      loader.style.display = "flex"
       modal.innerHTML = ""
-    
+      modal.classList.add("modal-open")
+      bodyScrollLock.disableBodyScroll(loader)
+
       await pokemonList[i].getEvolutions()
       pokemonList[i].getEvolutionsSprites()
       pokemonList[i].incrustStats(this, modal);
       pokemonList[i].incrustEvolutions(modal)
+
+      setTimeout(() => {
+
+        bodyScrollLock.enableBodyScroll(loader)
+        loader.style.display = "none"
+
+      }, 50);
+
       //Blockea el scroll de fondo
       bodyScrollLock.disableBodyScroll(modal);
 
@@ -41,9 +52,23 @@ async function consumirApi() {
      bodyScrollLock.enableBodyScroll(modal);
     }
   })
-  const result = (performance.now() - startTime)
-  console.log(result);
-  loader.style.display = "none"
+
+  search.addEventListener("input", () => {
+
+    let input = search.value.toLowerCase();
+
+    cards.forEach((card, i) => {
+
+      let pkClass = card.classList.item(1);
+      pkClass.startsWith(`${input}`) ? card.style.display = "flex" : card.style.display = "none";
+    
+    })
+    
+  })
+
+
+  let tiempoDeCarga = (performance.now() - startTime)
+  console.log(tiempoDeCarga);
 
 }
 
@@ -55,15 +80,13 @@ async function fetchear(id) {
   await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then(data => data.json())
     .then(async pkmn => {
-
       const pokemon = new Pokemon(pkmn);
-      setTimeout( pokemon.createCard(),1)
       pokemonList.push(pokemon)
     })
-
-  
 }
 
+
+bodyScrollLock.disableBodyScroll(loader)
 
 consumirApi();
 
