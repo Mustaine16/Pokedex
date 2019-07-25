@@ -21,23 +21,24 @@ async function consumirApi() {
   cards.forEach((card, i) => {
 
     card.addEventListener("click", async function () {
+      let modalLoader = document.querySelector(".modal-loader")
+      let backColor = card.classList[2]
 
-      loader.style.display = "flex"
+      //El modal baja con el background seteado y con la pokebola de carga
       modal.innerHTML = ""
+      modalLoader.style.display = "flex"
+      modal.appendChild(modalLoader)
+      modal.classList.add(backColor)
       modal.classList.add("modal-open")
-      bodyScrollLock.disableBodyScroll(loader)
+
+      //Procedimientos de cada pokemon para obtener sus respectivos datos
 
       await pokemonList[i].getEvolutions()
       pokemonList[i].getEvolutionsSprites()
       pokemonList[i].incrustStats(this, modal);
       pokemonList[i].incrustEvolutions(modal)
 
-      setTimeout(() => {
-
-        bodyScrollLock.enableBodyScroll(loader)
-        loader.style.display = "none"
-
-      }, 50);
+      modalLoader.style.display = "none"
 
       //Blockea el scroll de fondo
       bodyScrollLock.disableBodyScroll(modal);
@@ -46,8 +47,11 @@ async function consumirApi() {
   })
 
   modal.addEventListener("click", () => {
-    modal.classList.toggle("modal-open")
-    modal.classList.remove(`${modal.classList[1]}`)
+    let modalColor = modal.classList[1]
+
+    modal.classList.remove(modalColor)
+    modal.classList.remove("modal-open")
+
     if (!(modal.classList.contains("modal-open"))) {
      bodyScrollLock.enableBodyScroll(modal);
     }

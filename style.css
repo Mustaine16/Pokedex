@@ -78,12 +78,13 @@ body {
 }
 
 .search{
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
   width: 100%;
-  padding: 1em
+  height: 70px;
+  background: #a82f2f;
 }
 
 .search-input{
@@ -95,10 +96,26 @@ body {
   color: black !important
 }
 
+.search-icon{
+  position: absolute;
+  top: 1.7em;
+  right: 4em;
+}
+
+
+.top{
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  background: red;
+  position: fixed;
+}
+
 
 .pkmn-list{
   display: grid;
   width: 100vw;
+  margin-top: 4em;
   margin-right: auto;
   margin-left: auto;
   grid-template-columns: repeat(2, 1fr);
@@ -121,18 +138,18 @@ body {
 }
 
 .modal{
-  width: 100vw;
-  transform: translateY(-200vh);
-  position: absolute;
-  background: rgb(16, 112, 104);
-  transition: all .2s;
-  z-index: 2;
   display: flex;
+  width: 100vw;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-right: auto;
   margin-left: auto;
+  transform: translateY(-200vh);
+  position: absolute;
+  background: rgb(16, 112, 104);
+  transition: all .2s;
+  z-index: 10;
 }
 
 
@@ -144,7 +161,6 @@ body {
   width: 100%;
   padding: 0.5em;
   border-radius: 3em 3em 0em 0em;
-  z-index: 1;
   font-size: .9em;
   pointer-events: none;
 }
@@ -370,7 +386,7 @@ body {
   overflow: auto;
   border: none !important;
   transition: transform .3s;
-  z-index: 2;
+  z-index: 10;
 }
 
 
@@ -533,12 +549,23 @@ body {
 }
 
 
-.loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 64px solid #a82f2f; /* Blue */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
+.loader{
+  border: 16px solid #f1f1f1; /* Light grey */
+  border-top: 64px solid #2e2b2b; /* Blue */
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  animation: spin .5s linear infinite;
+  margin: auto;
+  z-index: 1000;
+}
+
+.modal-loader{
+  border: 16px solid #f1f1f1; /* Light grey */
+  border-top: 64px solid #2e2b2b; /* Blue */
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
   animation: spin .5s linear infinite;
   margin: auto;
   z-index: 1000;
