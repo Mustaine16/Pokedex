@@ -41,8 +41,8 @@ async function consumirApi() {
       modalLoader.style.display = "none"
 
       //Blockea el scroll de fondo
+      if(modalLoader.style.display != "none")
       bodyScrollLock.disableBodyScroll(modal);
-
     })
   })
 

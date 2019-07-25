@@ -400,7 +400,6 @@ class Pokemon {
       typeElement1.classList.add(`${typeArr[1]}-cardy`)
       typeElement1.classList.add("type")
       type.appendChild(typeElement1)
-      modal.classList.add(`${typeArr[1]}`)
 
 
       const typeElement2 = document.createElement("span")
@@ -415,7 +414,6 @@ class Pokemon {
       typeElement.innerText = `${typeArr[0]}`
       typeElement.classList.add(`${typeArr[0]}-cardy`)
       typeElement.classList.add("types")
-      modal.classList.add(`${typeArr[0]}`)
       type.appendChild(typeElement)
       spriteAndType.appendChild(type)
     }
