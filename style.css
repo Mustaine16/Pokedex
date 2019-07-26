@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: all .2s ease-out;
+  transition: width .2s ease-out;
 }
 :root{
   --fire-border: 0.2em solid #fda430;
@@ -133,7 +133,7 @@ body {
   width: 40vw;
   margin-right: auto;
   margin-left: auto;
-  /* padding: 1em; */
+  cursor: pointer;
   border-radius: 2.5em;
   transition: all .2s ease-out;
 }
@@ -144,12 +144,12 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin-right: auto;
-  margin-left: auto;
-  transform: translateX(-200vh);
+  /* margin-right: auto; */
+  /* margin-left: auto; */
+  transform: translateX(-250vh);
   position: absolute;
   background: rgb(16, 112, 104);
-  transition: all .5s;
+  transition: all .3s;
   z-index: 10;
 }
 
@@ -451,6 +451,11 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.stat-bar-bg{
+  width: 0;
+  transition: all .3s
 }
 
 .stat-bar{

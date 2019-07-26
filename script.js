@@ -2,8 +2,8 @@ var log = console.log
 var pokemonList = [];
 const loader = document.querySelector(".loader-div")
 const cards = document.querySelectorAll(".pkmn-card")
-const search = document.querySelector(".search-input")
 const modal = document.querySelector(".modal")
+const search = document.querySelector(".search-input")
 const modalLoader = document.querySelector(".modal-loader")
 
 async function consumirApi() {
@@ -22,9 +22,12 @@ async function consumirApi() {
       modal.innerHTML = ""
       modalLoader.style.display = "flex"
       modal.appendChild(modalLoader)
+      if ((modal.classList.contains("modal-open"))) { 
+        modal.classList.remove(1)
+      }
       modal.classList.add(backColor)
       modal.classList.add("modal-open")
-      
+    
       //Blockea el scroll de fondo
       if (modalLoader.style.display != "none") {
         bodyScrollLock.disableBodyScroll(modal);
@@ -32,8 +35,6 @@ async function consumirApi() {
 
       if (modal.classList.contains("modal-open")) {
         //Procedimientos de cada pokemon para obtener sus respectivos datos
-        
-        log(modal.childNodes);
         
         await fetchear(i + 1)
         let len = pokemonList.length

@@ -478,12 +478,15 @@ class Pokemon {
       //Bar color
       const statBarColor = document.createElement("div")
       statBarColor.classList.add("stat-bar-bg")
-      if (stats[i] >= 170 ) {
-        statBarColor.style.width = `${(stats[i] / 2.55)}%`
+      if (stats[i] >= 170) {
+        setTimeout(() => {
+          statBarColor.style.width = `${(stats[i] / 2.55)}%`
+        }, i *50);
       } else {
-        statBarColor.style.width = `${(stats[i] / 1.8)}%`
+        setTimeout(() => {
+          statBarColor.style.width = `${(stats[i] / 1.8)}%`
+        }, i *50);
       }
-
       
       //Incrust
       statBar.appendChild(statBarColor)
