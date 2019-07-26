@@ -57,6 +57,9 @@ async function consumirApi() {
     if (!(modal.classList.contains("modal-open"))) {
      bodyScrollLock.enableBodyScroll(modal);
     }
+
+    modal.innerHTML = ""
+
   })
 
   search.addEventListener("input", () => {

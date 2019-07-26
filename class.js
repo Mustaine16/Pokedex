@@ -346,7 +346,7 @@ class Pokemon {
       containerEvolutionsBrand.classList.add("evolutions-title")
       noEvolutions.classList.add("empty")
       containerEvolutionsBrand.innerText = "Evolutions"
-      noEvolutions.innerText = `${this.name} has not evolutions`
+      noEvolutions.innerText = `${this.name} has no evolutions`
 
       containerEvolutions.appendChild(containerEvolutionsBrand)
       containerEvolutions.appendChild(noEvolutions)
