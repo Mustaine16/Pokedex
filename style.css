@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: all .2s ease-out;
 }
 :root{
   --fire-border: 0.2em solid #fda430;
@@ -145,7 +146,7 @@ body {
   align-items: center;
   margin-right: auto;
   margin-left: auto;
-  transform: translateY(-200vh);
+  transform: translateX(-200vh);
   position: absolute;
   background: rgb(16, 112, 104);
   transition: all .5s;
@@ -385,7 +386,8 @@ body {
   transform: translateY(0vh);
   overflow: auto;
   border: none !important;
-  transition: transform .3s;
+  transition: transform .4s;
+  /* transition: height .4s; */
   z-index: 10;
 }
 

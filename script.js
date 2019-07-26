@@ -2,8 +2,8 @@ var log = console.log
 var pokemonList = [];
 const loader = document.querySelector(".loader-div")
 const cards = document.querySelectorAll(".pkmn-card")
-const modal = document.querySelector(".modal")
 const search = document.querySelector(".search-input")
+const modal = document.querySelector(".modal")
 const modalLoader = document.querySelector(".modal-loader")
 
 async function consumirApi() {
@@ -30,20 +30,22 @@ async function consumirApi() {
         bodyScrollLock.disableBodyScroll(modal);
       }
 
-      //Procedimientos de cada pokemon para obtener sus respectivos datos
-      await fetchear(i+1)
-      let len = pokemonList.length
-
-      await pokemonList[(len-1)].getEvolutions()
-      pokemonList[(len-1)].getEvolutionsSprites()
-
       if (modal.classList.contains("modal-open")) {
-        pokemonList[(len-1)].incrustStats(this, modal);
+        //Procedimientos de cada pokemon para obtener sus respectivos datos
+        
+        log(modal.childNodes);
+        
+        await fetchear(i + 1)
+        let len = pokemonList.length
+
+        await pokemonList[(len-1)].getEvolutions()
+        pokemonList[(len - 1)].getEvolutionsSprites()
+        
+        pokemonList[(len - 1)].incrustStats(this, modal);
         pokemonList[(len-1)].incrustEvolutions(modal)
       }
 
       modalLoader.style.display = "none"
-
 
     })
   })
@@ -52,7 +54,7 @@ async function consumirApi() {
     let modalColor = modal.classList[1]
 
     modal.classList.remove(modalColor)
-    modal.classList.remove("modal-open")
+    modal.classList.toggle("modal-open")
 
     if (!(modal.classList.contains("modal-open"))) {
      bodyScrollLock.enableBodyScroll(modal);
