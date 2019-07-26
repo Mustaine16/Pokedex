@@ -4,24 +4,18 @@ const loader = document.querySelector(".loader-div")
 const cards = document.querySelectorAll(".pkmn-card")
 const modal = document.querySelector(".modal")
 const search = document.querySelector(".search-input")
+const modalLoader = document.querySelector(".modal-loader")
 
 async function consumirApi() {
 
-  const startTime = performance.now();
-
-  for (let i = 1; i <= 494; i++) {
-
-    await fetchear(i, pokemonList); 
-
-  }  
-
+  const startTime = performance.now()
   loader.style.display = "none"
   bodyScrollLock.enableBodyScroll(loader)
   
   cards.forEach((card, i) => {
 
     card.addEventListener("click", async function () {
-      let modalLoader = document.querySelector(".modal-loader")
+
       let backColor = card.classList[2]
 
       //El modal baja con el background seteado y con la pokebola de carga
@@ -30,22 +24,27 @@ async function consumirApi() {
       modal.appendChild(modalLoader)
       modal.classList.add(backColor)
       modal.classList.add("modal-open")
+      
+      //Blockea el scroll de fondo
+      if (modalLoader.style.display != "none") {
+        bodyScrollLock.disableBodyScroll(modal);
+      }
 
       //Procedimientos de cada pokemon para obtener sus respectivos datos
+      await fetchear(i+1)
+      let len = pokemonList.length
 
-      await pokemonList[i].getEvolutions()
-      pokemonList[i].getEvolutionsSprites()
-      
+      await pokemonList[(len-1)].getEvolutions()
+      pokemonList[(len-1)].getEvolutionsSprites()
+
       if (modal.classList.contains("modal-open")) {
-        pokemonList[i].incrustStats(this, modal);
-        pokemonList[i].incrustEvolutions(modal)
+        pokemonList[(len-1)].incrustStats(this, modal);
+        pokemonList[(len-1)].incrustEvolutions(modal)
       }
 
       modalLoader.style.display = "none"
 
-      //Blockea el scroll de fondo
-      if(modalLoader.style.display != "none")
-      bodyScrollLock.disableBodyScroll(modal);
+
     })
   })
 

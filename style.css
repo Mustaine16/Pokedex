@@ -84,7 +84,7 @@ body {
   align-items: center;
   width: 100%;
   height: 70px;
-  background: #a82f2f;
+  background: #3c60a3;
 }
 
 .search-input{
@@ -148,7 +148,7 @@ body {
   transform: translateY(-200vh);
   position: absolute;
   background: rgb(16, 112, 104);
-  transition: all .2s;
+  transition: all .5s;
   z-index: 10;
 }
 
