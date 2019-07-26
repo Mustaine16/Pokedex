@@ -381,7 +381,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  height: 100%;
   transform: translateY(0vh);
   overflow: auto;
   border: none !important;
