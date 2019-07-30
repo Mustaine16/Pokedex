@@ -9,9 +9,25 @@ class Pokemon {
     this.attack = pk.stats[4].base_stat;
     this.defense = pk.stats[3].base_stat;
     this.speed = pk.stats[0].base_stat;
-    this.attackSp =pk.stats[2].base_stat;
+    this.attackSp = pk.stats[2].base_stat;
     this.defenseSp = pk.stats[1].base_stat;
     this.evolutionsUrl = pk.species.url;
+    this.damage = {
+      "attack": {
+        "quadruple": [],
+        "double": [],
+        "half": [],
+        "quarter": [],
+        "none": []
+      },
+      "defense": {
+        "quadruple": [],
+        "double": [],
+        "half": [],
+        "quarter": [],
+        "none": []
+      },
+    }
   }
 
   createCard() {
@@ -85,19 +101,19 @@ class Pokemon {
             
             do {
 
-              let numberOfEvolutions = evoData.evolves_to.length;  
+              let numberOfEvolutions = evoData.evolves_to.length;
             
               if (numberOfEvolutions >= 1) {
 
-                for (let i = 0;i < numberOfEvolutions; i++) { 
+                for (let i = 0; i < numberOfEvolutions; i++) {
                   evoChain.push({
                     "name": evoData.evolves_to[i].species.name,
-                    "min_level": !evoData.evolves_to[i]? 1 : evoData.evolves_to[i].evolution_details[0].min_level,
-                    "trigger": !evoData.evolves_to[i]? null : evoData.evolves_to[i].evolution_details[0].trigger.name,
-                    "item": !evoData.evolves_to[i]? null : evoData.evolves_to[i].evolution_details[0].item
-                 });
+                    "min_level": !evoData.evolves_to[i] ? 1 : evoData.evolves_to[i].evolution_details[0].min_level,
+                    "trigger": !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[0].trigger.name,
+                    "item": !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[0].item
+                  });
                 }
-              }        
+              }
             
               evoData = evoData['evolves_to'][0];
             
@@ -333,7 +349,7 @@ class Pokemon {
             }
           }
         }
-      } 
+      }
     } else {
 
       //En caso de que el pokemon no tenga evoluciones
@@ -357,11 +373,11 @@ class Pokemon {
   incrustEvolutionsTriggers(i) {
     if (this.evolutions[i].min_level != null) {
       return `level ${this.evolutions[i].min_level}`
-    } else if(this.evolutions[i].trigger == "use-item"){
+    } else if (this.evolutions[i].trigger == "use-item") {
       return `using ${this.evolutions[i].item.name}`
-    } else if (this.evolutions[i].trigger == "trade") { 
+    } else if (this.evolutions[i].trigger == "trade") {
       return 'at trade'
-    } else{
+    } else {
       return 'at high friendship'
     }
   }
@@ -433,7 +449,7 @@ class Pokemon {
     const statsContainer = document.createElement("div");
     statsContainer.classList.add("stats-container")
 
-    for (let i = 0; i < stats.length;i++){
+    for (let i = 0; i < stats.length; i++) {
 
       //Each Stat Row Container
       const statRow = document.createElement("div");
@@ -441,7 +457,7 @@ class Pokemon {
 
       //Stat row content (Name --- Value)
       const statName = document.createElement("span")
-      switch(i) {
+      switch (i) {
         case 0:
           statName.innerText = "HP"
           break;
@@ -453,10 +469,10 @@ class Pokemon {
           break;
         case 3:
           statName.innerText = "Speed"
-        break;
+          break;
         case 4:
           statName.innerText = "Sp Att."
-        break;
+          break;
         case 5:
           statName.innerText = "Sp Def."
           break;
@@ -481,11 +497,11 @@ class Pokemon {
       if (stats[i] >= 170) {
         setTimeout(() => {
           statBarColor.style.width = `${(stats[i] / 2.55)}%`
-        }, i *50);
+        }, i * 100);
       } else {
         setTimeout(() => {
           statBarColor.style.width = `${(stats[i] / 1.8)}%`
-        }, i *50);
+        }, i * 100);
       }
       
       //Incrust
@@ -505,7 +521,465 @@ class Pokemon {
     modal.appendChild(statsContainer)
 
   }
-}
+
+  async getDamageRelations() {
+
+    let DamageComparation =
+    {
+      "attack": [
+        {
+          "double": [],
+          "half": [],
+          "none": []
+        },
+        {
+          "double": [],
+          "half": [],
+          "none": []
+        }
+      ],
+      "defense": {
+        "quadruple": [],
+        "double": [],
+        "half": [],
+        "quarter": [],
+        "none": []
+      }
+    }
+    
+    //Arrays para pushear cada tipo y despues comparar y ver si se encuentra, y ha partir de ahi caluclar x4- x2- x0.5- x0.25 o none
+    let defDbArr = []
+    let defHalfArr = []
+    let defNoneArr = []
+
+    for (let i = 0; i < this.types.length; i++) {
+
+      const url = this.types[i].type.url
+
+      await fetch(`${url}`)
+        .then(res => res.json())
+        .then(res => {
+
+          /*********************
+          * 
+          * 
+          * Attacking Damage
+          *
+          *
+          *********************/
+      
+          const attDouble = res.damage_relations.double_damage_to;
+          const attHalf = res.damage_relations.half_damage_to;
+          const attNone = res.damage_relations.no_damage_to;
+          
+          //---Double
+
+          for (let index = 0; index < attDouble.length; index++) {
+            DamageComparation.attack[i].double.push(attDouble[index].name)
+          }
+          
+          //---Half
+
+          for (let index = 0; index < attHalf.length; index++) {
+            DamageComparation.attack[i].half.push(attHalf[index].name)
+          }
+   
+          //---None
+          for (let index = 0; index < attNone.length; index++) {
+            DamageComparation.attack[i].none.push(attNone[index].name)
+          }
+
+          if (this.types.length == 1) {
+            DamageComparation.attack.pop()
+          }
+
+          
+          /*********************
+          * 
+          * 
+          * Defensive Damage
+          *
+          *
+          *********************/
+        
+          const defDouble = res.damage_relations.double_damage_from;
+          const defHalf = res.damage_relations.half_damage_from;
+          const defNone = res.damage_relations.no_damage_from;
+         
+          //En el primer tipo simplemente se pushea todo, y en el segundo se verifica/compara/calcula las resistencias y debilidades finales
+          if (i === 0) {
+
+            //Double
+            for (let index = 0; index < defDouble.length; index++) {
+              defDbArr.push(defDouble[index].name)
+            }
+         
+            //Half
+            for (let index = 0; index < defHalf.length; index++) {
+              defHalfArr.push(defHalf[index].name)
+            }
+
+            //None
+            for (let index = 0; index < defNone.length; index++) {
+              defNoneArr.push(defNone[index].name)
+            }
+  
+
+            //En caso de que el pokemon solo sea de un Tipo
+
+            if (this.types.length == 1) {
+
+
+              //Pushear los arrays Defensivos al Objeto Model Final 
+
+              (defDbArr.length > 0) ? DamageComparation.defense.double.push(defDbArr) : console.log("none double", this.name);
+          
+              (defHalfArr.length > 0) ? DamageComparation.defense.half.push(defHalfArr) : console.log("none half", this.name);
+              
+              (defNoneArr.length > 0) ? DamageComparation.defense.none.push(defNoneArr) : console.log("none none");
+
+              //Resultado final seteado
+              this.damage = DamageComparation
+              console.log(this.damage);
+            }
+            
+          } else {
+
+            //Double
+            for (let index = 0; index < defDouble.length; index++) {
+              verify(defDouble[index].name,"double")
+            }
+         
+            //Half
+            for (let index = 0; index < defHalf.length; index++) {
+              verify(defHalf[index].name,"half")
+            }
+
+            //None
+            for (let index = 0; index < defNone.length; index++) {
+              verify(defNone[index].name,"none")
+            }
+
+            console.log(defNoneArr);
+            //Pushear los arrays al Objeto Model Final
+
+            (defDbArr.length > 0 )? DamageComparation.defense.double.push(defDbArr): console.log("none double",this.name);
+          
+            (defHalfArr.length > 0) ? DamageComparation.defense.half.push(defHalfArr) : console.log("none half", this.name);
+              
+            (defNoneArr.length > 0) ? DamageComparation.defense.none.push(defNoneArr) : console.log("none none", this.name);
+
+            //Resultado final seteado
+            this.damage = DamageComparation
+            console.log(this.damage);
+          }
+        })
+    }
+
+
+    function verify(stat, value) {
+      switch (value) {
+        case "double":
+          if (defDbArr.some(e => e == `${stat}`) && stat) {
+
+            //Busca el indice del elemento y luego lo elimina en Double
+    
+            let i = defDbArr.indexOf(stat)
+            defDbArr.splice(i, 1)
+            
+            //Pushear en Quadruple
+    
+            DamageComparation.defense.quadruple.push(stat)
+          
+          } else if (defHalfArr.some(e => e == `${stat}`) && stat) {
+            
+            //Busca el indice del elemento y luego lo elimina en Half
+    
+            let i = defHalfArr.indexOf(stat)
+            defHalfArr.splice(i, 1)
+    
+          } else if(!(defNoneArr.some(e => e == stat) && stat)){
+          //Se pushea de manera normal
+          defDbArr.push(stat)
+          }
+
+          break;
+        case "half":
+          if (defDbArr.some(e => e == `${stat}`)) {
+
+            //Busca el indice del elemento y luego lo elimina en Double
+    
+            let i = defDbArr.indexOf(stat)
+            
+            defDbArr.splice(i, 1)
+            
+          } else if (defHalfArr.some(e => e == `${stat}`)) {
+              
+            //Busca el indice del elemento y luego lo elimina en Half
+      
+            let i = defHalfArr.indexOf(stat)
+            defHalfArr.splice(i, 1)
+            
+            
+            //Pushea el valor a 0.25x
+
+            DamageComparation.defense.quarter.push(stat)
+      
+          } else if(!(defNoneArr.some(e => e == stat) && stat)){
+            //Se pushea de manera normal
+            defHalfArr.push(stat)
+          }
+
+          break;
+        case "none":
+          
+            if (defDbArr.some(e => e == `${stat}`)) {
+              //Busca el indice del elemento y luego lo elimina en Double
+    
+              let i = defDbArr.indexOf(stat)
+              defDbArr.splice(i, 1)
+
+              //Pushea el valor a None
+
+              DamageComparation.defense.none.push(stat)
+            
+            } else if (defHalfArr.some(e => e == `${stat}`)) {
+              
+              //Busca el indice del elemento y luego lo elimina en Half
+      
+              let i = defHalfArr.indexOf(stat)
+              defHalfArr.splice(i, 1)
+            
+              //Pushea el valor a None
+
+              DamageComparation.defense.none.push(stat)
+      
+            } else if (!(defNoneArr.some(e => e == stat))) {
+              //Se pushea normalmente
+              defNoneArr.push(stat)
+            }
+          
+          break;
+        default: console.log("error")
+          break;
+      }
+
+
+
+
+    
+    
+
+    }
+  }
+
+  incrustDamageRelations(modal) {
+    const container = document.createElement("div")
+    const containerTitle = document.createElement("div")
+    const containerButtons = document.createElement("div")
+    const offensiveButton = document.createElement("div")
+    const defensiveButton = document.createElement("div")
+
+    //Container
+    container.classList.add("damage-container")
+    containerTitle.innerText = "Damage Relation"
+    containerTitle.classList.add("damage-title")
+
+    //Buttons
+    containerButtons.classList.add("damage-button-container")
+    offensiveButton.classList.add("damage-button")
+    defensiveButton.classList.add("damage-button")
+    offensiveButton.innerText = "Offensive"
+    defensiveButton.innerText = "Defensive"
+
+    /**********
+    * 
+    * 
+    * Offensive
+    * 
+    * 
+    ***********/
+
+    //Container y card por tipo, mas cada mini cardy
+    const offensiveContainer = document.createElement("div")
+    const attackTitle = document.createElement("div")
+    const typeOffensive = document.createElement("div")
+    const typeCardy = document.createElement("div")
+
+    offensiveContainer.classList.add("offensive-container")
+    typeOffensive.classList.add("type-offensive")
+    typeCardy.classList.add("type-cardy")
+    attackTitle.classList.add("attack-title")
+    attackTitle.innerText ="Attack"
+
+    //Logic
+
+    const attack = this.damage.attack;
+
+    for (let i = 0; i < attack.length; i++){
+
+      //Main Type (Se crea una cardy para el tipo al que se esta refiriendo)
+      const offensiveContainerByType = document.createElement("div")
+      offensiveContainerByType.classList.add("offensive")
+      offensiveContainerByType.classList.add(`${this.types[i].type.name}-cardy`)   //Type Background Color
+      offensiveContainerByType.innerText = `${this.types[i].type.name}`
+
+
+      //Double
+      if(attack[i].double.length > 0)
+        attack[i].double.forEach((e) => {
+
+          const typeCardys = typeCardy.cloneNode(true)
+
+          typeCardys.classList.add(`${e}-cardy`)
+          typeCardys.innerText = `x2  ${e}`
+
+          offensiveContainerByType.appendChild(typeCardys)
+        });
+      
+      //Half
+      if(attack[i].half.length > 0)
+      attack[i].half.forEach((e) => {
+
+        const typeCardys = typeCardy.cloneNode(true)
+
+        typeCardys.classList.add(`${e}-cardy`)
+        typeCardys.innerText = `x0.5  ${e}`
+
+        offensiveContainerByType.appendChild(typeCardys)
+      });
+
+      //None
+      if(attack[i].none.length > 0)
+      attack[i].none.forEach((e) => {
+
+        const typeCardys = typeCardy.cloneNode(true)
+
+        typeCardys.classList.add(`${e}-cardy`)
+        typeCardys.innerText = `x0  ${e}`
+
+        offensiveContainerByType.appendChild(typeCardys)
+      });
+      
+      //Final Appends
+      offensiveContainer.prepend(offensiveContainerByType)
+    }
+
+    /**
+     * 
+     * 
+     * Defense
+     * 
+     * 
+     */
+
+    //Container y card por tipo, mas cada mini cardy
+    const defensiveContainer = document.createElement("div")
+    const defenseTitle = document.createElement("div")
+    const typeDefensive = document.createElement("div")
+
+    defensiveContainer.classList.add("offensive-container")
+    typeDefensive.classList.add("type-offensive")
+    defenseTitle.classList.add("attack-title")
+    defenseTitle.innerText ="Defense"
+
+    //Logic
+
+    const defense = this.damage.defense;
+    
+    //Main Type (Se crea una cardy para el tipo al que se esta refiriendo)
+    const defensiveContainerByType = document.createElement("div")
+    defensiveContainerByType.classList.add("defensive")
+
+    //Quadruple
+    if(defense.quadruple && defense.quadruple.length > 0)
+      defense.quadruple.forEach((e) => {
+        console.log(e);
+        
+        const typeCardys = typeCardy.cloneNode(true)
+        typeCardys.classList.add(`${e}-cardy`)
+        typeCardys.innerText = `x4  ${e}`
+        defensiveContainerByType.appendChild(typeCardys)
+      });
+
+    //Double
+    if(defense.double && defense.double.length > 0)
+      defense.double[0].forEach((e) => {
+        console.log(e);
+        
+        const typeCardys = typeCardy.cloneNode(true)
+        typeCardys.classList.add(`${e}-cardy`)
+        typeCardys.innerText = `x2  ${e}`
+        defensiveContainerByType.appendChild(typeCardys)
+      });
+    
+    //Half
+    if(defense.half && defense.half.length > 0)
+    defense.half[0].forEach((e) => {
+      const typeCardys = typeCardy.cloneNode(true)
+      typeCardys.classList.add(`${e}-cardy`)
+      typeCardys.innerText = `x0.5  ${e}`
+      defensiveContainerByType.appendChild(typeCardys)
+    });
+
+    //Quarter
+    if(defense.quarter && defense.quarter.length > 0)
+      defense.quarter.forEach((e) => {
+        console.log(e);
+        
+        const typeCardys = typeCardy.cloneNode(true)
+        typeCardys.classList.add(`${e}-cardy`)
+        typeCardys.innerText = `x0.25  ${e}`
+        defensiveContainerByType.appendChild(typeCardys)
+      });
+    
+    //None
+    if(defense.none && defense.none.length > 0)
+    defense.none[0].forEach((e) => {
+      const typeCardys = typeCardy.cloneNode(true)
+      typeCardys.classList.add(`${e}-cardy`)
+      typeCardys.innerText = `x0  ${e}`
+      defensiveContainerByType.appendChild(typeCardys)
+    });
+    
+    //Final Appends
+    defensiveContainer.prepend(defensiveContainerByType)
+    
+
+    containerButtons.appendChild(offensiveButton)
+    containerButtons.appendChild(defensiveButton)
+
+    container.appendChild(containerTitle)
+    container.appendChild(attackTitle)
+    container.appendChild(offensiveContainer)
+    container.appendChild(defenseTitle)
+    container.appendChild(defensiveContainer)
+    modal.appendChild(container)
+
+  }
+
+  incrustBackArrow(modal){
+    const arrow = new Image();
+    arrow.src = "./img/left-arrow.svg"
+    arrow.classList.add("back-arrow")
+
+    modal.appendChild(arrow)
+
+    arrow.addEventListener("click", () => {
+
+      let modalColor = modal.classList[1]
+  
+      modal.classList.remove(modalColor)
+      modal.classList.remove("modal-open")
+
+      if (!(modal.classList.contains("modal-open"))) {
+       bodyScrollLock.enableBodyScroll(modal);
+      }
+  
+      modal.innerHTML = ""
+  
+    })
+  }
   
 
     
@@ -513,4 +987,4 @@ class Pokemon {
 
 
 
-  
+} 

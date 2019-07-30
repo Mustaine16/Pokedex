@@ -42,28 +42,18 @@ async function consumirApi() {
         await pokemonList[(len-1)].getEvolutions()
         pokemonList[(len - 1)].getEvolutionsSprites()
         
+        modalLoader.style.display = "none"
         pokemonList[(len - 1)].incrustStats(this, modal);
-        pokemonList[(len-1)].incrustEvolutions(modal)
+        pokemonList[(len - 1)].incrustEvolutions(modal)
+        await pokemonList[(len - 1)].getDamageRelations()
+        pokemonList[(len - 1)].incrustDamageRelations(modal)
+        pokemonList[(len - 1)].incrustBackArrow(modal);
       }
-
-      modalLoader.style.display = "none"
 
     })
   })
 
-  modal.addEventListener("click", () => {
-    let modalColor = modal.classList[1]
-
-    modal.classList.remove(modalColor)
-    modal.classList.toggle("modal-open")
-
-    if (!(modal.classList.contains("modal-open"))) {
-     bodyScrollLock.enableBodyScroll(modal);
-    }
-
-    modal.innerHTML = ""
-
-  })
+  
 
   search.addEventListener("input", () => {
 

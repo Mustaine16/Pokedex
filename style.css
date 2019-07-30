@@ -8,6 +8,7 @@
   box-sizing: border-box;
   transition: width .2s ease-out;
 }
+
 :root{
   --fire-border: 0.2em solid #fda430;
   --fire-bg: #f17a2b;
@@ -68,6 +69,7 @@
 html, 
 body {
     height: 100%;
+    overflow-x: hidden
 }
 
 .main{
@@ -83,7 +85,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 70px;
   background: #3c60a3;
 }
@@ -146,10 +148,10 @@ body {
   align-items: center;
   /* margin-right: auto; */
   /* margin-left: auto; */
-  transform: translateX(-250vh);
+  transform: translateY(-250vh);
   position: absolute;
   background: rgb(16, 112, 104);
-  transition: all .3s;
+  transition: transform .3s;
   z-index: 10;
 }
 
@@ -349,14 +351,16 @@ body {
 
   .rock-cardy{
     background:var(--rock-bg-open);
+    color: whitesmoke !important
   }
 
   .steel-cardy{
-    background: var(--steel-bg-open)
+    background: var(--steel-bg-open);
+    color: whitesmoke !important
   }
 
   
-  .steel-cardy,
+
   .electric-cardy,
   .ice
   {
@@ -377,13 +381,46 @@ body {
 /* ------------------------------------- -------------------*/
 /* ------------------------------------- -------------------*/
 
+.loader-div{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: #a82f2f;
+  z-index: 1000;
+  transition: .5s all
+}
+
+
+.loader{
+  border: 16px solid #f1f1f1; /* Light grey */
+  border-top: 64px solid #2e2b2b; /* Blue */
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  animation: spin .5s linear infinite;
+  margin: auto;
+  z-index: 1000;
+}
+
+.modal-loader{
+  border: 16px solid #f1f1f1; /* Light grey */
+  border-top: 64px solid #2e2b2b; /* Blue */
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  animation: spin .5s linear infinite;
+  margin: auto;
+  z-index: 1000;
+}
+
 .modal-open{
   position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
-  transform: translateY(0vh);
+  height: 100vh;
+  transform: translateY(0vh) !important;
   overflow: auto;
   border: none !important;
   transition: transform .4s;
@@ -393,6 +430,7 @@ body {
 
 
 .name-open{
+  padding: 1em;
   border-radius: 0;
 }
 
@@ -479,12 +517,13 @@ body {
   border-radius: 50px;
 }
 
-.evs-container{
+.evs-container, .damage-container{
   display: flex;
   flex-direction: column;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  padding: 0.3em 0;
 }
 
 .evs-list{
@@ -513,7 +552,7 @@ body {
   width: 80px
 }
 
-.evolutions-title{
+.evolutions-title, .damage-title{
   text-align: center;
   text-transform: uppercase;
   background: #030e084d;
@@ -545,38 +584,90 @@ body {
   padding: .8em
 }
 
-.loader-div{
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
+
+.back-arrow{
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  width: 2em;
+  z-index: 1000;
+}
+
+/* damage-container */
+/* Same as evs-container */
+
+/* Damage-title
+   Same as evs-title
+*/
+
+
+
+.damage-button-container{
+  width: 100%;
   display: flex;
-  background: #a82f2f;
-  z-index: 1000;
-  transition: .5s all
+  justify-content: space-around;
+}
+
+.damage-button{
+  background: none;
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+  padding: 0.2em;
+}
+
+.attack-title{
+  text-align: center;
+    text-transform: uppercase;
+    background: #030e084d;
+    color: whitesmoke;
+    /* letter-spacing: .2em; */
+    width: 70%;
+    padding: 0.5em;
+    margin-top: 1em;
+    z-index: 1;
+    font-size: .9em;
+    pointer-events: none;
+    align-self: center;
 }
 
 
-.loader{
-  border: 16px solid #f1f1f1; /* Light grey */
-  border-top: 64px solid #2e2b2b; /* Blue */
-  border-radius: 100%;
-  width: 100px;
-  height: 100px;
-  animation: spin .5s linear infinite;
-  margin: auto;
-  z-index: 1000;
+.offensive-container{
+  width: 100%;
+  margin: 1em 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
 }
 
-.modal-loader{
-  border: 16px solid #f1f1f1; /* Light grey */
-  border-top: 64px solid #2e2b2b; /* Blue */
-  border-radius: 100%;
-  width: 100px;
-  height: 100px;
-  animation: spin .5s linear infinite;
-  margin: auto;
-  z-index: 1000;
+.offensive, .defensive{
+  flex-direction: column;
+  display: flex;
+  width: 45%;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 0.7em;
+  padding: 0.2em 0.7em;
 }
+
+.defensive{
+  background: #030e084d;
+  width: 70%
+}
+
+.offensive .type-cardy, .defensive .type-cardy{
+  font-weight: 300;
+  padding: 0.2em;
+  margin: 0.3em 0;
+  border-radius: 1em;
+  border: .1em solid rgba(0, 0, 0, 0.178)
+}
+
+
+
+
+
+
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -585,5 +676,7 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-
-
+@keyframes close {
+  0%{transform: translateX(0vh)}
+  100%{transform: translateX(-250vh)}
+}
