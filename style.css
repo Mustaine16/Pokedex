@@ -14,7 +14,7 @@
   --fire-bg: #f17a2b;
   --fire-bg-open:#f3a238;
   --grass-border:0.2em solid #49e783;
-  --grass-bg:#30DB6E;
+  --grass-bg:#2eda6d;
   --grass-bg-open:#1ab453;
   --water-border: 0.2em solid #82daf5;
   --water-bg:#30B3DB;
@@ -45,13 +45,13 @@
   --bug-bg-open:#aed652;
   --fairy-border: 0.2em solid #fba4de;
   --fairy-bg:#EA72C2;
-  --fairy-bg-open:#fc7fd2;
+  --fairy-bg-open:#ee66c0;
   --fighting-border:0.2em solid #ec5635;
   --fighting-bg:#D12600;
   --fighting-bg-open:#b31608;
   --phsychic-border:0.2em solid #ff7db3;
   --psychic-bg:#ED3884;
-  --psychic-bg-open:#fa63a2;
+  --psychic-bg-open:#ff3c8d;
   --steel-border:0.2em solid #a3a3a3;
   --steel-bg:#CCCCCC;
   --steel-bg-open:#a3a3a3;
@@ -275,88 +275,134 @@ body {
 
   .electric-cardy{
     background: var(--electric-bg-open);
-    /* border: var(--electric-border) */
+  }
+  .electric-damage{
+    border: 10px solid var(--electric-bg-open)
   }
 
 
   .normal-cardy{
     background: var(--normal-bg-open);
   }
+  .normal-damage{
+    border: 10px solid var(--normal-bg-open)
+  }
 
   .ground-cardy{
     background: var(--ground-bg-open);
-
+  }
+  .ground-damage{
+    border: 10px solid var(--ground-bg-open)
   }
 
   .flying-cardy{
     background: var(--flying--bg-open);
 
   }
+  .flying-damage{
+    border: 10px solid var(--flying-bg-open)
+  }
 
   .poison-cardy{
     background: var(--poison-bg-open);
   }
+  .poison-damage{
+    border: 10px solid var(--poison-bg-open)
+  }
 
   .fairy-cardy{
     background: var(--fairy-bg-open);
-
+  }
+  .fairy-damage{
+    border: 10px solid var(--fairy-bg-open)
   }
 
   .fighting-cardy{
     background:var(--fighting-bg-open);
-
+  }
+  .fighting-damage{
+    border: 10px solid var(--fighting-bg-open)
   }
 
   .psychic-cardy{
     background: var(--psychic-bg-open);
-
+  }
+  .psychic-damage{
+    border: 10px solid var(--psychic-bg-open)
   }
 
   .ghost-cardy{
     background: var(--ghost-bg-open);
-
+  }
+  .ghost-damage{
+    border: 10px solid var(--ghost-bg-open)
   }
 
   .dragon-cardy{
     background: var(--dragon-bg-open);
-
+  }
+  .dragon-damage{
+    border: 10px solid var(--dragon-bg-open)
   }
 
   .fire-cardy{
     background: var(--fire-bg-open);
-
+  }
+  .fire-damage{
+    border: 10px solid var(--fire-bg-open)
   }
   
   .bug-cardy{
     background: var(--bug-bg-open);
+  }
+  .bug-damage{
+    border: 10px solid var(--bug-bg-open)
   }
 
   .ice-cardy{
     background: var(--ice-bg-open);
     color: white;
   }
+  .ice-damage{
+    border: 10px solid var(--ice-bg-open)
+  }
   
   .dark-cardy{
     background: var(--dark-bg-open);
   }
+  .dark-damage{
+    border: 10px solid var(--dark-bg-open)
+  }
 
   .grass-cardy{
     background: var(--grass-bg-open);
+  }
+  .grass-damage{
+    border: 10px solid var(--grass-bg-open)
   }
 
   .water-cardy{
     background: var(--water-bg-open);
     color: rgb(245, 245, 245);
   }
+  .water-damage{
+    border: 10px solid var(--water-bg-open)
+  }
 
   .rock-cardy{
     background:var(--rock-bg-open);
     color: whitesmoke !important
   }
+  .rock-damage{
+    border: 10px solid var(--rock-bg-open)
+  }
 
   .steel-cardy{
     background: var(--steel-bg-open);
     color: whitesmoke !important
+  }
+  .steel-damage{
+    border: 10px solid var(--steel-bg-open)
   }
 
   
@@ -394,7 +440,7 @@ body {
 
 .loader{
   border: 16px solid #f1f1f1; /* Light grey */
-  border-top: 64px solid #2e2b2b; /* Blue */
+  border-top: 16px solid #292626; /* Blue */
   border-radius: 100%;
   width: 100px;
   height: 100px;
@@ -405,7 +451,7 @@ body {
 
 .modal-loader{
   border: 16px solid #f1f1f1; /* Light grey */
-  border-top: 64px solid #2e2b2b; /* Blue */
+  border-top: 16px solid #2e2b2b; /* Blue */
   border-radius: 100%;
   width: 100px;
   height: 100px;
@@ -601,21 +647,6 @@ body {
 */
 
 
-
-.damage-button-container{
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-
-.damage-button{
-  background: none;
-  border: none;
-  border-bottom: 2px solid black;
-  outline: none;
-  padding: 0.2em;
-}
-
 .attack-title{
   text-align: center;
     text-transform: uppercase;
@@ -643,11 +674,13 @@ body {
 .offensive, .defensive{
   flex-direction: column;
   display: flex;
+  align-items: center;
   width: 45%;
   text-align: center;
   text-transform: uppercase;
+  background: #030e084d;
   border-radius: 0.7em;
-  padding: 0.2em 0.7em;
+
 }
 
 .defensive{
@@ -658,11 +691,17 @@ body {
 .offensive .type-cardy, .defensive .type-cardy{
   font-weight: 300;
   padding: 0.2em;
-  margin: 0.3em 0;
+  margin: 0.5em;
   border-radius: 1em;
-  border: .1em solid rgba(0, 0, 0, 0.178)
+  width: 80%;
 }
 
+
+.damage-type-title{
+  width: 100%;
+  border-radius: 0.7em 0.7em 0 0;
+  padding: 0.3em;
+}
 
 
 

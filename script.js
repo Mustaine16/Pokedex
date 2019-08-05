@@ -9,8 +9,7 @@ const modalLoader = document.querySelector(".modal-loader")
 async function consumirApi() {
 
   const startTime = performance.now()
-  loader.style.display = "none"
-  bodyScrollLock.enableBodyScroll(loader)
+
   
   cards.forEach((card, i) => {
 
@@ -71,6 +70,12 @@ async function consumirApi() {
 
   let tiempoDeCarga = (performance.now() - startTime)
   console.log(tiempoDeCarga);
+
+  setTimeout(() => {
+    loader.style.display = "none"
+    bodyScrollLock.enableBodyScroll(loader)
+  }, 1000);
+
 
 }
 

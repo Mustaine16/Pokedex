@@ -803,11 +803,10 @@ class Pokemon {
     //Container y card por tipo, mas cada mini cardy
     const offensiveContainer = document.createElement("div")
     const attackTitle = document.createElement("div")
-    const typeOffensive = document.createElement("div")
+    const typeTitle = document.createElement("div")
     const typeCardy = document.createElement("div")
 
     offensiveContainer.classList.add("offensive-container")
-    typeOffensive.classList.add("type-offensive")
     typeCardy.classList.add("type-cardy")
     attackTitle.classList.add("attack-title")
     attackTitle.innerText ="Attack"
@@ -820,9 +819,12 @@ class Pokemon {
 
       //Main Type (Se crea una cardy para el tipo al que se esta refiriendo)
       const offensiveContainerByType = document.createElement("div")
+      const typeTitles = typeTitle.cloneNode()
+      typeTitles.classList.add(`${this.types[i].type.name}-cardy`)
+      typeTitles.classList.add("damage-type-title")
       offensiveContainerByType.classList.add("offensive")
-      offensiveContainerByType.classList.add(`${this.types[i].type.name}-cardy`)   //Type Background Color
-      offensiveContainerByType.innerText = `${this.types[i].type.name}`
+      typeTitles.innerText = `${this.types[i].type.name}`
+      offensiveContainerByType.appendChild(typeTitles)
 
 
       //Double
