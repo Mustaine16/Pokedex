@@ -756,7 +756,7 @@ class Pokemon {
       
             } else if (!(defNoneArr.some(e => e == stat))) {
               //Se pushea normalmente
-              defNoneArr.push(stat)
+              DamageComparation.defense.none.push(stat)
             }
           
           break;
@@ -935,7 +935,7 @@ class Pokemon {
     
     //None
     if(defense.none && defense.none.length > 0)
-    defense.none[0].forEach((e) => {
+    defense.none.forEach((e) => {
       const typeCardys = typeCardy.cloneNode(true)
       typeCardys.classList.add(`${e}-cardy`)
       typeCardys.innerText = `x0  ${e}`
