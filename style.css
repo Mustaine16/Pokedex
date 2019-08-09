@@ -63,7 +63,7 @@
   --ghost-bg-open:#9909bd;
   --dark-border:.2em solid #5f5f5f;
   --dark-bg:#393a3a;
-  --dark-bg-open:#1f1e1e;
+  --dark-bg-open:#202020;
 }
 
 html, 
@@ -131,13 +131,27 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
+  /* position: relative; */
+  height: 23vh;
   width: 40vw;
   margin-right: auto;
   margin-left: auto;
   cursor: pointer;
   border-radius: 2.5em;
   transition: all .2s ease-out;
+}
+
+
+img{
+  transition: all .3s
+}
+
+.pkmn-card:hover img{
+  animation: move linear .4s
+}
+
+.pkmn-card:hover{
+  box-shadow: -1px 1px 5px black
 }
 
 .modal{
@@ -148,10 +162,10 @@ body {
   align-items: center;
   /* margin-right: auto; */
   /* margin-left: auto; */
-  transform: translateY(-250vh);
+  transform: translateX(-200vh);
   position: absolute;
   background: rgb(16, 112, 104);
-  transition: transform .3s;
+  transition: transform .5s;
   z-index: 10;
 }
 
@@ -449,6 +463,16 @@ body {
   z-index: 1000;
 }
 
+.modal-loader-container{
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  position: absolute;
+  border: none !important;
+  pointer-events: none;
+  transition: all .3s;
+}
+
 .modal-loader{
   border: 16px solid #f1f1f1; /* Light grey */
   border-top: 16px solid #2e2b2b; /* Blue */
@@ -457,7 +481,8 @@ body {
   height: 100px;
   animation: spin .5s linear infinite;
   margin: auto;
-  z-index: 1000;
+  z-index: 2000;
+  transition: all .3s
 }
 
 .modal-open{
@@ -493,7 +518,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  pointer-events: none;
+  
 }
 
 .types{
@@ -569,7 +594,6 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0.3em 0;
 }
 
 .evs-list{
@@ -577,6 +601,7 @@ body {
   justify-content: space-between;
   align-items: center;
   min-width: 95vw;
+  padding-bottom: 0.3em
 }
 
 .evs-list span{
@@ -636,7 +661,17 @@ body {
   top: 0.5em;
   left: 0.5em;
   width: 2em;
+  cursor: pointer;
   z-index: 1000;
+  transition: all .1s
+}
+
+.back-arrow:hover, .back-arrow:active, .back-arrow:focus{
+  top: 0;
+  left: 0;
+  background: #2020203d;
+  /* border-radius: 100%; */
+  width: 3em;
 }
 
 /* damage-container */
@@ -715,7 +750,9 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-@keyframes close {
-  0%{transform: translateX(0vh)}
-  100%{transform: translateX(-250vh)}
+@keyframes move {
+  0%{transform: rotate(0deg)}
+  25%{transform: rotate(-20deg)}
+  75%{transform: rotate(20deg)}
+  100%{transform: rotate(0deg)}
 }

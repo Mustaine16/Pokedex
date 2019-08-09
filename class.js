@@ -966,20 +966,26 @@ class Pokemon {
     arrow.classList.add("back-arrow")
 
     modal.appendChild(arrow)
-
+    modalLoaderContainer.style.display = "none"
+    modalLoader.style.display = "none"
     arrow.addEventListener("click", () => {
 
-      let modalColor = modal.classList[1]
-  
-      modal.classList.remove(modalColor)
-      modal.classList.remove("modal-open")
-
+      modal.classList.toggle("modal-open")
+        
       if (!(modal.classList.contains("modal-open"))) {
-       bodyScrollLock.enableBodyScroll(modal);
+        bodyScrollLock.enableBodyScroll(modal);
       }
+
+      setTimeout(() => {
+        let modalColor = modal.classList[1]
   
-      modal.innerHTML = ""
-  
+        modalLoaderContainer.classList.remove(modalColor)
+        modal.classList.remove(modalColor)
+
+        modal.innerHTML = ""
+    
+      }, 200);
+
     })
   }
   

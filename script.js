@@ -4,12 +4,17 @@ const loader = document.querySelector(".loader-div")
 const cards = document.querySelectorAll(".pkmn-card")
 const modal = document.querySelector(".modal")
 const search = document.querySelector(".search-input")
+const modalLoaderContainer = document.querySelector(".modal-loader-container")
 const modalLoader = document.querySelector(".modal-loader")
+
 
 async function consumirApi() {
 
   const startTime = performance.now()
 
+  //Detiene el loader del modal, sino estaria todo el tiempo haciendo un spin infinito y traeria problemas de rendimiento
+
+  modalLoader.style.display= "none"
   
   cards.forEach((card, i) => {
 
@@ -19,8 +24,10 @@ async function consumirApi() {
 
       //El modal baja con el background seteado y con la pokebola de carga
       modal.innerHTML = ""
+      modalLoaderContainer.classList.add(backColor)
+      modalLoaderContainer.style.display = "flex"
       modalLoader.style.display = "flex"
-      modal.appendChild(modalLoader)
+      modal.appendChild(modalLoaderContainer)
       if ((modal.classList.contains("modal-open"))) { 
         modal.classList.remove(1)
       }
@@ -37,16 +44,16 @@ async function consumirApi() {
         
         await fetchear(i + 1)
         let len = pokemonList.length
-
-        await pokemonList[(len-1)].getEvolutions()
-        pokemonList[(len - 1)].getEvolutionsSprites()
         
-        modalLoader.style.display = "none"
-        pokemonList[(len - 1)].incrustStats(this, modal);
-        pokemonList[(len - 1)].incrustEvolutions(modal)
+        await pokemonList[(len-1)].getEvolutions()
+        await pokemonList[(len - 1)].getEvolutionsSprites()
+        
+        await pokemonList[(len - 1)].incrustStats(this, modal);
+        await pokemonList[(len - 1)].incrustEvolutions(modal)
         await pokemonList[(len - 1)].getDamageRelations()
-        pokemonList[(len - 1)].incrustDamageRelations(modal)
-        pokemonList[(len - 1)].incrustBackArrow(modal);
+        await pokemonList[(len - 1)].incrustDamageRelations(modal)
+        await pokemonList[(len - 1)].incrustBackArrow(modal)
+
       }
 
     })
@@ -74,7 +81,7 @@ async function consumirApi() {
   setTimeout(() => {
     loader.style.display = "none"
     bodyScrollLock.enableBodyScroll(loader)
-  }, 1000);
+  }, 2000);
 
 
 }
@@ -98,3 +105,8 @@ bodyScrollLock.disableBodyScroll(loader)
 consumirApi();
 
 
+cards.forEach((e, i) => {
+  e.childNodes[3].childNodes[0].setAttribute("height","96")
+  e.childNodes[3].childNodes[0].setAttribute("width","96")
+  e.childNodes[3].childNodes[0].setAttribute("alt",`${e.classList[1]}`)
+})
