@@ -102,7 +102,7 @@ body {
 .search-icon{
   position: absolute;
   top: 1.7em;
-  right: 4em;
+  right: 3em;
 }
 
 
@@ -132,7 +132,7 @@ body {
   justify-content: space-between;
   align-items: center;
   /* position: relative; */
-  height: 23vh;
+  height: 145px;
   width: 40vw;
   margin-right: auto;
   margin-left: auto;
@@ -746,6 +746,12 @@ img{
 }
 
 
+.footer{
+  height: 10vh;
+  width: 100vw;
+  background: #cecece
+}
+
 
 
 
@@ -762,4 +768,31 @@ img{
   25%{transform: rotate(-20deg)}
   75%{transform: rotate(20deg)}
   100%{transform: rotate(0deg)}
+}
+
+
+@media screen and (min-width:768px){
+
+  .search{
+    height: 10vh;
+  }
+
+  .search-input{
+    padding: 0.5em 1em;
+    font-size: 1em;
+  }
+
+  .search-icon{
+    top: 1.9em;
+    right: 6em;
+  }
+
+  .pkmn-list{
+    grid-template-columns: repeat(3,1fr)
+  }
+
+  .pkmn-card{
+    width: 25vw;
+    height: 170px;
+  }
 }
