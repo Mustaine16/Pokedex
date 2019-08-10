@@ -632,11 +632,11 @@ class Pokemon {
 
               //Pushear los arrays Defensivos al Objeto Model Final 
 
-              (defDbArr.length > 0) ? DamageComparation.defense.double.push(defDbArr) : console.log("none double", this.name);
+              (defDbArr.length > 0 )? defDbArr.forEach(e => DamageComparation.defense.double.push(e)): console.log("none double",this.name);
           
-              (defHalfArr.length > 0) ? DamageComparation.defense.half.push(defHalfArr) : console.log("none half", this.name);
+              (defHalfArr.length > 0) ? defHalfArr.forEach(e => DamageComparation.defense.half.push(e)) : console.log("none half", this.name);
               
-              (defNoneArr.length > 0) ? DamageComparation.defense.none.push(defNoneArr) : console.log("none none");
+              (defNoneArr.length > 0) ? defNoneArr.forEach(e => DamageComparation.defense.none.push(e)) : console.log("none none", this.name);
 
               //Resultado final seteado
               this.damage = DamageComparation
@@ -663,11 +663,11 @@ class Pokemon {
             console.log(defNoneArr);
             //Pushear los arrays al Objeto Model Final
 
-            (defDbArr.length > 0 )? DamageComparation.defense.double.push(defDbArr): console.log("none double",this.name);
+            (defDbArr.length > 0 )? defDbArr.forEach(e => DamageComparation.defense.double.push(e)): console.log("none double",this.name);
           
-            (defHalfArr.length > 0) ? DamageComparation.defense.half.push(defHalfArr) : console.log("none half", this.name);
+            (defHalfArr.length > 0) ? defHalfArr.forEach(e => DamageComparation.defense.half.push(e)) : console.log("none half", this.name);
               
-            (defNoneArr.length > 0) ? DamageComparation.defense.none.push(defNoneArr) : console.log("none none", this.name);
+            (defNoneArr.length > 0) ? defNoneArr.forEach(e => DamageComparation.defense.none.push(e)) : console.log("none none", this.name);
 
             //Resultado final seteado
             this.damage = DamageComparation
@@ -776,21 +776,11 @@ class Pokemon {
   incrustDamageRelations(modal) {
     const container = document.createElement("div")
     const containerTitle = document.createElement("div")
-    const containerButtons = document.createElement("div")
-    const offensiveButton = document.createElement("div")
-    const defensiveButton = document.createElement("div")
 
     //Container
     container.classList.add("damage-container")
     containerTitle.innerText = "Damage Relation"
     containerTitle.classList.add("damage-title")
-
-    //Buttons
-    containerButtons.classList.add("damage-button-container")
-    offensiveButton.classList.add("damage-button")
-    defensiveButton.classList.add("damage-button")
-    offensiveButton.innerText = "Offensive"
-    defensiveButton.innerText = "Defensive"
 
     /**********
     * 
@@ -799,15 +789,25 @@ class Pokemon {
     * 
     * 
     ***********/
+    
 
-    //Container y card por tipo, mas cada mini cardy
+    //Container ,card por tipo, counter (Ej x2,x0.5,etc) mas cada mini cardy
+    const offensiveContainerTypes = document.createElement("div")
     const offensiveContainer = document.createElement("div")
     const attackTitle = document.createElement("div")
     const typeTitle = document.createElement("div")
     const typeCardy = document.createElement("div")
+    const counterContainer = document.createElement("div")
+    const counter = document.createElement("p")
+    const counterTypes = document.createElement("div")
+    
 
     offensiveContainer.classList.add("offensive-container")
+    offensiveContainerTypes.classList.add("offensive-container-by-types")
     typeCardy.classList.add("type-cardy")
+    counterContainer.classList.add("counter-container")
+    counter.classList.add("counter")
+    counterTypes.classList.add("counter-types")
     attackTitle.classList.add("attack-title")
     attackTitle.innerText ="Attack"
 
@@ -815,9 +815,12 @@ class Pokemon {
 
     const attack = this.damage.attack;
 
+          
+
+
     for (let i = 0; i < attack.length; i++){
 
-      //Main Type (Se crea una cardy para el tipo al que se esta refiriendo)
+      //Main Type (Se crea un Header para el tipo al que se esta refiriendo)
       const offensiveContainerByType = document.createElement("div")
       const typeTitles = typeTitle.cloneNode()
       typeTitles.classList.add(`${this.types[i].type.name}-cardy`)
@@ -826,46 +829,46 @@ class Pokemon {
       typeTitles.innerText = `${this.types[i].type.name}`
       offensiveContainerByType.appendChild(typeTitles)
 
-
       //Double
-      if(attack[i].double.length > 0)
-        attack[i].double.forEach((e) => {
-
-          const typeCardys = typeCardy.cloneNode(true)
-
-          typeCardys.classList.add(`${e}-cardy`)
-          typeCardys.innerText = `x2  ${e}`
-
-          offensiveContainerByType.appendChild(typeCardys)
-        });
+      attacking(attack[i].double, "X2",i,);
       
       //Half
-      if(attack[i].half.length > 0)
-      attack[i].half.forEach((e) => {
-
-        const typeCardys = typeCardy.cloneNode(true)
-
-        typeCardys.classList.add(`${e}-cardy`)
-        typeCardys.innerText = `x0.5  ${e}`
-
-        offensiveContainerByType.appendChild(typeCardys)
-      });
+      attacking(attack[i].half, "x0.5", i, );
 
       //None
-      if(attack[i].none.length > 0)
-      attack[i].none.forEach((e) => {
-
-        const typeCardys = typeCardy.cloneNode(true)
-
-        typeCardys.classList.add(`${e}-cardy`)
-        typeCardys.innerText = `x0  ${e}`
-
-        offensiveContainerByType.appendChild(typeCardys)
-      });
+      attacking(attack[i].none, "X0", i);
       
       //Final Appends
-      offensiveContainer.prepend(offensiveContainerByType)
+      function attacking(quantity, number, i) {
+
+        if (quantity.length > 0) {
+          let p = counter.cloneNode(true)
+          let counterContainer_ = counterContainer.cloneNode(true)
+          let counterTypes_ = counterTypes.cloneNode(true)
+          
+          p.innerText = number
+          counterContainer_.appendChild(p)
+
+          quantity.forEach((e) => {
+            const typeCardys = typeCardy.cloneNode(true)
+          
+            typeCardys.classList.add(`${e}-cardy`)
+            typeCardys.innerText = `${e}`
+          
+            counterTypes_.appendChild(typeCardys)
+          });
+    
+          counterContainer_.appendChild(counterTypes_)
+          offensiveContainerByType.appendChild(counterContainer_)
+    
+        }
+        
+          offensiveContainerTypes.prepend(offensiveContainerByType)
+        
+      }
     }
+
+    
 
     /**
      * 
@@ -894,73 +897,55 @@ class Pokemon {
     defensiveContainerByType.classList.add("defensive")
 
     //Quadruple
-    if(defense.quadruple && defense.quadruple.length > 0)
-      defense.quadruple.forEach((e) => {
-        console.log(e);
-        
-        const typeCardys = typeCardy.cloneNode(true)
-        typeCardys.classList.add(`${e}-cardy`)
-        typeCardys.innerText = `x4  ${e}`
-        defensiveContainerByType.appendChild(typeCardys)
-      });
+    defending(defense.quadruple, "X4")
 
     //Double
-    if(defense.double && defense.double.length > 0)
-      defense.double[0].forEach((e) => {
-        console.log(e);
-        
-        const typeCardys = typeCardy.cloneNode(true)
-        typeCardys.classList.add(`${e}-cardy`)
-        typeCardys.innerText = `x2  ${e}`
-        defensiveContainerByType.appendChild(typeCardys)
-      });
+    defending(defense.double, "X2")
     
     //Half
-    if(defense.half && defense.half.length > 0)
-    defense.half[0].forEach((e) => {
-      const typeCardys = typeCardy.cloneNode(true)
-      typeCardys.classList.add(`${e}-cardy`)
-      typeCardys.innerText = `x0.5  ${e}`
-      defensiveContainerByType.appendChild(typeCardys)
-    });
+    defending(defense.half, "X0.5")
 
     //Quarter
-    if(defense.quarter && defense.quarter.length > 0)
-      defense.quarter.forEach((e) => {
-        console.log(e);
-        
-        const typeCardys = typeCardy.cloneNode(true)
-        typeCardys.classList.add(`${e}-cardy`)
-        typeCardys.innerText = `x0.25  ${e}`
-        defensiveContainerByType.appendChild(typeCardys)
-      });
+    defending(defense.quarter, "X0.25")
     
     //None
-    if(defense.none && defense.none.length > 0)
-    defense.none.forEach((e) => {
-      const typeCardys = typeCardy.cloneNode(true)
-      typeCardys.classList.add(`${e}-cardy`)
-      typeCardys.innerText = `x0  ${e}`
-      defensiveContainerByType.appendChild(typeCardys)
-    });
+    defending(defense.none,"X0")
     
     //Final Appends
     defensiveContainer.prepend(defensiveContainerByType)
-    
-
-    containerButtons.appendChild(offensiveButton)
-    containerButtons.appendChild(defensiveButton)
+    offensiveContainer.appendChild(attackTitle)
+    offensiveContainer.appendChild(offensiveContainerTypes)
 
     container.appendChild(containerTitle)
-    container.appendChild(attackTitle)
     container.appendChild(offensiveContainer)
     container.appendChild(defenseTitle)
     container.appendChild(defensiveContainer)
     modal.appendChild(container)
 
+    function defending(quantity,number) {
+      if (quantity && quantity.length > 0) {
+
+        let p = counter.cloneNode(true)
+        let counterContainer_ = counterContainer.cloneNode(true)
+        let counterTypes_ = counterTypes.cloneNode(true)
+
+        p.innerText = number
+        counterContainer_.appendChild(p)
+
+        quantity.forEach((e) => {
+          const typeCardys = typeCardy.cloneNode(true)
+          typeCardys.classList.add(`${e}-cardy`)
+          typeCardys.innerText = `${e}`
+          counterTypes_.appendChild(typeCardys)
+        });
+
+        counterContainer_.appendChild(counterTypes_)
+        defensiveContainerByType.appendChild(counterContainer_)
+      }
+    }
   }
 
-  incrustBackArrow(modal){
+  incrustBackArrow(modal) {
     const arrow = new Image();
     arrow.src = "./img/left-arrow.svg"
     arrow.classList.add("back-arrow")
@@ -994,5 +979,6 @@ class Pokemon {
   
 
 
+  
 
 } 
