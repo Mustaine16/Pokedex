@@ -775,12 +775,17 @@ class Pokemon {
 
   incrustDamageRelations(modal) {
     const container = document.createElement("div")
+    const containerAttDef = document.createElement("div")
     const containerTitle = document.createElement("div")
 
     //Container
     container.classList.add("damage-container")
     containerTitle.innerText = "Damage Relation"
     containerTitle.classList.add("damage-title")
+
+    //Container para aplicar flex column - row
+    containerAttDef.classList.add("container-att-def")
+
 
     /**********
     * 
@@ -918,8 +923,9 @@ class Pokemon {
 
     defensiveContainer.prepend(defenseTitle)
     container.appendChild(containerTitle)
-    container.appendChild(offensiveContainer)
-    container.appendChild(defensiveContainer)
+    containerAttDef.appendChild(offensiveContainer)
+    containerAttDef.appendChild(defensiveContainer)
+    container.appendChild(containerAttDef)
     modal.appendChild(container)
 
     function defending(quantity,number) {

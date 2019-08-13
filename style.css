@@ -691,6 +691,10 @@ img{
    Same as evs-title
 */
 
+.container-att-def{
+  width: 90%;
+}
+
 .offensive-container, .defensive-container{
   margin-top: 1em;
   width: 100%;
@@ -831,6 +835,12 @@ img{
   .pkmn-card{
     width: 25vw;
     height: 170px;
+  }
+
+  .container-att-def{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
   }
 
   .counter-types{
