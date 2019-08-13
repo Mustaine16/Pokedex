@@ -194,7 +194,10 @@ img{
     border: var(--electric-border)
   }
   .electric p, .electric span, .electric .empty{
-    color: rgb(26, 26, 26)
+    color: rgb(71, 71, 71)
+  }
+  .electric .counter{
+    color: whitesmoke
   }
 
 
@@ -431,7 +434,7 @@ img{
   .electric-cardy,
   .ice
   {
-    color: black;
+    color: rgb(82, 82, 82);
   }
 
 
@@ -688,13 +691,19 @@ img{
    Same as evs-title
 */
 
-.offensive-container{
+.offensive-container, .defensive-container{
   margin-top: 1em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.attack-title{
+
+.attack-title, .defense-title{
   text-align: center;
-  width: 100%;
+  width: 90%;
   padding: 0.5em;
   font-size: .9em;
   margin-left: auto;
@@ -707,9 +716,13 @@ img{
   z-index: 1;
 }
 
+.defense-title{
+  margin-bottom: 1em
+}
+
 
 .offensive-container-by-types{
-  width: 100%;
+  width: 90%;
   margin: 1em 0;
   display: flex;
   flex-direction: column;
@@ -728,13 +741,16 @@ img{
   background: #030e084d;
   border-radius: 0.7em;
 }
+.defensive{
+  width: 90%;
+}
 
 .offensive .type-cardy, .defensive .type-cardy{
   font-weight: 400;
   padding: 0.2em;
   margin: 0.5em;
   border-radius: 1em;
-  width: 30%;
+  width: 40%;
 }
 
 

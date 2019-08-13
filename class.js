@@ -883,9 +883,9 @@ class Pokemon {
     const defenseTitle = document.createElement("div")
     const typeDefensive = document.createElement("div")
 
-    defensiveContainer.classList.add("offensive-container")
+    defensiveContainer.classList.add("defensive-container")
     typeDefensive.classList.add("type-offensive")
-    defenseTitle.classList.add("attack-title")
+    defenseTitle.classList.add("defense-title")
     defenseTitle.innerText ="Defense"
 
     //Logic
@@ -916,9 +916,9 @@ class Pokemon {
     offensiveContainer.appendChild(attackTitle)
     offensiveContainer.appendChild(offensiveContainerTypes)
 
+    defensiveContainer.prepend(defenseTitle)
     container.appendChild(containerTitle)
     container.appendChild(offensiveContainer)
-    container.appendChild(defenseTitle)
     container.appendChild(defensiveContainer)
     modal.appendChild(container)
 
