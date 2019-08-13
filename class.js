@@ -891,7 +891,7 @@ class Pokemon {
     defensiveContainer.classList.add("defensive-container")
     typeDefensive.classList.add("type-offensive")
     defenseTitle.classList.add("defense-title")
-    defenseTitle.innerText ="Defense"
+    defenseTitle.innerText ="Takes damage from"
 
     //Logic
 

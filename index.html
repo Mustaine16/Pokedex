@@ -23,7 +23,11 @@
   <div class="main">
     <div class="search">
       <input type="text" class="search-input"
-      placeholder="Search pokemon...">
+      placeholder="Search for a Pokemon..."    android:id="@+id/edittext_done"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:hint="Enter some text"
+      android:imeOptions="actionDone">
       <img src="./img/search.png" alt="search" class="search-icon">
     </div>
     <div class="pkmn-list">
@@ -2002,13 +2006,16 @@
         <div class="pkmn-card victini psychic">
           <div class="pkmn-name">victini</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/494.png" class="sprite-victini" loading="lazy" height="96" width="96" alt="victini"></div>
-          <div class="asset"><img loading="lazy" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/494.png"
-           class="sprite-victini">
           </div>
         </div>
   </div>
   <footer class="footer">
-    
+    <p>Pokémon© and Pokémon character names are trademarks of Nintendo©.</p>
+    <p>Created by Ezequiel</p>
+    <div class="github">
+      <img src="img/GitHub-Mark-32px.png" alt="Github Logo" class="git-logo">
+      <a href="https://github.com/Mustaine16" target="_blank"> See my GitHub!</a>
+    </div>
   </footer>
   <script src="class.js"></script>
   <script src="body-scroll-lock-master/lib/bodyScrollLock.js"></script>
