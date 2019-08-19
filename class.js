@@ -897,9 +897,34 @@ class Pokemon {
 
     const defense = this.damage.defense;
     
-    //Main Type (Se crea una cardy para el tipo al que se esta refiriendo)
-    const defensiveContainerByType = document.createElement("div")
-    defensiveContainerByType.classList.add("defensive")
+    //Container que contiene los damageRelations calculados
+    const defenseCalculated = document.createElement("div")
+    defenseCalculated.classList.add("defensive")
+
+    //Div con el background de el o los tipos que se usan para calcular la Damage Relation
+    const typesDefense = document.createElement("div")
+    typesDefense.classList.add("defense-color")
+
+
+    if (this.types.length > 1) {
+      // typesDefense.innerText = `${this.types[1].type.name} / ${this.types[0].type.name} `
+      typesDefense.style.background = `linear-gradient(to right,var(--${this.types[1].type.name}-bg-open) 0%, var(--${this.types[1].type.name}-bg-open) 50%,var(--${this.types[0].type.name}-bg-open) 50%, var(--${this.types[0].type.name}-bg-open) 100%)`
+      
+      for (let i = 0; i < this.types.length; i++) {
+        const typeName = document.createElement("span")
+        typeName.innerText = this.types[i].type.name;
+        typesDefense.prepend(typeName)
+      }
+
+    } else {
+      const typeName = document.createElement("span")
+      typeName.innerText = this.types[0].type.name;
+      typesDefense.style.background = `var(--${this.types[0].type.name}-bg-open)`
+      typesDefense.appendChild(typeName)
+    }
+
+    defenseCalculated.prepend(typesDefense)
+    
 
     //Quadruple
     defending(defense.quadruple, "X4")
@@ -917,7 +942,7 @@ class Pokemon {
     defending(defense.none,"X0")
     
     //Final Appends
-    defensiveContainer.prepend(defensiveContainerByType)
+    defensiveContainer.prepend(defenseCalculated)
     offensiveContainer.appendChild(attackTitle)
     offensiveContainer.appendChild(offensiveContainerTypes)
 
@@ -946,7 +971,7 @@ class Pokemon {
         });
 
         counterContainer_.appendChild(counterTypes_)
-        defensiveContainerByType.appendChild(counterContainer_)
+        defenseCalculated.appendChild(counterContainer_)
       }
     }
   }
