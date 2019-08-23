@@ -80,15 +80,26 @@ body {
   align-items: center;
 }
 
-.search{
-  position: fixed;
+.nav-bar{
+  position: sticky;
+  top: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.search{
+  display: flex;
+  justify-content: space-around;
   align-items: center;
   width: 100vw;
-  height: 70px;
+  height: 50px;
   background: #ef5350;
+  box-shadow: 0px -1px 10px black;
   z-index: 5;
+}
+.pokedex-logo{
+  width:100px ;
 }
 
 .search-input{
@@ -96,7 +107,7 @@ body {
   outline: none;
   border-radius: 10px;
   padding: 0.5em 1em;
-  width: 80%;
+  width: 55%;
   color: black !important
 }
 
@@ -106,25 +117,68 @@ body {
   right: 3em;
 }
 
-
-.top{
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-  background: red;
-  position: fixed;
+.generations{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* height: 35px; */
+  background: #ef5350;
+  box-shadow: 0px -1px 10px black;
 }
+
+.generations a{
+  width: 25%;
+  display: flex;
+  justify-content: center
+}
+
+.generations a:hover{
+  background: rgba(0,0,0,0.1);
+}
+
+.generations-icons{
+  width: 30px;
+}
+
+.pokemon-missing{
+  display: none
+}
+
+.pokemon-missing img{
+  width: 30%
+}
+
+.pokemon-missing p{
+  color: black;
+  text-align: center;
+  padding: 0.3em
+}
+
+.pokemon-missing-active{
+  /* width: 100vw; */
+  /* margin: auto; */
+  grid-area: 1/1/2/5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 .pkmn-list{
   display: grid;
   width: 100vw;
-  margin-top: 4em;
+  /* margin-top: 7em; */
   margin-right: auto;
   margin-left: auto;
   grid-template-columns: repeat(2, 1fr);
   gap: 1em;
   padding: 1em 0;
+  margin-bottom: 1em;
+  min-height: 20vh;
+  max-height: 100vh;
+  overflow-y: scroll;
 }
 
 .pkmn-card{
@@ -154,7 +208,7 @@ img{
   transition: all .3s
 }
 
-.pkmn-card:hover img{
+.pkmn-card:hover img, .generations-icons:hover{
   animation: move linear .4s
 }
 
@@ -863,9 +917,17 @@ a:hover{
     right: 6em;
   }
 
+  .generations-icons{
+    width: 50px
+  }
+
+  .pokemon-missing-active img{
+    width: 200px;
+  }
+
   .pkmn-list{
     grid-template-columns: repeat(3,1fr);
-    margin-top: 5em
+    /* margin-top: 5em */
   }
 
   .pkmn-card{
@@ -889,9 +951,11 @@ a:hover{
 }
 
 @media screen and (min-width:1024px){
+
   .search-icon{
     right: 8em;
   }
+
 }
 
 @media screen and (min-width:1440px){
@@ -906,7 +970,7 @@ a:hover{
 
   .pkmn-list{
     grid-template-columns: repeat(4,1fr);
-    margin-top: 5em;
+    /* margin-top: 5em; */
     padding: 2em;
   }
 
@@ -988,3 +1052,5 @@ a:hover{
   }
 
 }
+
+

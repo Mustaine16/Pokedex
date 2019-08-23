@@ -1,5 +1,6 @@
 var log = console.log
 var pokemonList = [];
+const pokemonMissing = document.querySelector(".pokemon-missing")
 const loader = document.querySelector(".loader-div")
 const cards = document.querySelectorAll(".pkmn-card")
 const modal = document.querySelector(".modal")
@@ -64,11 +65,26 @@ async function consumirApi() {
   search.addEventListener("input", () => {
 
     let input = search.value.toLowerCase();
+    let checkPokemons = 0 ; //Esta variable va a ser utilizada para chequear si todos los pokemones se encuentran con display = none, y asi 
 
     cards.forEach((card, i) => {
 
       let pkClass = card.classList.item(1);
-      pkClass.startsWith(`${input}`) ? card.style.display = "flex" : card.style.display = "none";
+
+      if (pkClass.startsWith(`${input}`)) {
+        card.style.display = "flex"
+        checkPokemons > 0 ? checkPokemons-- : checkPokemons;
+        if (pokemonMissing.classList[1])
+          pokemonMissing.classList.remove("pokemon-missing-active")
+      }
+      else{
+        card.style.display = "none";
+        checkPokemons++;
+      }
+
+      if (checkPokemons == 494) {
+        pokemonMissing.classList.add("pokemon-missing-active")
+      }
     
     })
     

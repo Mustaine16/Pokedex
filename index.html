@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link  rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="description" content="Yes, another Pokedex">
   <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
   <title>Pokedex</title>
-  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -21,17 +21,31 @@
     </div>
   </div>
   <div class="main">
-    <div class="search">
+    <header class="nav-bar">
+      <section class="search">
+      <figure>
+        <img class="pokedex-logo"src="img/Pokedex_logo.png" alt="Pokedex Logo">
+      </figure>
       <input type="text" class="search-input"
       placeholder="Search for a Pokemon..."    android:id="@+id/edittext_done"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:hint="Enter some text"
       android:imeOptions="actionDone">
-      <img src="./img/search.png" alt="search" class="search-icon">
-    </div>
-    <div class="pkmn-list">
-        <div class="pkmn-card bulbasaur grass">
+      </section>
+      <nav class="generations">
+        <a href="#1"><img class="generations-icons" src="img/bulbasaur.jpg" alt=""></a>
+        <a href="#2"><img class="generations-icons" src="img/cynda.ico" alt=""></a>
+        <a href="#3"><img class="generations-icons" src="img/mudkip.png" alt=""></a>
+        <a href="#4"><img class="generations-icons" src="img/turtwig.png" alt=""></a>
+      </nav>
+    </header>
+    <section class="pkmn-list">
+      <figure class="pokemon-missing">
+        <img src="img/pokeball-miss.png" alt="">
+        <p>I don't think that pokemon does exist, try again!</p>
+      </figure>
+        <div class="pkmn-card bulbasaur grass" id="1">
           <div class="pkmn-name">bulbasaur</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" class="sprite-bulbasaur" height="96" width="96" alt="bulbasaur"></div>
         </div>
@@ -627,7 +641,7 @@
           <div class="pkmn-name">dragonite</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png" class="sprite-dragonite" loading="lazy" height="96" width="96" alt="dragonite"></div>
         </div>
-        <div class="pkmn-card mewtwo psychic">
+        <div class="pkmn-card mewtwo psychic" id="2">
           <div class="pkmn-name">mewtwo</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png" class="sprite-mewtwo" loading="lazy" height="96" width="96" alt="mewtwo"></div>
         </div>
@@ -1027,7 +1041,7 @@
           <div class="pkmn-name">lugia</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png" class="sprite-lugia" loading="lazy" height="96" width="96" alt="lugia"></div>
         </div>
-        <div class="pkmn-card ho-oh fire">
+        <div class="pkmn-card ho-oh fire" id="3">
           <div class="pkmn-name">ho-oh</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png" class="sprite-ho-oh" loading="lazy" height="96" width="96" alt="ho-oh"></div>
         </div>
@@ -1567,7 +1581,7 @@
           <div class="pkmn-name">rayquaza</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png" class="sprite-rayquaza" loading="lazy" height="96" width="96" alt="rayquaza"></div>
         </div>
-        <div class="pkmn-card jirachi steel">
+        <div class="pkmn-card jirachi steel" id="4">
           <div class="pkmn-name">jirachi</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/385.png" class="sprite-jirachi" loading="lazy" height="96" width="96" alt="jirachi"></div>
         </div>
@@ -1751,7 +1765,7 @@
           <div class="pkmn-name">honchkrow</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/430.png" class="sprite-honchkrow" loading="lazy" height="96" width="96" alt="honchkrow"></div>
         </div>
-        <div class="pkmn-card glameow normal">
+        <div class="pkmn-card glameow normal" id="t">
           <div class="pkmn-name">glameow</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/431.png" class="sprite-glameow" loading="lazy" height="96" width="96" alt="glameow"></div>
         </div>
@@ -2007,7 +2021,7 @@
           <div class="pkmn-name">victini</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/494.png" class="sprite-victini" loading="lazy" height="96" width="96" alt="victini"></div>
           </div>
-        </div>
+    </section>
   </div>
   <footer class="footer">
     <p>Pokémon© and Pokémon character names are trademarks of Nintendo©.</p>
