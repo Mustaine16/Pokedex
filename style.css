@@ -231,9 +231,9 @@ body {
 
 .gen-name{
   padding: 0.2em;
-  color: #ef5350;
-  border-bottom: 0.1em solid #ef5350;
-  width: 90%;
+  color: #f1f1f1;
+  background: #ef5350;
+  width: 95%;
   margin: auto;
 }
 
@@ -683,9 +683,9 @@ img{
 
 .stats-value-and-bar{
   height: 40%;
-  width: 70%;
+  width: 60%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -1138,6 +1138,10 @@ a:hover{
     height: 100%;
   }
 
+  .stats-value-and-bar{
+    width: 70%;
+  }
+
   .stats-row {
     width: 90%;
   }
@@ -1156,7 +1160,7 @@ a:hover{
   }
 
   .stats-value-and-bar {
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
   }
 
 
