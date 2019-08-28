@@ -5,6 +5,7 @@ const loader = document.querySelector(".loader-div")
 const cards = document.querySelectorAll(".pkmn-card")
 const modal = document.querySelector(".modal")
 const search = document.querySelector(".search-input")
+const nameGenerations = document.querySelectorAll(".gen-name")
 const modalLoaderContainer = document.querySelector(".modal-loader-container")
 const modalLoader = document.querySelector(".modal-loader")
 
@@ -67,6 +68,13 @@ async function consumirApi() {
     let input = search.value.toLowerCase();
     let checkPokemons = 0 ; //Esta variable va a ser utilizada para chequear si todos los pokemones se encuentran con display = none, y asi 
 
+    //Oculta los "1°Gen, 2°Gen, etc"
+    if (!(input === "")) {
+      nameGenerations.forEach(e => e.style.display = "none") 
+    } else {
+      nameGenerations.forEach(e => e.style.display = "block")
+    }
+      
     cards.forEach((card, i) => {
 
       let pkClass = card.classList.item(1);
@@ -125,4 +133,25 @@ cards.forEach((e, i) => {
   e.childNodes[3].childNodes[0].setAttribute("height","96")
   e.childNodes[3].childNodes[0].setAttribute("width","96")
   e.childNodes[3].childNodes[0].setAttribute("alt",`${e.classList[1]}`)
+})
+
+document.addEventListener("backButton",() => {
+
+  if (modal.classList.contains("modal-open")) {
+    modal.classList.toggle("modal-open")
+    
+    if (!(modal.classList.contains("modal-open"))) {
+      bodyScrollLock.enableBodyScroll(modal);
+    }
+
+    setTimeout(() => {
+      let modalColor = modal.classList[1]
+
+      modalLoaderContainer.classList.remove(modalColor)
+      modal.classList.remove(modalColor)
+
+      modal.innerHTML = ""
+
+    }, 200);
+  }
 })

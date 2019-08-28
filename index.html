@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="normalize.css">
   <link  rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,19 +34,20 @@
       android:hint="Enter some text"
       android:imeOptions="actionDone">
       </section>
-      <nav class="generations">
-        <a href="#1"><img class="generations-icons" src="img/bulbasaur.jpg" alt=""></a>
-        <a href="#2"><img class="generations-icons" src="img/cynda.ico" alt=""></a>
-        <a href="#3"><img class="generations-icons" src="img/mudkip.png" alt=""></a>
-        <a href="#4"><img class="generations-icons" src="img/turtwig.png" alt=""></a>
-      </nav>
     </header>
+    <nav class="generations">
+          <a href="#1"><img class="generations-icons" src="img/bulbasaur.jpg" alt=""></a>
+          <a href="#2"><img class="generations-icons" src="img/cynda.ico" alt=""></a>
+          <a href="#3"><img class="generations-icons" src="img/mudkip.png" alt=""></a>
+          <a href="#4"><img class="generations-icons" src="img/turtwig.png" alt=""></a>
+    </nav>
     <section class="pkmn-list">
       <figure class="pokemon-missing">
         <img src="img/pokeball-miss.png" alt="">
         <p>I don't think that pokemon does exist, try again!</p>
       </figure>
-        <div class="pkmn-card bulbasaur grass" id="1">
+      <h2 class="gen-name first" id="1">1° Gen</h2>
+        <div class="pkmn-card bulbasaur grass">
           <div class="pkmn-name">bulbasaur</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" class="sprite-bulbasaur" height="96" width="96" alt="bulbasaur"></div>
         </div>
@@ -641,14 +643,16 @@
           <div class="pkmn-name">dragonite</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png" class="sprite-dragonite" loading="lazy" height="96" width="96" alt="dragonite"></div>
         </div>
-        <div class="pkmn-card mewtwo psychic" id="2">
+        <div class="pkmn-card mewtwo psychic">
           <div class="pkmn-name">mewtwo</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png" class="sprite-mewtwo" loading="lazy" height="96" width="96" alt="mewtwo"></div>
         </div>
-        <div class="pkmn-card mew psychic">
+        <div class="pkmn-card mew psychic" id="mew">
           <div class="pkmn-name">mew</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png" class="sprite-mew" loading="lazy" height="96" width="96" alt="mew"></div>
         </div>
+        <div id="empty-card"></div>
+        <h2 class="gen-name second" id="2">2° Gen</h2>
         <div class="pkmn-card chikorita grass">
           <div class="pkmn-name">chikorita</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/152.png" class="sprite-chikorita" loading="lazy" height="96" width="96" alt="chikorita"></div>
@@ -1041,14 +1045,15 @@
           <div class="pkmn-name">lugia</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png" class="sprite-lugia" loading="lazy" height="96" width="96" alt="lugia"></div>
         </div>
-        <div class="pkmn-card ho-oh fire" id="3">
+        <div class="pkmn-card ho-oh fire">
           <div class="pkmn-name">ho-oh</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png" class="sprite-ho-oh" loading="lazy" height="96" width="96" alt="ho-oh"></div>
         </div>
-        <div class="pkmn-card celebi psychic">
+        <div class="pkmn-card celebi psychic" id="celebi">
           <div class="pkmn-name">celebi</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/251.png" class="sprite-celebi" loading="lazy" height="96" width="96" alt="celebi"></div>
         </div>
+        <h2 class="gen-name thrid" id="3">3° Gen</h2>
         <div class="pkmn-card treecko grass">
           <div class="pkmn-name">treecko</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/252.png" class="sprite-treecko" loading="lazy" height="96" width="96" alt="treecko"></div>
@@ -1581,14 +1586,16 @@
           <div class="pkmn-name">rayquaza</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png" class="sprite-rayquaza" loading="lazy" height="96" width="96" alt="rayquaza"></div>
         </div>
-        <div class="pkmn-card jirachi steel" id="4">
+        <div class="pkmn-card jirachi steel">
           <div class="pkmn-name">jirachi</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/385.png" class="sprite-jirachi" loading="lazy" height="96" width="96" alt="jirachi"></div>
         </div>
-        <div class="pkmn-card deoxys psychic">
+        <div class="pkmn-card deoxys psychic" id="deoxys">
           <div class="pkmn-name">deoxys</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/386.png" class="sprite-deoxys" loading="lazy" height="96" width="96" alt="deoxys"></div>
         </div>
+        <div id="empty-card2"></div>
+        <h2 class="gen-name forth" id="4">4° Gen</h2>
         <div class="pkmn-card turtwig grass">
           <div class="pkmn-name">turtwig</div>
           <div class="asset"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/387.png" class="sprite-turtwig" loading="lazy" height="96" width="96" alt="turtwig"></div>

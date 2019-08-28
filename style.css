@@ -118,15 +118,21 @@ body {
 }
 
 .generations{
+  position: absolute;
   display: flex;
+  width: 100vw;
+  bottom: 0;
   justify-content: space-around;
   align-items: center;
-  /* height: 35px; */
+  height: 8vh;
   background: #ef5350;
   box-shadow: 0px -1px 10px black;
+  z-index: 2;
 }
 
 .generations a{
+  position: relative;
+  height: 100%;
   width: 25%;
   display: flex;
   justify-content: center
@@ -136,8 +142,27 @@ body {
   background: rgba(0,0,0,0.1);
 }
 
+.generations a::after{
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  content: "";
+  height: 10px;
+  width: 10px;
+  border-radius:100%; 
+  background: rgb(254, 205, 51);
+  transform: scale(0,0);
+  transition: all .3s
+}
+
+.generations a:hover::after, .generations a:active::after{
+  /* display: block; */
+  transform: scale(1,1)
+}
+
 .generations-icons{
-  width: 30px;
+  width: 44px;
 }
 
 .pokemon-missing{
@@ -187,10 +212,11 @@ body {
   justify-content: space-between;
   align-items: center;
   /* position: relative; */
-  height: 145px;
+  height: 144px;
   width: 40vw;
   margin-right: auto;
   margin-left: auto;
+  overflow: hidden;
   cursor: pointer;
   border-radius: 2.5em;
   transition: all .2s ease-out;
@@ -203,12 +229,47 @@ body {
   user-select: none;
 }
 
+.gen-name{
+  padding: 0.2em;
+  color: #ef5350;
+  border-bottom: 0.1em solid #ef5350;
+  width: 90%;
+  margin: auto;
+}
+
+.first{
+  grid-area: 1/1/3/3;
+}
+
+.second{
+  grid-area:79/1/80/3;
+}
+
+.thrid{
+  grid-area:130/1/131/3;
+}
+
+.forth{
+  grid-area: 199/1/199/3
+}
+
+#mew{
+  grid-area: 78/1/79/3;
+}
+
+#deoxys{
+  grid-area: 198/1/198/3
+}
+
+#empty-card, #empty-card2{
+  display: none
+}
 
 img{
   transition: all .3s
 }
 
-.pkmn-card:hover img, .generations-icons:hover{
+.pkmn-card:hover img{
   animation: move linear .4s
 }
 
@@ -344,7 +405,7 @@ img{
     color: rgb(61, 61, 61)
   }
 
-  .steel span, .steel .empty{
+  .steel .stats-container span, .steel .empty{
     color: black
   }
 
@@ -511,7 +572,7 @@ img{
   width: 100vw;
   height: 100vh;
   display: flex;
-  background: #a82f2f;
+  background: #ef5350;
   z-index: 1000;
   transition: .5s all
 }
@@ -566,7 +627,7 @@ img{
 
 
 .name-open{
-  padding: 1em;
+  padding: 1.15em;
   border-radius: 0;
 }
 
@@ -597,7 +658,7 @@ img{
 
 .type{
   border-radius: 0.7em;
-  padding: .2em .5em;
+  padding: .3em .5em;
   margin: 0.1em
 }
 
@@ -618,6 +679,7 @@ img{
   justify-content: space-between;
   align-items: center;
 }
+
 
 .stats-value-and-bar{
   height: 40%;
@@ -699,6 +761,7 @@ img{
   z-index: 1;
   font-size: .9em;
   pointer-events: none;
+  line-height: 1.5;
 }
 
 .arrow{
@@ -819,12 +882,20 @@ img{
   width: 100%;
   border-radius: 0.7em 0.7em 0 0;
   padding: 0.3em;
-  text-align: center
+  text-align: center;
+  line-height: 1.5
 }
+
 .defense-color{
   display: flex;
   justify-content: space-around;
   align-items: center;
+  width: 100%;
+}
+
+.defense-color span{
+  width: 50%;
+  text-align: center
 }
 
 .counter-container{
@@ -918,7 +989,7 @@ a:hover{
   }
 
   .generations-icons{
-    width: 50px
+    width: 60px
   }
 
   .pokemon-missing-active img{
@@ -933,6 +1004,33 @@ a:hover{
   .pkmn-card{
     width: 25vw;
     height: 170px;
+  }
+
+  .gen-name{
+    width: 95%;
+    padding: 0.5em
+  }
+
+  .first{
+    grid-area: 1/1/3/4
+  }
+  .second{
+    grid-area: 54/1/54/4;
+  }
+  .thrid{
+    grid-area: 89/1/89/4;
+  }
+  .forth{
+    grid-area: 135/1/135/4;
+  }
+  #mew{
+    grid-area: 53/1/53/4;
+  }
+  #celebi{
+    grid-area: 88/1/88/4;
+  }
+  #deoxys{
+    grid-area: auto
   }
 
   .container-att-def{
@@ -977,6 +1075,38 @@ a:hover{
   .pkmn-card{
     width: 18vw;
   }
+
+  .first{
+    grid-area: 1/1/2/5
+  }
+
+  .second{
+    grid-area: 40/1/40/5;
+  }
+
+  .thrid{
+    grid-area: 66/1/66/5;
+  }
+
+  .forth{
+    grid-area: 101/1/101/5
+  }
+
+  #mew{
+    grid-area: auto
+  }
+
+  #celebi{
+    grid-area: auto
+  }
+
+  #empty-card, #empty-card2{
+    display: block
+  }
+  .generations-icons{
+    width: 80px;
+  }
+  
 
   .modal-open{
     display: grid;
