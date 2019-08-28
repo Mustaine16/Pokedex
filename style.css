@@ -1159,11 +1159,6 @@ a:hover{
     margin: auto;
   }
 
-  .stats-value-and-bar {
-    /* justify-content: space-evenly; */
-  }
-
-
   .evs-container{
     grid-area: 4/1/5/2;
     width: 99%;
