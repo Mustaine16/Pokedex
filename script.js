@@ -72,13 +72,19 @@ async function consumirApi() {
 
     //Oculta los "1°Gen, 2°Gen, etc"
     if (!(input === "")) {
+  
       nameGenerations.forEach(e => e.style.display = "none")
-      divEmpty.style.display = "none"
-      divEmpty2.style.display = "none"
+      if (window.innerWidth >= 1440) {
+        divEmpty.style.display = "none"
+        divEmpty2.style.display = "none"
+      }
+      
     } else {
-      nameGenerations.forEach(e => e.style.display = "block")
-      divEmpty.style.display = "block"
-      divEmpty2.style.display = "block"
+      nameGenerations.forEach(e => e.style.display = "block");
+      if (window.innerWidth >= 1440){
+        divEmpty.style.display = "block"
+        divEmpty2.style.display = "block"
+      }
     }
       
     cards.forEach((card, i) => {
@@ -161,3 +167,5 @@ document.addEventListener("backButton",() => {
     }, 200);
   }
 })
+
+console.log(window.innerWidth);
