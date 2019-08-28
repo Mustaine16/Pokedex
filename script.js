@@ -5,6 +5,8 @@ const loader = document.querySelector(".loader-div")
 const cards = document.querySelectorAll(".pkmn-card")
 const modal = document.querySelector(".modal")
 const search = document.querySelector(".search-input")
+let divEmpty = document.querySelector("#empty-card")
+let divEmpty2 = document.querySelector("#empty-card2")
 const nameGenerations = document.querySelectorAll(".gen-name")
 const modalLoaderContainer = document.querySelector(".modal-loader-container")
 const modalLoader = document.querySelector(".modal-loader")
@@ -70,9 +72,13 @@ async function consumirApi() {
 
     //Oculta los "1°Gen, 2°Gen, etc"
     if (!(input === "")) {
-      nameGenerations.forEach(e => e.style.display = "none") 
+      nameGenerations.forEach(e => e.style.display = "none")
+      divEmpty.style.display = "none"
+      divEmpty2.style.display = "none"
     } else {
       nameGenerations.forEach(e => e.style.display = "block")
+      divEmpty.style.display = "block"
+      divEmpty2.style.display = "block"
     }
       
     cards.forEach((card, i) => {
