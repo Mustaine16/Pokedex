@@ -113,13 +113,21 @@ class Pokemon {
                     "item": !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[0].item
                   });
                 }
+                
               }
             
               evoData = evoData['evolves_to'][0];
+
+              // this.evolutions[0].id
+
+              
             
             } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
 
             this.evolutions = evoChain;
+            console.log(evoChain);
+            // this.evolutions[1].id()
+            
 
           })
       })
@@ -1005,6 +1013,9 @@ class Pokemon {
     })
   }
   
+  incrustEvolutionsLinks(modal){
+  let evolutions = document.querySelectorAll()
+  }
 
     
   
