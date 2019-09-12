@@ -113,10 +113,10 @@ class Pokemon {
                     "item": !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[0].item
                   });
                 }
-                
+
               }
             
-              evoData = evoData['evolves_to'][0];
+              evoData = evoData['evolves_to'][1] || evoData['evolves_to'][0];
 
               // this.evolutions[0].id
 

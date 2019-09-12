@@ -1033,6 +1033,10 @@ a:hover{
     grid-area: auto
   }
 
+  .sprite-and-type, .stats-container{
+    padding: 1em
+  }
+
   .container-att-def{
     width: 100%;
     display: flex;
