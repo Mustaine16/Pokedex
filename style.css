@@ -980,7 +980,11 @@ a:hover{
 
   .search-input{
     padding: 0.5em 1em;
-    font-size: 1em;
+    font-size: 1.2em;
+  }
+
+  .pokedex-logo{
+    width: 120px
   }
 
   .search-icon{
@@ -1048,7 +1052,7 @@ a:hover{
   }
 
   .offensive .type-cardy, .defensive .type-cardy{
-    width: 25%
+    width: 30%
   }
 }
 
@@ -1057,6 +1061,26 @@ a:hover{
   .search-icon{
     right: 8em;
   }
+
+  .stats-container, .evs-list{
+    width: 70vw
+  }
+
+  .container-att-def{
+    width: 80vw;
+    justify-content: center
+  }
+
+  .offensive-container-by-types{
+    width: 100%;
+    align-items: center
+  }
+
+  .offensive, .defensive{
+    width: 80%
+  }
+
+
 
 }
 
@@ -1072,7 +1096,6 @@ a:hover{
 
   .pkmn-list{
     grid-template-columns: repeat(4,1fr);
-    /* margin-top: 5em; */
     padding: 2em;
   }
 
@@ -1115,67 +1138,13 @@ a:hover{
   .generations-icons{
     width: 80px;
   }
-  
 
-  .modal-open{
-    display: grid;
-    grid-template-columns: repeat(2,50vw);
-    grid-template-rows: 5vh 25vh 33vh 35vh;;
-  }
-
-  .name-open{
-    grid-area: 1/1/2/3;
-  }
-
-  .evs-list {
-    min-width: 95%;
-  }
-
-  .sprite-and-type {
-    align-items: center;
-    height: 100%;
-  }
-
-  .stats-container {
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  .stats-value-and-bar{
-    width: 70%;
-  }
-
-  .stats-row {
-    width: 90%;
-  }
   .types{
     padding:0.1em 0.5em
   }
 
-  .sprite-and-type {
-    grid-area: 2/1/3/2;
-  }
-  
-  .stats-container {
-    grid-area: 3/1/4/2;
-    width: 70%;
-    margin: auto;
-  }
-
-  .evs-container{
-    grid-area: 4/1/5/2;
-    width: 99%;
-    margin: auto
-  }
-    
-  .damage-container{
-    grid-area: 2/2/5/4;
-    width: 99%;
-    margin-left: auto;
-    align-self: start;
-    margin-right: auto;
-    margin-top: 1em;
+  .offensive, .defensive{
+    width: 70%
   }
 }
 
