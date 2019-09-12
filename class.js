@@ -143,7 +143,8 @@ class Pokemon {
 
   incrustEvolutions(modal) {
   
-    if (this.evolutions.length > 1) {
+    if (this.evolutions.length > 1)
+    {
 
       //------------Container and Title "Evolutions"---------------------
 
@@ -174,7 +175,7 @@ class Pokemon {
       if (this.evolutions.length === 3) {
 
         //Evolution row
-        const secondEvolution = this.crearRowEvolution(0, 2)
+        const secondEvolution = this.crearRowEvolution(1, 2)
         
         //Append 
         containerEvolutions.appendChild(secondEvolution)
@@ -252,7 +253,8 @@ class Pokemon {
           }
         }
       }
-    } else {
+    }
+    else{
 
       //En caso de que el pokemon no tenga evoluciones
     
