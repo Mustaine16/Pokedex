@@ -1,5 +1,5 @@
 # Pokedex
-Hi everyone! This is my first "web-app" (really, i dont know if i can call it as that beacause it just vainilla Javascript but who cares), just a simple Pokedex based on the public [PokeApi](https://pokeapi.co/)
+Hi everyone! This is my first "web-app" (in fact, i dont know if i can call it as that because it just vainilla Javascript but who cares), just a simple Pokedex based on the public [PokeApi](https://pokeapi.co/)
 
 
 ## How it works?
