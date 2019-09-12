@@ -145,216 +145,110 @@ class Pokemon {
   
     if (this.evolutions.length > 1) {
 
-      //------------Evolutions---------------------
+      //------------Container and Title "Evolutions"---------------------
 
       const containerEvolutions = document.createElement("div")
       const containerEvolutionsBrand = document.createElement("div")
-      const arrowDiv = document.createElement("div")
-      const arrow = document.createElement("img")
-      const arrowText = document.createElement("span")
-      const evsList = document.createElement("div")
-      const baseEv = document.createElement("div")
-      const firstEv = document.createElement("div")
-      const secondEv = document.createElement("div")
       
       containerEvolutions.classList.add("evs-container")
       containerEvolutionsBrand.classList.add("evolutions-title")
       containerEvolutionsBrand.innerText = "Evolutions"
-      evsList.classList.add("evs-list")
-      baseEv.classList.add("ev")
-      firstEv.classList.add("ev")
-      secondEv.classList.add("ev")
-      arrowDiv.classList.add("arrow-div")
-      arrow.classList.add("arrow")
-      arrow.src = "./img/arrow.svg"
-      arrowText.innerText = this.incrustEvolutionsTriggers(1)
-      arrowDiv.appendChild(arrow)
-      arrowDiv.appendChild(arrowText)
       
 
-
-      //Base-------------------------------------------
-
-      const baseName = document.createElement("span")
-      let baseSprite = document.createElement("img")
-
-      baseName.innerText = `${this.evolutions[0].name}`
-
-      baseSprite.src = `${this.evolutions[0].sprite.src}`
-
-      //Incrustar evolucion base
-
-      baseEv.appendChild(baseSprite)
-      baseEv.appendChild(baseName)
-      containerEvolutions.appendChild(containerEvolutionsBrand)
-      evsList.appendChild(baseEv)
-      evsList.appendChild(arrowDiv)
-
       //First Evolution-----------------------------------
-        
-      const firstEvName = document.createElement("span")
-      let firstSprite = document.createElement("img")
-      firstEvName.innerText = `${this.evolutions[1].name}`
-      firstSprite.src = `${this.evolutions[1].sprite.src}`
-      firstEv.appendChild(firstSprite)
-      firstEv.appendChild(firstEvName)
-      evsList.appendChild(firstEv)
-      containerEvolutions.append(evsList)
+      
+      const firstEvolution = this.crearRowEvolution(0,1) 
+      
+      //Append Evolution
+
+      containerEvolutions.appendChild(containerEvolutionsBrand)
+      containerEvolutions.appendChild(firstEvolution)
+
+      //Append in modal 
+
       modal.appendChild(containerEvolutions)
-
-
 
 
       //Second Evolution-----------------------------------
 
       if (this.evolutions.length === 3) {
-        const secondEvDiv = document.createElement("div")
 
-        const firstEvClone = firstEv.cloneNode(true)
-        const arrowDivClone = arrowDiv.cloneNode()
-        const arrowClone = arrow.cloneNode(true)
-        const arrowTextClone = arrowText.cloneNode();
+        //Evolution row
+        const secondEvolution = this.crearRowEvolution(0, 2)
         
-
-        const secondEvName = document.createElement("span")
-        let secondEvSprite = document.createElement("img")
-
-        secondEvDiv.classList.add("evs-list")
-
-        secondEvName.innerText = `${this.evolutions[2].name}`
-        secondEvSprite.src = `${this.evolutions[2].sprite.src}`
-        secondEv.appendChild(secondEvSprite)
-        secondEv.appendChild(secondEvName)
-
-        secondEvDiv.appendChild(firstEvClone)
-
-        arrowTextClone.innerText = this.incrustEvolutionsTriggers(2)
-        arrowDivClone.appendChild(arrowClone)
-        arrowDivClone.appendChild(arrowTextClone)
-
-        secondEvDiv.appendChild(arrowDivClone)
-        secondEvDiv.appendChild(secondEv)
-        containerEvolutions.append(secondEvDiv)
+        //Append 
+        containerEvolutions.appendChild(secondEvolution)
         modal.append(containerEvolutions)
       }
       
 
-      //Eevees, Tyrogue, Gardevoir----------------------------------------------
+      //Eevees, Tyrogue, Gardevoir, Wurmple----------------------------------------------
 
       if (this.evolutions.length > 3) {
+
+        //Eevee
 
         if (this.evolutions.length === 9) {
 
           for (let i = 2; i < 8; i++) {
 
-          
-            //Base-------------------------------------------
+            //Pokemons
+            let evolution = this.crearRowEvolution(0,i)
 
-            const firstEeveeClone = baseEv.cloneNode(true)
-            const arrowDivClone = arrowDiv.cloneNode()
-            const arrowClone = arrow.cloneNode(true)
-            const arrowTextClone = arrowText.cloneNode();
-
-
-            //Eevee Evolution--------------------------------
-            let eeveeEvolution = document.createElement("div")
-            let eveEvo = document.createElement("div")
-            let eveName = document.createElement("span")
-            let eveSprite = document.createElement("img")
-
-
-            eveName.innerText = `${this.evolutions[i].name}`
-            eveSprite.src = `${this.evolutions[i].sprite.src}`
-            eveEvo.classList.add("evs-list")
-            eeveeEvolution.classList.add("ev")
-
-            eeveeEvolution.appendChild(eveSprite)
-            eeveeEvolution.appendChild(eveName)
-            eveEvo.appendChild(firstEeveeClone)
-          
-            arrowTextClone.innerText = this.incrustEvolutionsTriggers(i)
-            arrowDivClone.appendChild(arrowClone)
-            arrowDivClone.appendChild(arrowTextClone)
-            eveEvo.appendChild(arrowDivClone)
-
-            eveEvo.appendChild(eeveeEvolution)
-            containerEvolutions.appendChild(eveEvo)
-            modal.append(containerEvolutions)
+            //Apends
+            containerEvolutions.appendChild(evolution)
+            
           }
+
+          modal.appendChild(containerEvolutions)
+
         } else {
 
+          //Tyrogue / Hitmonlee / Hitmonchan / Hitmontop
+
           if (this.evolutions[0].name == "tyrogue") {
-            for (let i = 2; i < this.evolutions.length; i++) {
 
-              //Base-------------------------------------------
+            //Pokemons
+            let hitmonchan = this.crearRowEvolution(0,2)
+            let hitmontop = this.crearRowEvolution(0, 3)
+            
+            //Apends
+            containerEvolutions.appendChild(hitmonchan)
+            containerEvolutions.appendChild(hitmontop)
+            modal.appendChild(containerEvolutions)
 
-              const firstEeveeClone = baseEv.cloneNode(true)
-              const arrowDivClone = arrowDiv.cloneNode()
-              const arrowClone = arrow.cloneNode(true)
-              const arrowTextClone = arrowText.cloneNode();
+          }
 
+          //Ralts / Kirlia / Gardevoir / Gallade
 
-              //Eevee Evolution--------------------------------
-              let eeveeEvolution = document.createElement("div")
-              let eveEvo = document.createElement("div")
-              let eveName = document.createElement("span")
-              let eveSprite = document.createElement("img")
+          else if (this.evolutions[0].name == "ralts") {
 
+            //Pokemon
+            let gardevoir = this.crearRowEvolution(1,2)
+            let gallade = this.crearRowEvolution(1, 3)
+            
+            //Appends
+            containerEvolutions.appendChild(gardevoir)
+            containerEvolutions.appendChild(gallade)
+            modal.appendChild(containerEvolutions)
+            
+          }
+            
+          //Wurmple / Silcoon / BeautiFly / Dustox
+            
+          else if (this.evolutions[0].name == "wurmple") {
 
-              eveName.innerText = `${this.evolutions[i].name}`
-              eveSprite.src = `${this.evolutions[i].sprite.src}`
-              eveEvo.classList.add("evs-list")
-              eeveeEvolution.classList.add("ev")
+            //Pokemons
+            let cascoon = this.crearRowEvolution(0, 3)
+            let beautiFly = this.crearRowEvolution(1, 2)
+            let dustox = this.crearRowEvolution(3, 4)
 
-              eeveeEvolution.appendChild(eveSprite)
-              eeveeEvolution.appendChild(eveName)
-              eveEvo.appendChild(firstEeveeClone)
-          
-              arrowTextClone.innerText = this.incrustEvolutionsTriggers(i)
-              arrowDivClone.appendChild(arrowClone)
-              arrowDivClone.appendChild(arrowTextClone)
-              eveEvo.appendChild(arrowDivClone)
-
-              eveEvo.appendChild(eeveeEvolution)
-              containerEvolutions.appendChild(eveEvo)
-              modal.append(containerEvolutions)
-            }
-          } else {
-            for (let i = 2; i < this.evolutions.length; i++) {
-
-              //Base-------------------------------------------
-
-              const firstEvoClone = firstEv.cloneNode(true)
-              const arrowDivClone = arrowDiv.cloneNode()
-              const arrowClone = arrow.cloneNode(true)
-              const arrowTextClone = arrowText.cloneNode();
-
-
-              //Kirlia Evolution--------------------------------
-              let eeveeEvolution = document.createElement("div")
-              let eveEvo = document.createElement("div")
-              let eveName = document.createElement("span")
-              let eveSprite = document.createElement("img")
-
-
-              eveName.innerText = `${this.evolutions[i].name}`
-              eveSprite.src = `${this.evolutions[i].sprite.src}`
-              eveEvo.classList.add("evs-list")
-              eeveeEvolution.classList.add("ev")
-
-              eeveeEvolution.appendChild(eveSprite)
-              eeveeEvolution.appendChild(eveName)
-              eveEvo.appendChild(firstEvoClone)
-          
-              arrowTextClone.innerText = this.incrustEvolutionsTriggers(i)
-              arrowDivClone.appendChild(arrowClone)
-              arrowDivClone.appendChild(arrowTextClone)
-              eveEvo.appendChild(arrowDivClone)
-
-              eveEvo.appendChild(eeveeEvolution)
-              containerEvolutions.appendChild(eveEvo)
-              modal.append(containerEvolutions)
-            }
+            //Appends
+            containerEvolutions.appendChild(cascoon)
+            containerEvolutions.appendChild(beautiFly)
+            containerEvolutions.appendChild(dustox)
+            modal.appendChild(containerEvolutions)
+            
           }
         }
       }
@@ -1017,6 +911,56 @@ class Pokemon {
   let evolutions = document.querySelectorAll()
   }
 
+  crearRowEvolution(i1,i2) {
+    const row = document.createElement('div')
+    const pokeBase = document.createElement('div')
+    const pokeEvolution = document.createElement('div')
+    const arrowDiv = document.createElement('div')
+    const arrow = document.createElement('img')
+    const arrowText = document.createElement('span')
+    const pokeBaseName = document.createElement('span')
+    const pokeEvolutionName = document.createElement('span')
+    const pokeBaseSprite = document.createElement('img')
+    const pokeEvolutionSprite = document.createElement('img')
+
+    //ClassList
+    row.classList.add('evs-list')
+    pokeBase.classList.add('ev')
+    pokeEvolution.classList.add('ev')
+    arrowDiv.classList.add('arrow-div')
+    arrow.classList.add("arrow")
+
+    //Names
+    pokeBaseName.innerText = this.evolutions[i1].name
+    pokeEvolutionName.innerText = this.evolutions[i2].name
+
+    //Sprites
+    pokeBaseSprite.src = `${this.evolutions[i1].sprite.src}`
+    pokeEvolutionSprite.src = `${this.evolutions[i2].sprite.src}`
+
+    //Arrow
+    arrow.src = "./img/arrow.svg"
+    arrowText.innerText = this.incrustEvolutionsTriggers(i2)
+
+    //Apends
+    pokeBase.appendChild(pokeBaseSprite)
+    pokeBase.appendChild(pokeBaseName)
+
+    pokeEvolution.appendChild(pokeEvolutionSprite)
+    pokeEvolution.appendChild(pokeEvolutionName)
+
+    arrowDiv.appendChild(arrow)
+    arrowDiv.appendChild(arrowText)
+
+    //Final Apends
+
+    row.appendChild(pokeBase)
+    row.appendChild(arrowDiv)
+    row.appendChild(pokeEvolution)
+
+    return row
+
+  }
     
   
 
