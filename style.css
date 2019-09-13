@@ -103,12 +103,17 @@ body {
 }
 
 .search-input{
+  background: none;
   border: none;
+  border-bottom: 1px solid whitesmoke;
   outline: none;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   padding: 0.5em 1em;
   width: 55%;
-  color: black !important
+}
+
+.search-input::placeholder, .search-input{
+  color: whitesmoke
 }
 
 .search-icon{
@@ -270,7 +275,8 @@ img{
 }
 
 .pkmn-card:hover img{
-  animation: move linear .4s
+  /* transform: scale(1.3); */
+  animation: move linear .5s;
 }
 
 .pkmn-card:hover{
@@ -954,9 +960,6 @@ a:hover{
 
 
 
-
-
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   25%{transform: rotate(90deg)}
@@ -966,10 +969,14 @@ a:hover{
 
 @keyframes move {
   0%{transform: rotate(0deg)}
-  25%{transform: rotate(-20deg)}
-  75%{transform: rotate(20deg)}
+  5%{transform: scale(1.3)}
+  25%{transform: rotate(-10deg)}
+  50%{transform: scale(1.2)}
+  75%{transform: rotate(10deg)}
+  90%{transform: scale(1)}
   100%{transform: rotate(0deg)}
 }
+
 
 
 @media screen and (min-width:768px){
