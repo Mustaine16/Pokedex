@@ -98,37 +98,68 @@ body {
   box-shadow: 0px -1px 10px black;
   z-index: 5;
 }
-.pokedex-logo{
-  width:100px ;
-}
 
 .search-types{
-  position: relative;
+  position: absolute;
+  text-align: center;
+  background-color: var(--nav-bar);
+  width: 80vw;
+  top: 50px;
+  transform: translateX(-100vw);
+  transition: all .3s;
+  height: calc(100vh - (50px + 56px));
 }
 
 .search-types-list{
-  position: absolute;
+  /* position: absolute; */
   top: 37px;
-  background-color: var(--nav-bar);
-  width: 30vw;
-  height: 30vh;
+  /* width: 70vw; */
+  height: 100%;
+  /* left: -100vw; */
+
 }
+
+.search-types-active{
+  transform: translateX(-10vw)
+}
+
 .search-types-list ul{
   display: flex;
-  justify-content: center;
-  align-content: center;
+  justify-content: space-around;
+  align-content: space-around;
   flex-wrap: wrap;
   height: 100%;
 }
 
 .search-types-list li{
-  /* padding: .4em */
-width: 50%;
-text-align: center
+  padding: .1em;
+  width: 45%;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .2s;
 }
 
+.search-types-list li:hover{
+  transform: scale(1.1)
+}
 
+.burger-button{
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  justify-content: space-around;
+}
 
+.burgerline{
+  content: '';
+  height: 2px;
+  width: 20px;
+  background: whitesmoke;
+}
+.search-text{
+  width: 70%
+}
 
 .search-input{
   background: none;
@@ -137,7 +168,7 @@ text-align: center
   outline: none;
   /* border-radius: 10px; */
   padding: 0.5em 1em;
-  width: 55%;
+  width: 100%;
 }
 
 .search-input::placeholder, .search-input{
@@ -157,7 +188,7 @@ text-align: center
   bottom: 0;
   justify-content: space-around;
   align-items: center;
-  height: 8vh;
+  height: 56px;
   background: #ef5350;
   box-shadow: 0px -1px 10px black;
   z-index: 2;
@@ -270,7 +301,7 @@ text-align: center
   margin: auto;
 }
 
-.first{
+/* .first{
   grid-area: 1/1/3/3;
 }
 
@@ -284,9 +315,12 @@ text-align: center
 
 .forth{
   grid-area: 199/1/199/3
-}
+} */
 
-#mew{
+h2{
+  grid-column: 1/3
+}
+/* #mew{
   grid-area: 78/1/79/3;
 }
 
@@ -294,9 +328,9 @@ text-align: center
   grid-area: 198/1/198/3
 }
 
-#empty-card, #empty-card2{
+/* #empty-card, #empty-card2{
   display: none
-}
+} */ */
 
 img{
   transition: all .3s

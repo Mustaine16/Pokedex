@@ -5,6 +5,7 @@ const loader = document.querySelector(".loader-div")
 const cards = document.querySelectorAll(".pkmn-card")
 const modal = document.querySelector(".modal")
 const search = document.querySelector(".search-input")
+const burger = document.querySelector(".burger-button")
 let divEmpty = document.querySelector("#empty-card")
 let divEmpty2 = document.querySelector("#empty-card2")
 const nameGenerations = document.querySelectorAll(".gen-name")
@@ -63,54 +64,6 @@ async function consumirApi() {
     })
   })
 
-  
-
-  search.addEventListener("input", () => {
-
-    let input = search.value.toLowerCase();
-    let checkPokemons = 0 ; //Esta variable va a ser utilizada para chequear si todos los pokemones se encuentran con display = none, y asi 
-
-    //Oculta los "1°Gen, 2°Gen, etc"
-    if (!(input === "")) {
-  
-      nameGenerations.forEach(e => e.style.display = "none")
-      if (window.innerWidth >= 1440) {
-        divEmpty.style.display = "none"
-        divEmpty2.style.display = "none"
-      }
-      
-    } else {
-      nameGenerations.forEach(e => e.style.display = "block");
-      if (window.innerWidth >= 1440){
-        divEmpty.style.display = "block"
-        divEmpty2.style.display = "block"
-      }
-    }
-      
-    cards.forEach((card, i) => {
-
-      let pkClass = card.classList.item(1);
-
-      if (pkClass.startsWith(`${input}`)) {
-        card.style.display = "flex"
-        checkPokemons > 0 ? checkPokemons-- : checkPokemons;
-        if (pokemonMissing.classList[1])
-          pokemonMissing.classList.remove("pokemon-missing-active")
-      }
-      else{
-        card.style.display = "none";
-        checkPokemons++;
-      }
-
-      if (checkPokemons == 494) {
-        pokemonMissing.classList.add("pokemon-missing-active")
-      }
-    
-    })
-    
-  })
-
-
   let tiempoDeCarga = (performance.now() - startTime)
   console.log(tiempoDeCarga);
 
@@ -118,10 +71,7 @@ async function consumirApi() {
     loader.style.display = "none"
     bodyScrollLock.enableBodyScroll(loader)
   }, 2000);
-
-
 }
-
 
 
 async function fetchear(id) {
@@ -145,27 +95,6 @@ cards.forEach((e, i) => {
   e.childNodes[3].childNodes[0].setAttribute("height","96")
   e.childNodes[3].childNodes[0].setAttribute("width","96")
   e.childNodes[3].childNodes[0].setAttribute("alt",`${e.classList[1]}`)
-})
-
-document.addEventListener("backButton",() => {
-
-  if (modal.classList.contains("modal-open")) {
-    modal.classList.toggle("modal-open")
-    
-    if (!(modal.classList.contains("modal-open"))) {
-      bodyScrollLock.enableBodyScroll(modal);
-    }
-
-    setTimeout(() => {
-      let modalColor = modal.classList[1]
-
-      modalLoaderContainer.classList.remove(modalColor)
-      modal.classList.remove(modalColor)
-
-      modal.innerHTML = ""
-
-    }, 200);
-  }
 })
 
 console.log(window.innerWidth);
