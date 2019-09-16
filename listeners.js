@@ -77,9 +77,10 @@ types.forEach((type) => {
 
     cards.forEach((card, i) => {
 
-      let pkClass = card.classList.item(2);
+      let pkType1 = card.classList.item(2);
+      let pkType2 = card.classList.item(3) ? card.classList.item(3).slice(0,-1) : false ;
   
-      if (pkClass == type.className) {
+      if (pkType2 == type.className || pkType1 == type.className) {
         card.style.display = "flex"
       }
       else{
