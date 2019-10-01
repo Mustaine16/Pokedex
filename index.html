@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="normalize.css">
-  <link  rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./styles/normalize.css">
+  <link  rel="stylesheet" href="./styles/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -29,10 +29,10 @@
         <div class="burgerline"></div>
       </div>
       <div class="search-types">
-        <!-- <span>By Types</span> -->
+        <span>By Types</span>
         <div class="search-types-list">
           <ul>
-            <li class="allTypes"><span class="clearTypes">All</span></li>
+            <li class="allTypes">All</li>
             <li class="grass">Grass</li>
             <li class="water">Water</li>
             <li class="fire">Fire</li>
@@ -55,15 +55,13 @@
         </div>
       </div>
       <div class="search-text">
-      <!-- <figure>
-        <img class="pokedex-logo"src="img/Pokedex_logo.png" alt="Pokedex Logo">
-      </figure> -->
       <input type="text" class="search-input"
       placeholder="Search for a Pokemon..."    android:id="@+id/edittext_done"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:hint="Enter some text"
       android:imeOptions="actionDone">
+      <button class="clear-search"></button>
       </div>
     </navbar>
     <nav class="generations">
@@ -2069,9 +2067,9 @@
       <a href="https://github.com/Mustaine16" target="_blank"> See my GitHub!</a>
     </div>
   </footer>
-  <script src="class.js"></script>
+  <script src="./script/class.js"></script>
   <script src="body-scroll-lock-master/lib/bodyScrollLock.js"></script>
-  <script src="script.js"></script>
-  <script src="listeners.js"></script>
+  <script src="./script/script.js"></script>
+  <script src="./script/listeners.js"></script>
 </body>
 </html>
