@@ -55,6 +55,8 @@ async function consumirApi() {
         await pokemonList[index].incrustDamageRelations(modal);
         await pokemonList[index].incrustBackArrow(modal);
       }
+
+      pokemonList = [];
     });
   });
 
