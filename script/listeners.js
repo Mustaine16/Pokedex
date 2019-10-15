@@ -32,7 +32,11 @@ search.addEventListener("input", () => {
   });
 });
 
-clearSearch.addEventListener("click", () => (search.value = ""));
+clearSearch.addEventListener("click", () => {
+  cards.forEach(card => (card.style.display = "flex"));
+  search.value = "";
+  pokemonMissing.classList.remove("pokemon-missing-active");
+});
 
 burger.addEventListener("click", () => {
   let typesBar = document.querySelector(".search-types");
