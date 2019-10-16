@@ -50,6 +50,7 @@ async function consumirApi() {
         await pokemonList[index].getEvolutions();
         await pokemonList[index].getEvolutionsSprites();
         await pokemonList[index].incrustStats(this, modal);
+        await pokemonList[index].shinySprite(modal);
         await pokemonList[index].incrustEvolutions(modal);
         await pokemonList[index].getDamageRelations();
         await pokemonList[index].incrustDamageRelations(modal);

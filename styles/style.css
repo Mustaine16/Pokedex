@@ -128,7 +128,7 @@ body {
   justify-content: space-around;
   align-items: center;
   width: 100vw;
-  height: 50px;
+  height: 8vh;
   background: var(--nav-bar);
   box-shadow: 0px -1px 10px black;
   z-index: 5;
@@ -139,10 +139,10 @@ body {
   text-align: center;
   background-color: var(--nav-bar);
   width: 65vw;
-  top: 50px;
+  top: 8vh;
   transform: translateX(-100vw);
   transition: all 0.3s;
-  height: 83vh;
+  height: 84vh;
 }
 
 .search-types-list {
@@ -275,7 +275,7 @@ body {
   bottom: 0;
   justify-content: space-around;
   align-items: center;
-  height: 56px;
+  height: 8vh;
   background: #ef5350;
   box-shadow: 0px -1px 10px black;
   z-index: 5;
@@ -350,8 +350,8 @@ body {
   padding: 1em 0;
   margin-bottom: 1em;
   min-height: 20vh;
-  max-height: 100vh;
-  overflow-y: scroll;
+  /* max-height: 100vh; */
+  /* overflow-y: scroll; */
 }
 
 .pkmn-card {
@@ -759,6 +759,49 @@ img {
   justify-content: center;
 }
 
+.asset {
+  height: 96px;
+  position: relative;
+}
+
+.asset img:nth-child(1) {
+  position: relative;
+  cursor: pointer;
+}
+
+.sprite-and-type .asset img:nth-child(1):hover {
+  filter: drop-shadow(3px 3px 3px #222);
+}
+
+.sprite-off {
+  display: none;
+}
+
+.shiny {
+  display: none;
+}
+
+.shiny-active {
+  display: block;
+}
+
+.shiny-text {
+  color: whitesmoke !important;
+  background: var(--dark-bg-open);
+  opacity: 0;
+  position: absolute;
+  top: 5px;
+  right: -20px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  padding: 0.4em;
+  transition: all 0.3s;
+}
+
+.shiny-text-active {
+  opacity: 1;
+}
+
 .types {
   display: flex;
   flex-direction: column;
@@ -998,9 +1041,9 @@ img {
 .damage-type-title,
 .defense-color {
   width: 100%;
-  border-radius: 0.7em 0.7em 0 0;
   padding: 0.3em;
   text-align: center;
+  border-radius: 0.7em 0.7em 0 0;
   line-height: 1.5;
 }
 
@@ -1014,6 +1057,15 @@ img {
 .defense-color span {
   width: 50%;
   text-align: center;
+  color: whitesmoke;
+}
+
+/* Magnamite, Magneton, Magnamize color in defense card */
+.electric .defense-color span:nth-child(1) {
+  color: black;
+}
+.electric .defense-color span:nth-child(2) {
+  color: whitesmoke;
 }
 
 .counter-container {
