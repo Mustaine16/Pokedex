@@ -119,13 +119,9 @@ class Pokemon {
               }
 
               evoData = evoData["evolves_to"][1] || evoData["evolves_to"][0];
-
-              // this.evolutions[0].id
             } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
 
             this.evolutions = evoChain;
-            console.log(evoChain);
-            // this.evolutions[1].id()
           });
       });
   }
@@ -260,7 +256,11 @@ class Pokemon {
 
   incrustStats(miniCard, modal) {
     //Name
-    const nameDiv = miniCard.children[0].cloneNode(true);
+    const nameDiv =
+      miniCard.children[1].localName == "span"
+        ? miniCard.children[1].cloneNode(true)
+        : miniCard.children[0].cloneNode(true);
+    nameDiv.classList.add("pkmn-name");
     nameDiv.classList.add("name-open");
 
     //Sprite and Type container
@@ -268,21 +268,32 @@ class Pokemon {
     const spriteAndType = document.createElement("div");
     spriteAndType.classList.add("sprite-and-type");
 
+    //Asset container
+
+    const asset = document.createElement("div");
+    asset.classList.add("asset");
+
     //Sprite
 
-    const spriteDiv = miniCard.children[1].cloneNode(true);
-    spriteAndType.appendChild(spriteDiv);
+    const sprite =
+      miniCard.children[0].localName == "img"
+        ? miniCard.children[0].cloneNode(true)
+        : miniCard.children[1].children[0].cloneNode(true);
+    asset.appendChild(sprite);
 
     //Sprite Shiny
     const shinySprite = this.spriteShiny;
     shinySprite.classList.add("shiny");
-    spriteDiv.appendChild(shinySprite);
+    asset.appendChild(shinySprite);
 
     //Shiny text-box
     const shinyText = document.createElement("span");
     shinyText.innerText = "Shiny";
     shinyText.classList.add("shiny-text");
-    spriteDiv.appendChild(shinyText);
+    asset.appendChild(shinyText);
+
+    //Append
+    spriteAndType.append(asset);
 
     //---Types
 
@@ -539,7 +550,7 @@ class Pokemon {
               verify(defNone[index].name, "none");
             }
 
-            console.log(defNoneArr);
+            // console.log(defNoneArr);
             //Pushear los arrays al Objeto Model Final
 
             defDbArr.length > 0
@@ -632,7 +643,6 @@ class Pokemon {
 
           break;
         default:
-          console.log("error");
           break;
       }
     }
@@ -833,6 +843,7 @@ class Pokemon {
     modal.appendChild(arrow);
     modalLoaderContainer.style.display = "none";
     modalLoader.style.display = "none";
+    modalLoaderContainer.classList.remove;
     arrow.addEventListener("click", () => {
       modal.classList.toggle("modal-open");
 
@@ -847,6 +858,7 @@ class Pokemon {
         modal.classList.remove(modalColor);
 
         modal.innerHTML = "";
+        modal.appendChild(defaultBackground);
       }, 200);
     });
   }
@@ -906,15 +918,146 @@ class Pokemon {
   }
 
   shinySprite(modal) {
-    const spriteDiv = modal.children[2].children[0];
-    const sprite = modal.children[2].children[0].children[0];
-    const shiny = modal.children[2].children[0].children[1];
-    const shinyText = modal.children[2].children[0].children[2];
+    const spriteDiv = modal.children[2];
+    const assets = spriteDiv.children[0];
+    const sprite = assets.children[0];
+    const shiny = assets.children[1];
+    const shinyText = assets.children[2];
 
     spriteDiv.addEventListener("click", () => {
       sprite.classList.toggle("sprite-off");
       shiny.classList.toggle("shiny-active");
       shinyText.classList.toggle("shiny-text-active");
     });
+  }
+
+  async incrustEvolutionsFetchRequest(modal) {
+    //Metodo para que al tocar en las filas de evoluciones, se pueda obtener los datos de cada pokemon mediante un listener
+
+    const evolutionContainer = modal.childNodes[4].childNodes;
+    let rows = []; //rows de evoluciones
+
+    evolutionContainer.forEach((el, i) => {
+      if (i) rows.push(el);
+    });
+
+    //Verificar que el pokemon tenga al menos una evolucion
+    if (rows[0].childNodes.length > 1) {
+      rows.forEach(row => {
+        const preEvo = row.childNodes[0]; //Evolucion previa, ej: Bulbasaur
+        const evo = row.childNodes[2]; //Evolucion, ej: Yvisaur
+
+        //Left Evo
+        preEvo.addEventListener("click", async () => {
+          /*Verifica los width del viewport, para solo utilizar los scripts de BodyScrollLock en dispositivos moviles*/
+          var width = Math.max(window.innerWidth);
+
+          const pokemonName = preEvo.childNodes[1].innerText.toLowerCase();
+          let newBackgroundColor;
+          let OldBackgroundColor = modal.classList[2];
+
+          //Busca en la lista de pokemons del DOM, encuentra al pokemon y guarda su background color mediante su clase
+          cards.forEach(card => {
+            if (card.classList[1].toLowerCase() == pokemonName)
+              newBackgroundColor = card.classList[2];
+          });
+
+          //Se vacia el modal, se remueve el color anterior en el loader, y se agrega el nuevo color al mismo
+          modal.innerHTML = "";
+          modalLoaderContainer.classList.remove(OldBackgroundColor);
+          modalLoaderContainer.classList.add(newBackgroundColor);
+          modalLoaderContainer.style.display = "flex";
+          modalLoader.style.display = "flex";
+
+          //Se borra el color de fondo viejo al loader, y se agrega el nuevo
+          modal.classList.remove(OldBackgroundColor);
+          modal.classList.add(newBackgroundColor);
+
+          //Se da vista al loader y se agrega el background correspondiente al modal
+          modal.appendChild(modalLoaderContainer);
+          modal.classList.add(newBackgroundColor);
+
+          //Blockea el scroll de fondo
+          if (modalLoader.style.display != "none" && width < 1366) {
+            bodyScrollLock.disableBodyScroll(modal);
+          }
+
+          if (modal.classList.contains("modal-open")) {
+            //Procedimientos de cada pokemon para obtener sus respectivos datos
+
+            await fetchear(pokemonName);
+            let index = pokemonList.length - 1;
+
+            await pokemonList[index].getEvolutions();
+            await pokemonList[index].getEvolutionsSprites();
+            await pokemonList[index].incrustStats(preEvo, modal);
+            await pokemonList[index].shinySprite(modal);
+            await pokemonList[index].incrustEvolutions(modal);
+            await pokemonList[index].incrustEvolutionsFetchRequest(modal);
+            await pokemonList[index].getDamageRelations();
+            await pokemonList[index].incrustDamageRelations(modal);
+            await pokemonList[index].incrustBackArrow(modal);
+          }
+
+          pokemonList = [];
+        });
+
+        //Right Evo
+        evo.addEventListener("click", async () => {
+          /*Verifica los width del viewport, para solo utilizar los scripts de BodyScrollLock en dispositivos moviles*/
+          var width = Math.max(window.innerWidth);
+
+          const pokemonName = evo.childNodes[1].innerText.toLowerCase();
+          let newBackgroundColor;
+          let OldBackgroundColor = modal.classList[2];
+
+          //Busca en la lista de pokemons del DOM, encuentra al pokemon y guarda su background color mediante su clase
+          cards.forEach(card => {
+            if (card.classList[1].toLowerCase() == pokemonName)
+              newBackgroundColor = card.classList[2];
+          });
+
+          //Se vacia el modal, se remueve el color anterior en el , y se agrega el nuevo color al Loader
+          modal.innerHTML = "";
+          modalLoaderContainer.classList.remove(OldBackgroundColor);
+          modalLoaderContainer.classList.add(newBackgroundColor);
+          modalLoaderContainer.style.display = "flex";
+          modalLoader.style.display = "flex";
+
+          //Se borra el color de fondo viejo al loader, y se agrega el nuevo
+          modal.classList.remove(OldBackgroundColor);
+          modal.classList.add(newBackgroundColor);
+
+          //Se da vista al loader y se agrega el background correspondiente al modal
+          modal.appendChild(modalLoaderContainer);
+          modal.classList.add(newBackgroundColor);
+
+          //Blockea el scroll de fondo
+          if (modalLoader.style.display != "none" && width < 1366) {
+            bodyScrollLock.disableBodyScroll(modal);
+          }
+
+          if (modal.classList.contains("modal-open")) {
+            //Procedimientos de cada pokemon para obtener sus respectivos datos
+
+            await fetchear(pokemonName);
+
+            let index = pokemonList.length - 1;
+
+            await pokemonList[index].getEvolutions();
+            await pokemonList[index].getEvolutionsSprites();
+            await pokemonList[index].incrustStats(evo, modal);
+            await pokemonList[index].shinySprite(modal);
+            await pokemonList[index].incrustEvolutions(modal);
+            await pokemonList[index].incrustEvolutionsFetchRequest(modal);
+            await pokemonList[index].getDamageRelations();
+            await pokemonList[index].incrustDamageRelations(modal);
+            await pokemonList[index].incrustBackArrow(modal);
+          }
+
+          pokemonList = [];
+        });
+      });
+    }
   }
 }

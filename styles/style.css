@@ -74,37 +74,37 @@ body {
   overflow-x: hidden;
 }
 
-.search-types-list ::-webkit-scrollbar {
-  width: 5px; /* Tamaño del scroll en vertical */
+.modal::-webkit-scrollbar {
+  width: 7px; /* Tamaño del scroll en vertical */
   height: 3px; /* Tamaño del scroll en horizontal */
   /* display: none */
 }
 
-.search-types-list::-webkit-scrollbar-thumb {
-  background: rgba(226, 123, 123, 0.671);
+.modal::-webkit-scrollbar-thumb {
+  background: rgba(3, 14, 8, 0.3);
   border-radius: 4px;
 }
 
 /* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
-.search-types-list::-webkit-scrollbar-thumb:hover {
+.modal::-webkit-scrollbar-thumb:hover {
   background: #b3b3b3;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 /* Cambiamos el fondo cuando esté en active */
-.search-types-list::-webkit-scrollbar-thumb:active {
+.modal::-webkit-scrollbar-thumb:active {
   background-color: #999999;
   display: block;
 }
 
-.search-types-list::-webkit-scrollbar-track {
+.modal::-webkit-scrollbar-track {
   background: #00000010;
   border-radius: 4px;
 }
 
 /* Cambiamos el fondo cuando esté en active o hover */
-.search-types-list::-webkit-scrollbar-track:hover,
-.search-types-list::-webkit-scrollbar-track:active {
+.modal::-webkit-scrollbar-track:hover,
+.modal::-webkit-scrollbar-track:active {
   background: #d4d4d4;
   display: block;
 }
@@ -733,7 +733,7 @@ img {
   height: 100vh;
   transform: translateY(0vh) !important;
   overflow: auto;
-  border: none !important;
+  /* border: none !important; */
   transition: transform 0.4s;
   /* transition: height .4s; */
   z-index: 10;
@@ -754,9 +754,11 @@ img {
 }
 
 .sprite-and-type {
+  position: relative;
   display: block;
   flex-direction: column;
   justify-content: center;
+  height: 170px;
 }
 
 .asset {
@@ -769,8 +771,11 @@ img {
   cursor: pointer;
 }
 
-.sprite-and-type .asset img:nth-child(1):hover {
+.sprite-and-type .asset img:nth-child(1):hover,
+.ev img:hover {
+  cursor: pointer;
   filter: drop-shadow(3px 3px 3px #222);
+  animation: move linear 0.6s;
 }
 
 .sprite-off {
@@ -884,7 +889,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 95vw;
+  width: 95vw;
   padding-bottom: 0.3em;
 }
 
@@ -1278,6 +1283,71 @@ a:hover {
 }
 
 @media screen and (min-width: 1366px) {
+  .modal {
+    height: 100vh;
+    width: 30vw;
+    transform: translateY(0vh) !important;
+    /* background-image: url("https://wallpapercave.com/wp/wp3170166.jpg");
+    background-size: cover; */
+    position: fixed;
+    right: 0;
+  }
+
+  .modal-default-container {
+    height: 100%;
+    width: 100%;
+    border: 10px solid #a81c1a;
+    border-left: 15px solid #ca2421;
+    border-right: 15px solid #ca2421;
+    background-color: #ef5350;
+  }
+
+  .main {
+    width: 70vw;
+    margin-right: auto;
+  }
+
+  .nav-bar {
+    width: 70vw;
+  }
+
+  .pkmn-list {
+    width: 95%;
+  }
+
+  .generations {
+    width: 65vw;
+    right: 32.5vw;
+  }
+
+  .footer {
+    width: 70vw;
+    margin-right: 30vw;
+  }
+
+  /* Modal */
+
+  .stats-container {
+    width: 80%;
+  }
+
+  .evs-container {
+    width: 100%;
+  }
+
+  .evolutions-title {
+    width: 100%;
+  }
+
+  .evs-list {
+    width: 100% !important;
+  }
+
+  .container-att-def {
+    flex-direction: column;
+    width: 100%;
+  }
+
   .burger-button {
     display: none;
   }
@@ -1285,6 +1355,7 @@ a:hover {
   .search-types {
     position: relative;
     transform: translateX(0);
+    width: 44%;
     height: 100%;
     top: initial;
     display: flex;
@@ -1312,11 +1383,11 @@ a:hover {
   .search-types-list {
     /* display: none; */
     position: absolute;
-    width: 29vw;
+    width: 100%;
     height: 60vh;
     background: var(--nav-bar);
     border-radius: 0 0 10px 10px;
-    left: 1em;
+    left: 0;
     top: 10vh;
     overflow: hidden;
     box-shadow: 0px 30px 30px -35px black;
@@ -1346,7 +1417,7 @@ a:hover {
   }
 }
 
-@media screen and (min-width: 1440px) {
+/*@media screen and (min-width: 1440px) {
   .nav-bar {
     width: 101vw;
   }
@@ -1360,7 +1431,7 @@ a:hover {
   }
 
   .pkmn-list {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr); 
     padding: 2em;
   }
 
@@ -1387,7 +1458,7 @@ a:hover {
     width: 70%;
   }
 }
-
+*/
 @media screen and (min-width: 1920px) {
   .search-icon {
     top: 2.5em;
