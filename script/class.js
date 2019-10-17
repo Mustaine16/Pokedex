@@ -848,7 +848,7 @@ class Pokemon {
       modal.classList.toggle("modal-open");
 
       if (!modal.classList.contains("modal-open")) {
-        bodyScrollLock.enableBodyScroll(modal);
+        // bodyScrollLock.enableBodyScroll(modal);
       }
 
       setTimeout(() => {
@@ -979,7 +979,7 @@ class Pokemon {
 
           //Blockea el scroll de fondo
           if (modalLoader.style.display != "none" && width < 1366) {
-            bodyScrollLock.disableBodyScroll(modal);
+            // bodyScrollLock.disableBodyScroll(modal);
           }
 
           if (modal.classList.contains("modal-open")) {
@@ -1034,7 +1034,7 @@ class Pokemon {
 
           //Blockea el scroll de fondo
           if (modalLoader.style.display != "none" && width < 1366) {
-            bodyScrollLock.disableBodyScroll(modal);
+            // bodyScrollLock.disableBodyScroll(modal);
           }
 
           if (modal.classList.contains("modal-open")) {

@@ -51,7 +51,7 @@ async function consumirApi() {
 
       //Blockea el scroll de fondo
       if (modalLoader.style.display != "none" && width < 1366) {
-        bodyScrollLock.disableBodyScroll(modal);
+        // bodyScrollLock.disableBodyScroll(modal);
       }
 
       if (modal.classList.contains("modal-open")) {
@@ -80,7 +80,7 @@ async function consumirApi() {
 
   setTimeout(() => {
     loader.style.display = "none";
-    bodyScrollLock.enableBodyScroll(loader);
+    // bodyScrollLock.enableBodyScroll(loader);
   }, 2000);
 }
 
@@ -97,7 +97,7 @@ async function fetchear(id) {
   }
 }
 
-bodyScrollLock.disableBodyScroll(loader);
+// bodyScrollLock.disableBodyScroll(loader);
 
 consumirApi();
 

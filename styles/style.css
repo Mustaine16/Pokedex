@@ -726,14 +726,13 @@ img {
 }
 
 .modal-open {
-  position: fixed;
+  /* position: fixed; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
   transform: translateY(0vh) !important;
   overflow: auto;
-  /* border: none !important; */
   transition: transform 0.4s;
   /* transition: height .4s; */
   z-index: 10;
@@ -1164,6 +1163,12 @@ a:hover {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@media screen and (max-width: 1365px) {
+  .modal-open {
+    border: none !important;
   }
 }
 
