@@ -1,13 +1,26 @@
 "use strict";
 
+class pok {
+  constructor(pk) {
+    this.id = pk.id;
+    this.name = pk.species.name;
+    this.sprite = new Image();
+    this.sprite.src = "";
+    this.spriteShiny = new Image();
+    this.spriteShiny.src = "";
+    this.types = pk.types;
+  }
+}
+
 class Pokemon {
   constructor(pk) {
     // pk ---> El pokemon obtenido a traves de un fetch
+    this.id = pk.id;
     this.name = pk.species.name;
     this.sprite = new Image();
+    this.sprite.src = "";
     this.spriteShiny = new Image();
-    this.sprite.src = pk.sprites.front_default;
-    this.spriteShiny.src = pk.sprites.front_shiny;
+    this.spriteShiny.src = "";
     this.types = pk.types; //Para añadir si o si hay que invocar a la funcion getTypes()
     this.hp = pk.stats[5].base_stat;
     this.attack = pk.stats[4].base_stat;
@@ -59,6 +72,7 @@ class Pokemon {
     //Para definir el fondo de cada mini-card dependiendo de su tipo
     if (typeArr.length > 1) {
       card.classList.add(`${typeArr[1]}`);
+      card.classList.add(`${typeArr[0]}2`);
     } else {
       card.classList.add(`${typeArr[0]}`);
     }
@@ -70,6 +84,16 @@ class Pokemon {
     card.appendChild(name);
     card.appendChild(assetDiv);
     pkmnList.appendChild(card);
+  }
+
+  setSprites() {
+    if (this.id >= 1 && this.id <= 721) {
+      this.sprite.src = `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${this.name}.png`;
+      this.spriteShiny.src = `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/shiny/${this.name}.png`;
+    } else if (this.id > 721) {
+      this.sprite.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/normal/${this.name}.png`;
+      this.spriteShiny.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/shiny/${this.name}.png`;
+    }
   }
 
   getTypes() {
@@ -221,6 +245,18 @@ class Pokemon {
             containerEvolutions.appendChild(dustox);
             modal.appendChild(containerEvolutions);
           }
+
+          //Cosmog,Cosmoem, Solgaleo, Lunala
+          else if (this.evolutions[0].name == "cosmog") {
+            //Pokemon
+            const solgaleo = this.crearRowEvolution(1, 2);
+            const lunala = this.crearRowEvolution(1, 3);
+
+            //Appends
+            containerEvolutions.appendChild(solgaleo);
+            containerEvolutions.appendChild(lunala);
+            modal.appendChild(containerEvolutions);
+          }
         }
       }
     } else {
@@ -282,7 +318,8 @@ class Pokemon {
     asset.appendChild(sprite);
 
     //Sprite Shiny
-    const shinySprite = this.spriteShiny;
+    let shinySprite = this.spriteShiny;
+
     shinySprite.classList.add("shiny");
     asset.appendChild(shinySprite);
 
@@ -321,7 +358,7 @@ class Pokemon {
       const typeElement = document.createElement("span");
       typeElement.innerText = `${typeArr[0]}`;
       typeElement.classList.add(`${typeArr[0]}-cardy`);
-      typeElement.classList.add("types");
+      typeElement.classList.add("type");
       type.appendChild(typeElement);
       spriteAndType.appendChild(type);
     }
@@ -332,9 +369,9 @@ class Pokemon {
       this.hp,
       this.attack,
       this.defense,
-      this.speed,
       this.attackSp,
-      this.defenseSp
+      this.defenseSp,
+      this.speed
     ];
 
     const statsContainer = document.createElement("div");
@@ -358,13 +395,13 @@ class Pokemon {
           statName.innerText = "Defense";
           break;
         case 3:
-          statName.innerText = "Speed";
-          break;
-        case 4:
           statName.innerText = "Sp Att.";
           break;
-        case 5:
+        case 4:
           statName.innerText = "Sp Def.";
+          break;
+        case 5:
+          statName.innerText = " Speed";
           break;
       }
 
@@ -988,6 +1025,7 @@ class Pokemon {
             await fetchear(pokemonName);
             let index = pokemonList.length - 1;
 
+            await pokemonList[index].setSprites();
             await pokemonList[index].getEvolutions();
             await pokemonList[index].getEvolutionsSprites();
             await pokemonList[index].incrustStats(preEvo, modal);
@@ -1044,6 +1082,7 @@ class Pokemon {
 
             let index = pokemonList.length - 1;
 
+            await pokemonList[index].setSprites();
             await pokemonList[index].getEvolutions();
             await pokemonList[index].getEvolutionsSprites();
             await pokemonList[index].incrustStats(evo, modal);

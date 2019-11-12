@@ -25,7 +25,7 @@ async function consumirApi() {
     card.addEventListener("click", async function() {
       /*Verifica los width del viewport, para solo utilizar los scripts de BodyScrollLock en dispositivos moviles*/
       var width = Math.max(window.innerWidth || 0);
-
+      console.log(i);
       let newBackgroundColor = card.classList[2];
 
       //Verifica si el modal esta abierto
@@ -58,8 +58,9 @@ async function consumirApi() {
         //Procedimientos de cada pokemon para obtener sus respectivos datos
 
         await fetchear(i + 1);
-        let index = pokemonList.length - 1;
+        const index = pokemonList.length - 1;
 
+        await pokemonList[index].setSprites();
         await pokemonList[index].getEvolutions();
         await pokemonList[index].getEvolutionsSprites();
         await pokemonList[index].incrustStats(this, modal);
@@ -71,7 +72,7 @@ async function consumirApi() {
         await pokemonList[index].incrustBackArrow(modal);
       }
 
-      pokemonList = [];
+      // pokemonList = [];
     });
   });
 
@@ -91,6 +92,7 @@ async function fetchear(id) {
       .then(async pkmn => {
         const pokemon = new Pokemon(pkmn);
         pokemonList.push(pokemon);
+        console.log("s");
       });
   } catch (err) {
     console.log(err);
@@ -101,10 +103,38 @@ async function fetchear(id) {
 
 consumirApi();
 
+// seteer height adn width a los sprites de las cards, y un alt.
+
 cards.forEach((e, i) => {
-  e.childNodes[3].childNodes[0].setAttribute("height", "96");
-  e.childNodes[3].childNodes[0].setAttribute("width", "96");
-  e.childNodes[3].childNodes[0].setAttribute("alt", `${e.classList[1]}`);
+  e.children[1].children[0].setAttribute("height", "auto");
+  e.children[1].children[0].setAttribute("width", "100%");
+  e.children[1].children[0].setAttribute("alt", `${e.classList[1]}`);
+  e.children[1].children[0].setAttribute("loading", "lazy");
 });
 
 // console.log(window.innerWidth);
+// const asset = document.querySelectorAll(".asset")
+// async function pp() {
+//   for (let i = 494; i <= 721; i++) {
+//     asset.childern
+//   }
+// }
+
+// cards.forEach((ass, i) => {
+//   const name = ass.children[0].innerText.toLowerCase();
+//   const img = ass.children[1].children[0];
+//   if (i >= 0 && i <= 720) {
+//     img.src = `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${name}.png`;
+//   } else {
+//     img.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/normal/${name}.png`;
+//   }
+// });
+
+
+//Pokemones a tener en cuenta
+
+//Oricorio
+//Minior
+//Lycanroc
+//Wishiwashi
+//

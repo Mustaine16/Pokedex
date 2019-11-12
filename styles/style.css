@@ -357,7 +357,7 @@ body {
 .pkmn-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   /* position: relative; */
   height: 144px;
@@ -421,6 +421,7 @@ img {
   background: #030e084d;
   color: whitesmoke;
   width: 100%;
+  margin-bottom: 10px;
   padding: 0.5em;
   border-radius: 3em 3em 0em 0em;
   font-size: 0.9em;
@@ -757,15 +758,20 @@ img {
   display: block;
   flex-direction: column;
   justify-content: center;
-  height: 170px;
+  max-height: 200px;
 }
 
 .asset {
-  height: 96px;
   position: relative;
+  margin: auto;
+  margin-bottom: 8px;
 }
 
 .asset img:nth-child(1) {
+  display: block;
+  max-width: 100px;
+  max-height: 100px;
+  margin: auto;
   position: relative;
   cursor: pointer;
 }
@@ -778,7 +784,7 @@ img {
 }
 
 .sprite-off {
-  display: none;
+  display: none !important;
 }
 
 .shiny {
@@ -787,6 +793,11 @@ img {
 
 .shiny-active {
   display: block;
+  margin: auto;
+  max-width: 100px;
+  max-height: 100px;
+  position: relative;
+  cursor: pointer;
 }
 
 .shiny-text {
@@ -889,7 +900,9 @@ img {
   justify-content: space-between;
   align-items: center;
   width: 95vw;
+  margin: auto;
   padding-bottom: 0.3em;
+  padding-top: 0.3em;
 }
 
 .evs-list span {
@@ -908,7 +921,7 @@ img {
 }
 
 .ev img {
-  width: 80px;
+  height: 80px;
 }
 
 .evolutions-title,
