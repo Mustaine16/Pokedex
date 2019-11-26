@@ -1,5 +1,6 @@
 "use strict";
-
+//Clase usada para crear las cards en html
+/*
 class pok {
   constructor(pk) {
     this.id = pk.id;
@@ -10,11 +11,11 @@ class pok {
     this.spriteShiny.src = "";
     this.types = pk.types;
   }
-}
+}*/
 
 class Pokemon {
   constructor(pk) {
-    // pk ---> El pokemon obtenido a traves de un fetch
+    // pk ---> La data de un Pokemon obtenida a traves de un fetch
     this.id = pk.id;
     this.name = pk.species.name;
     this.sprite = new Image();
@@ -97,7 +98,7 @@ class Pokemon {
   }
 
   getTypes() {
-    //Verificar la cantidad de tipos que puede ser un pokemon (Por ejemplo Blubasaur es tipo planta y veneno)
+    //Retorna un array que contiene solo los tipos del Pokemon
 
     const typeArr = [];
     this.types.forEach((e, i) => {
@@ -129,15 +130,7 @@ class Pokemon {
                 for (let i = 0; i < numberOfEvolutions; i++) {
                   evoChain.push({
                     name: evoData.evolves_to[i].species.name,
-                    min_level: !evoData.evolves_to[i]
-                      ? 1
-                      : evoData.evolves_to[i].evolution_details[0].min_level,
-                    trigger: !evoData.evolves_to[i]
-                      ? null
-                      : evoData.evolves_to[i].evolution_details[0].trigger.name,
-                    item: !evoData.evolves_to[i]
-                      ? null
-                      : evoData.evolves_to[i].evolution_details[0].item
+                    evolutionDetails: evoData.evolves_to[i].evolution_details[0]
                   });
                 }
               }
@@ -151,22 +144,23 @@ class Pokemon {
   }
 
   getEvolutionsSprites() {
+    //Puede presentar un problema a futuro cuando intente replicar el proyecto en React, porque en este, en el html estan todos los pokemones, por lo tanto solo tiene que buscar los sprites dentro del DOM.
     this.evolutions.forEach(ev => {
       ev.sprite = document.querySelector(`.sprite-${ev.name}`);
     });
   }
 
   incrustEvolutions(modal) {
+    //------------Container and Title "Evolutions"---------------------
+
+    const containerEvolutions = document.createElement("div");
+    const containerEvolutionsBrand = document.createElement("div");
+
+    containerEvolutions.classList.add("evs-container");
+    containerEvolutionsBrand.classList.add("evolutions-title");
+    containerEvolutionsBrand.innerText = "Evolutions";
+
     if (this.evolutions.length > 1) {
-      //------------Container and Title "Evolutions"---------------------
-
-      const containerEvolutions = document.createElement("div");
-      const containerEvolutionsBrand = document.createElement("div");
-
-      containerEvolutions.classList.add("evs-container");
-      containerEvolutionsBrand.classList.add("evolutions-title");
-      containerEvolutionsBrand.innerText = "Evolutions";
-
       //First Evolution-----------------------------------
 
       const firstEvolution = this.crearRowEvolution(0, 1);
@@ -184,86 +178,83 @@ class Pokemon {
 
       if (this.evolutions.length === 3) {
         //Evolution row
-        const secondEvolution = this.crearRowEvolution(1, 2);
+        //Nincada, Shedinja, Ninjasck
+        const secondEvolution =
+          this.evolutions[0].name == "nincada"
+            ? this.crearRowEvolution(0, 2)
+            : this.crearRowEvolution(1, 2);
 
         //Append
         containerEvolutions.appendChild(secondEvolution);
         modal.append(containerEvolutions);
       }
 
-      //Eevees, Tyrogue, Gardevoir, Wurmple----------------------------------------------
+      //Pokemons with more than 2 evolutions----------------------------------------------
 
       if (this.evolutions.length > 3) {
-        //Eevee
+        //Array to push the Rows, they will be appended at the end of this condicional
+        const evolutionsArray = [];
 
-        if (this.evolutions.length === 9) {
-          for (let i = 2; i < 8; i++) {
-            //Pokemons
-            let evolution = this.crearRowEvolution(0, i);
+        switch (this.evolutions[0].name) {
+          //Eevee
+          case "eevee":
+            for (let i = 2; i < 9; i++) {
+              //Pokemons
+              const evolution = this.crearRowEvolution(0, i);
+              evolutionsArray.push(evolution);
+            }
+            break;
 
-            //Apends
-            containerEvolutions.appendChild(evolution);
-          }
-
-          modal.appendChild(containerEvolutions);
-        } else {
           //Tyrogue / Hitmonlee / Hitmonchan / Hitmontop
+          case "tyrogue":
+            const hitmonchan = this.crearRowEvolution(0, 2);
+            const hitmontop = this.crearRowEvolution(0, 3);
 
-          if (this.evolutions[0].name == "tyrogue") {
-            //Pokemons
-            let hitmonchan = this.crearRowEvolution(0, 2);
-            let hitmontop = this.crearRowEvolution(0, 3);
-
-            //Apends
-            containerEvolutions.appendChild(hitmonchan);
-            containerEvolutions.appendChild(hitmontop);
-            modal.appendChild(containerEvolutions);
-          }
+            evolutionsArray.push(hitmonchan);
+            evolutionsArray.push(hitmontop);
+            break;
 
           //Ralts / Kirlia / Gardevoir / Gallade
-          else if (this.evolutions[0].name == "ralts") {
-            //Pokemon
-            let gardevoir = this.crearRowEvolution(1, 2);
-            let gallade = this.crearRowEvolution(1, 3);
+          case "ralts":
+            const gardevoir = this.crearRowEvolution(1, 2);
+            const gallade = this.crearRowEvolution(1, 3);
 
-            //Appends
-            containerEvolutions.appendChild(gardevoir);
-            containerEvolutions.appendChild(gallade);
-            modal.appendChild(containerEvolutions);
-          }
+            evolutionsArray.push(gardevoir);
+            evolutionsArray.push(gallade);
+            break;
 
           //Wurmple / Silcoon / BeautiFly / Dustox
-          else if (this.evolutions[0].name == "wurmple") {
-            //Pokemons
-            let cascoon = this.crearRowEvolution(0, 3);
-            let beautiFly = this.crearRowEvolution(1, 2);
-            let dustox = this.crearRowEvolution(3, 4);
+          case "wurmple":
+            const cascoon = this.crearRowEvolution(0, 3);
+            const beautifly = this.crearRowEvolution(1, 2);
+            const dustox = this.crearRowEvolution(3, 4);
 
-            //Appends
-            containerEvolutions.appendChild(cascoon);
-            containerEvolutions.appendChild(beautiFly);
-            containerEvolutions.appendChild(dustox);
-            modal.appendChild(containerEvolutions);
-          }
+            evolutionsArray.push(cascoon);
+            evolutionsArray.push(beautifly);
+            evolutionsArray.push(dustox);
+            break;
 
           //Cosmog,Cosmoem, Solgaleo, Lunala
-          else if (this.evolutions[0].name == "cosmog") {
-            //Pokemon
+          case "cosmog":
             const solgaleo = this.crearRowEvolution(1, 2);
             const lunala = this.crearRowEvolution(1, 3);
 
-            //Appends
-            containerEvolutions.appendChild(solgaleo);
-            containerEvolutions.appendChild(lunala);
-            modal.appendChild(containerEvolutions);
-          }
+            evolutionsArray.push(solgaleo);
+            evolutionsArray.push(lunala);
+            break;
+          default:
+            break;
         }
+
+        //Final Appends
+        evolutionsArray.forEach(e => {
+          containerEvolutions.appendChild(e);
+        });
+
+        modal.appendChild(containerEvolutions);
       }
     } else {
       //En caso de que el pokemon no tenga evoluciones
-
-      const containerEvolutions = document.createElement("div");
-      const containerEvolutionsBrand = document.createElement("div");
       const noEvolutions = document.createElement("div");
 
       containerEvolutions.classList.add("evs-container");
@@ -279,14 +270,29 @@ class Pokemon {
   }
 
   incrustEvolutionsTriggers(i) {
-    if (this.evolutions[i].min_level != null) {
-      return `level ${this.evolutions[i].min_level}`;
-    } else if (this.evolutions[i].trigger == "use-item") {
-      return `using ${this.evolutions[i].item.name}`;
-    } else if (this.evolutions[i].trigger == "trade") {
-      return "at trade";
-    } else {
-      return "at high friendship";
+    // if (this.evolutions[i].min_level != null) {
+    //   return `level ${this.evolutions[i].min_level}`;
+    // } else if (this.evolutions[i].trigger == "use-item") {
+    //   return `using ${this.evolutions[i].item.name}`;
+    // } else if (this.evolutions[i].trigger == "trade") {
+    //   return "at trade";
+    // } else {
+    //   return "at high friendship";
+    // }
+
+    //Array para guardar cada condicion y/o trigger, para despues generar un span por cada uno de ellos con un foreach cuando se invoque este metodo
+
+    let triggers = [];
+
+    //Trade
+    if (this.evolutions[i].trigger == "trade") {
+      console.log("trade");
+    }
+
+    if (this.evolutions[i].trigger == "use-item") {
+    }
+
+    if ((this.evolutions[i].trigger = "level-up")) {
     }
   }
 
@@ -900,9 +906,9 @@ class Pokemon {
     });
   }
 
-  incrustEvolutionsLinks(modal) {
-    let evolutions = document.querySelectorAll();
-  }
+  // incrustEvolutionsLinks(modal) {
+  //   let evolutions = document.querySelectorAll();
+  // }
 
   crearRowEvolution(i1, i2) {
     const row = document.createElement("div");

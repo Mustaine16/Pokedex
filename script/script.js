@@ -6,12 +6,12 @@ const pokemonMissing = document.querySelector(".pokemon-missing");
 const loader = document.querySelector(".loader-div");
 var cards = document.querySelectorAll(".pkmn-card");
 const modal = document.querySelector(".modal");
+const modalLoaderContainer = document.querySelector(".modal-loader-container");
+const modalLoader = document.querySelector(".modal-loader");
 const search = document.querySelector(".search-input");
 const clearSearch = document.querySelector(".clear-search");
 const burger = document.querySelector(".burger-button");
 const nameGenerations = document.querySelectorAll(".gen-name");
-const modalLoaderContainer = document.querySelector(".modal-loader-container");
-const modalLoader = document.querySelector(".modal-loader");
 const defaultBackground = document.querySelector(".modal-default-container");
 
 async function consumirApi() {
@@ -23,9 +23,7 @@ async function consumirApi() {
 
   cards.forEach((card, i) => {
     card.addEventListener("click", async function() {
-      /*Verifica los width del viewport, para solo utilizar los scripts de BodyScrollLock en dispositivos moviles*/
-      var width = Math.max(window.innerWidth || 0);
-      console.log(i);
+      //Nuevo color de background para settear en el modal
       let newBackgroundColor = card.classList[2];
 
       //Verifica si el modal esta abierto
@@ -33,7 +31,6 @@ async function consumirApi() {
         //Elimina la clase que le da color al fondo del modal
         let OldBackgroundColor = modal.classList[2];
         modal.classList.remove(OldBackgroundColor);
-        console.log("tiene modalOpen");
         //Elimina el color del Loader
         modalLoaderContainer.classList.remove(OldBackgroundColor);
       }
@@ -48,11 +45,6 @@ async function consumirApi() {
       //El modal se abre y toma el color de fondo correspondiente
       modal.classList.add("modal-open");
       modal.classList.add(newBackgroundColor);
-
-      //Blockea el scroll de fondo
-      if (modalLoader.style.display != "none" && width < 1366) {
-        // bodyScrollLock.disableBodyScroll(modal);
-      }
 
       if (modal.classList.contains("modal-open")) {
         //Procedimientos de cada pokemon para obtener sus respectivos datos
@@ -82,7 +74,7 @@ async function consumirApi() {
   setTimeout(() => {
     loader.style.display = "none";
     // bodyScrollLock.enableBodyScroll(loader);
-  }, 2000);
+  }, 1000);
 }
 
 async function fetchear(id) {
@@ -130,11 +122,10 @@ cards.forEach((e, i) => {
 //   }
 // });
 
-
 //Pokemones a tener en cuenta
 
-//Oricorio
-//Minior
-//Lycanroc
-//Wishiwashi
+//Oricorio -- Sprite Shiny
+//Minior-- Sprite Shiny
+//Lycanroc-- Sprite Shiny
+//Wishiwashi-- Sprite Shiny
 //
