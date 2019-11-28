@@ -32,9 +32,14 @@ search.addEventListener("input", () => {
 });
 
 clearSearch.addEventListener("click", () => {
+  //Muestra todas las cards de vueta
   cards.forEach(card => (card.style.display = "flex"));
   search.value = "";
+  //Desaparece el pokemon missing
   pokemonMissing.classList.remove("pokemon-missing-active");
+
+  //Reaparecen las barras de separacion por generaciones
+  nameGenerations.forEach(e => (e.style.display = "block"));
 });
 
 burger.addEventListener("click", () => {
@@ -45,14 +50,18 @@ burger.addEventListener("click", () => {
 types.forEach(type => {
   type.addEventListener("click", e => {
     cards.forEach((card, i) => {
-      // console.log(e.target);
+      //En caso de seleccionar AllTypes, se muestran todos los pokemones, barra de gens y desaperece un posible pokemonMissing
 
-      if (e.target.classList[0] === "allTypes") {
+      if (type.className === "allTypes") {
         card.style.display = "flex";
         search.value = "";
         pokemonMissing.classList.remove("pokemon-missing-active");
         return true;
       }
+
+      //Verifica cuantos tipos tiene el pokemon, dependiendo de las clases
+
+      //Los que possen 2 estilos, en su clase llevan un, por ejemplo, "flying2", asi que se le hace el slice para retirar ese "2"
 
       let pkType1 = card.classList.item(2);
       let pkType2 = card.classList.item(3)
@@ -69,6 +78,23 @@ types.forEach(type => {
       }
     });
 
+    //Crear un indicador para saber que tipo estamos filtrando
+
+    if (type.className != "allTypes") {
+      const filterContainer = document.querySelector("#filter-container");
+      const filterText = document.createElement("span");
+      const typeCardy = document.createElement("span");
+
+      filterText.innerText = "Filtering by: ";
+      typeCardy.innerText = `${type.className}`;
+      typeCardy.classList.add(`${type.className}-cardy`);
+      typeCardy.classList.add("type");
+
+      filterContainer.appendChild(filterText);
+      filterContainer.appendChild(typeCardy);
+    }
+
+    //Ocultar la barra
     let typesBar = document.querySelector(".search-types");
     typesBar.classList.toggle("search-types-active");
   });
