@@ -1,7 +1,5 @@
 "use strict";
 
-const types = document.querySelectorAll("ul li");
-
 search.addEventListener("input", () => {
   let input = search.value.toLowerCase();
   let checkPokemons = 0; //Esta variable va a ser utilizada para chequear si todos los pokemones se encuentran con display = none, y asi
@@ -19,6 +17,7 @@ search.addEventListener("input", () => {
     if (pkClass.startsWith(`${input}`)) {
       card.style.display = "flex";
       checkPokemons > 0 ? checkPokemons-- : checkPokemons;
+
       if (pokemonMissing.classList[1])
         pokemonMissing.classList.remove("pokemon-missing-active");
     } else {
@@ -26,7 +25,7 @@ search.addEventListener("input", () => {
       checkPokemons++;
     }
 
-    if (checkPokemons == 494) {
+    if (checkPokemons == 807) {
       pokemonMissing.classList.add("pokemon-missing-active");
     }
   });

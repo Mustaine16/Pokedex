@@ -11,6 +11,7 @@ const modalLoader = document.querySelector(".modal-loader");
 const search = document.querySelector(".search-input");
 const clearSearch = document.querySelector(".clear-search");
 const burger = document.querySelector(".burger-button");
+const types = document.querySelectorAll("ul li");
 const nameGenerations = document.querySelectorAll(".gen-name");
 const defaultBackground = document.querySelector(".modal-default-container");
 
