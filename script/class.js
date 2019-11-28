@@ -426,17 +426,15 @@ class Pokemon {
       triggersArr.push("When its raining or foogy in the overworld");
     }
 
-    console.log(triggersArr);
-
     return triggersArr;
   }
 
-  incrustStats(miniCard, modal) {
+  incrustStats(pokemon, modal) {
     //Name
     const nameDiv =
-      miniCard.children[1].localName == "span"
-        ? miniCard.children[1].cloneNode(true)
-        : miniCard.children[0].cloneNode(true);
+      pokemon.children[1].localName == "span"
+        ? pokemon.children[1].cloneNode(true)
+        : pokemon.children[0].cloneNode(true);
 
     nameDiv.classList.add("pkmn-name");
     nameDiv.classList.add("name-open");
@@ -454,9 +452,9 @@ class Pokemon {
     //Sprite
 
     const sprite =
-      miniCard.children[0].localName == "img"
-        ? miniCard.children[0].cloneNode(true)
-        : miniCard.children[1].children[0].cloneNode(true);
+      pokemon.children[0].localName == "img"
+        ? pokemon.children[0].cloneNode(true)
+        : pokemon.children[1].children[0].cloneNode(true);
     asset.appendChild(sprite);
 
     //Sprite Shiny
@@ -1134,9 +1132,6 @@ class Pokemon {
 
         //Left Evo
         preEvo.addEventListener("click", async () => {
-          /*Verifica los width del viewport, para solo utilizar los scripts de BodyScrollLock en dispositivos moviles*/
-          var width = Math.max(window.innerWidth);
-
           const pokemonName = preEvo.childNodes[1].innerText.toLowerCase();
           let newBackgroundColor;
           let OldBackgroundColor = modal.classList[2];
@@ -1162,27 +1157,9 @@ class Pokemon {
           modal.appendChild(modalLoaderContainer);
           modal.classList.add(newBackgroundColor);
 
-          //Blockea el scroll de fondo
-          if (modalLoader.style.display != "none" && width < 1366) {
-            // bodyScrollLock.disableBodyScroll(modal);
-          }
-
+          //Mostrar la data
           if (modal.classList.contains("modal-open")) {
-            //Procedimientos de cada pokemon para obtener sus respectivos datos
-
-            await fetchear(pokemonName);
-            let index = pokemonList.length - 1;
-
-            await pokemonList[index].setSprites();
-            await pokemonList[index].getEvolutions();
-            await pokemonList[index].getEvolutionsSprites();
-            await pokemonList[index].incrustStats(preEvo, modal);
-            await pokemonList[index].shinySprite(modal);
-            await pokemonList[index].incrustEvolutions(modal);
-            await pokemonList[index].incrustEvolutionsFetchRequest(modal);
-            await pokemonList[index].getDamageRelations();
-            await pokemonList[index].incrustDamageRelations(modal);
-            await pokemonList[index].incrustBackArrow(modal);
+            await showPokemonData(pokemonName, preEvo, modal);
           }
 
           pokemonList = [];
@@ -1190,9 +1167,6 @@ class Pokemon {
 
         //Right Evo
         evo.addEventListener("click", async () => {
-          /*Verifica los width del viewport, para solo utilizar los scripts de BodyScrollLock en dispositivos moviles*/
-          var width = Math.max(window.innerWidth);
-
           const pokemonName = evo.childNodes[1].innerText.toLowerCase();
           let newBackgroundColor;
           let OldBackgroundColor = modal.classList[2];
@@ -1218,28 +1192,9 @@ class Pokemon {
           modal.appendChild(modalLoaderContainer);
           modal.classList.add(newBackgroundColor);
 
-          //Blockea el scroll de fondo
-          if (modalLoader.style.display != "none" && width < 1366) {
-            // bodyScrollLock.disableBodyScroll(modal);
-          }
-
+          //Mostrar la data
           if (modal.classList.contains("modal-open")) {
-            //Procedimientos de cada pokemon para obtener sus respectivos datos
-
-            await fetchear(pokemonName);
-
-            let index = pokemonList.length - 1;
-
-            await pokemonList[index].setSprites();
-            await pokemonList[index].getEvolutions();
-            await pokemonList[index].getEvolutionsSprites();
-            await pokemonList[index].incrustStats(evo, modal);
-            await pokemonList[index].shinySprite(modal);
-            await pokemonList[index].incrustEvolutions(modal);
-            await pokemonList[index].incrustEvolutionsFetchRequest(modal);
-            await pokemonList[index].getDamageRelations();
-            await pokemonList[index].incrustDamageRelations(modal);
-            await pokemonList[index].incrustBackArrow(modal);
+            await showPokemonData(pokemonName, evo, modal);
           }
 
           pokemonList = [];
