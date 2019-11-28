@@ -84,7 +84,6 @@ async function fetchear(id) {
       .then(async pkmn => {
         const pokemon = new Pokemon(pkmn);
         pokemonList.push(pokemon);
-        console.log("s");
       });
   } catch (err) {
     console.log(err);

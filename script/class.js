@@ -177,12 +177,23 @@ class Pokemon {
       //Second Evolution-----------------------------------
 
       if (this.evolutions.length === 3) {
-        //Evolution row
-        //Nincada, Shedinja, Ninjasck
-        const secondEvolution =
-          this.evolutions[0].name == "nincada"
-            ? this.crearRowEvolution(0, 2)
-            : this.crearRowEvolution(1, 2);
+        const name = this.evolutions[0].name;
+        let secondEvolution = "";
+
+        //Nincada
+        if (name == "nincada") {
+          secondEvolution = this.crearRowEvolution(0, 2);
+        }
+
+        //Burmy
+        if (name == "burmy") {
+          secondEvolution = this.crearRowEvolution(0, 2);
+        }
+
+        //Por Defecto
+        else {
+          secondEvolution = this.crearRowEvolution(1, 2);
+        }
 
         //Append
         containerEvolutions.appendChild(secondEvolution);
@@ -270,30 +281,154 @@ class Pokemon {
   }
 
   incrustEvolutionsTriggers(i) {
-    // if (this.evolutions[i].min_level != null) {
-    //   return `level ${this.evolutions[i].min_level}`;
-    // } else if (this.evolutions[i].trigger == "use-item") {
-    //   return `using ${this.evolutions[i].item.name}`;
-    // } else if (this.evolutions[i].trigger == "trade") {
-    //   return "at trade";
-    // } else {
-    //   return "at high friendship";
-    // }
-
     //Array para guardar cada condicion y/o trigger, para despues generar un span por cada uno de ellos con un foreach cuando se invoque este metodo
 
-    let triggers = [];
+    const triggersArr = [];
+    const evoConditions = this.evolutions[i].evolutionDetails;
+    const triggerName = evoConditions.trigger.name;
+    const name = this.evolutions[i].name;
 
-    //Trade
-    if (this.evolutions[i].trigger == "trade") {
-      console.log("trade");
+    //---Trade----
+
+    if (triggerName == "trade") {
+      triggersArr.push("Trade");
+
+      //Si necesita tener un objeto
+      if (evoConditions.held_item) {
+        triggersArr.push(`Holding ${evoConditions.held_item.name}`);
+      }
+
+      //Si necesita ser intercambiado por cierto pokemon
+      if (evoConditions.trade_species) {
+        triggersArr.push(`For a ${evoConditions.trade_species.name}`);
+      }
     }
 
-    if (this.evolutions[i].trigger == "use-item") {
+    //---Use-item----
+
+    if (triggerName == "use-item") {
+      triggersArr.push(`Using ${evoConditions.item.name}`);
+
+      //Si requier cierto genero para evolucionar
+      if (evoConditions.gender) {
+        evoConditions.gender == 1
+          ? triggersArr.push("(Female)")
+          : triggersArr.push("(Male)");
+      }
     }
 
-    if ((this.evolutions[i].trigger = "level-up")) {
+    //---Level-up----
+
+    if (triggerName == "level-up") {
+      //Nivel comun
+      evoConditions.min_level
+        ? triggersArr.push(`Level ${evoConditions.min_level}`)
+        : "";
+
+      //Genero
+      if (evoConditions.gender) {
+        evoConditions.gender == 1
+          ? triggersArr.push("(Female)")
+          : triggersArr.push("(Male)");
+      }
+
+      //Item
+      evoConditions.held_item
+        ? triggersArr.push(`holding ${evoConditions.held_item.name}`)
+        : "";
+
+      //Amistad
+      evoConditions.min_happiness
+        ? triggersArr.push("Whit hight friendship")
+        : "";
+
+      //Conociendo cierto movimiento
+      evoConditions.known_move
+        ? triggersArr.push(`knowing ${evoConditions.known_move.name}`)
+        : "";
+
+      //En ciertas localizaciones
+      evoConditions.location
+        ? triggersArr.push(`In ${evoConditions.location.name}`)
+        : "";
+
+      //Cierta hora del dia
+      evoConditions.time_of_day
+        ? triggersArr.push(`At ${evoConditions.time_of_day}`)
+        : "";
     }
+
+    //---Condiciones unicas
+
+    //Hitmonlee, Hitmonachan y Hitmontop
+
+    switch (evoConditions.relative_physical_stats) {
+      case 1:
+        triggersArr.push("Attack > Defense");
+        break;
+      case -1:
+        triggersArr.push("Attack < Defense");
+        break;
+      case 0:
+        triggersArr.push("Attack = Defense");
+        break;
+      default:
+        break;
+    }
+
+    //Sylveon
+
+    if (name == "sylveon") {
+      triggersArr.push("Knowing a Fairy type move");
+      triggersArr.push("At least levels 2 of affection");
+    }
+
+    //Mantine
+
+    if (name == "mantine") {
+      triggersArr.push("Only if a Remoraid is in the player party");
+    }
+
+    //Milotic
+
+    if (name == "milotic") {
+      triggersArr.push("Level up beauty condition to 170");
+    }
+
+    //Shedinja
+
+    if (name == "shedinja") {
+      triggersArr.push(
+        "After, Nincada evolves to Ninjask, if there is an empty space in the party, it will appear"
+      );
+      triggersArr.push(
+        "Player must also have a Poke-ball in the bag (Generation IV and above)"
+      );
+    }
+
+    //Pangoro
+
+    if (name == "pangoro") {
+      triggersArr.push("There must be a Dark-Type Pokemon in the party");
+    }
+
+    //Malamar
+
+    if (name == "malamar") {
+      triggersArr.push(
+        "the Nintendo 3DS system must be held upside-down when it levels up"
+      );
+    }
+
+    //Goodra
+
+    if (name == "goodra") {
+      triggersArr.push("When its raining or foogy in the overworld");
+    }
+
+    console.log(triggersArr);
+
+    return triggersArr;
   }
 
   incrustStats(miniCard, modal) {
@@ -302,6 +437,7 @@ class Pokemon {
       miniCard.children[1].localName == "span"
         ? miniCard.children[1].cloneNode(true)
         : miniCard.children[0].cloneNode(true);
+
     nameDiv.classList.add("pkmn-name");
     nameDiv.classList.add("name-open");
 
@@ -916,7 +1052,7 @@ class Pokemon {
     const pokeEvolution = document.createElement("div");
     const arrowDiv = document.createElement("div");
     const arrow = document.createElement("img");
-    const arrowText = document.createElement("span");
+    let evoConditions = [];
     const pokeBaseName = document.createElement("span");
     const pokeEvolutionName = document.createElement("span");
     const pokeBaseSprite = document.createElement("img");
@@ -937,9 +1073,9 @@ class Pokemon {
     pokeBaseSprite.src = `${this.evolutions[i1].sprite.src}`;
     pokeEvolutionSprite.src = `${this.evolutions[i2].sprite.src}`;
 
-    //Arrow
+    //Arrow & Evolution condition
     arrow.src = "./img/arrow.svg";
-    arrowText.innerText = this.incrustEvolutionsTriggers(i2);
+    evoConditions = this.incrustEvolutionsTriggers(i2);
 
     //Apends
     pokeBase.appendChild(pokeBaseSprite);
@@ -949,7 +1085,13 @@ class Pokemon {
     pokeEvolution.appendChild(pokeEvolutionName);
 
     arrowDiv.appendChild(arrow);
-    arrowDiv.appendChild(arrowText);
+
+    //Inserta cada condicion como un span
+    evoConditions.forEach(condition => {
+      let span = document.createElement("span");
+      span.innerText = condition;
+      arrowDiv.appendChild(span);
+    });
 
     //Final Apends
 
