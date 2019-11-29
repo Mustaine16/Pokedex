@@ -6,15 +6,48 @@ const pokemonMissing = document.querySelector(".pokemon-missing");
 const loader = document.querySelector(".loader-div");
 var cards = document.querySelectorAll(".pkmn-card");
 const modal = document.querySelector(".modal");
+const modalLoaderContainer = document.querySelector(".modal-loader-container");
+const modalLoader = document.querySelector(".modal-loader");
 const search = document.querySelector(".search-input");
 const clearSearch = document.querySelector(".clear-search");
 const burger = document.querySelector(".burger-button");
+const types = document.querySelectorAll("ul li");
 const nameGenerations = document.querySelectorAll(".gen-name");
-const modalLoaderContainer = document.querySelector(".modal-loader-container");
-const modalLoader = document.querySelector(".modal-loader");
 const defaultBackground = document.querySelector(".modal-default-container");
 
-async function consumirApi() {
+//Funcion que realiza la peticion Fetch a la API
+async function fetchear(id) {
+  try {
+    await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      .then(data => data.json())
+      .then(async pkmn => {
+        const pokemon = new Pokemon(pkmn);
+        pokemonList.push(pokemon);
+      });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+//Funcion que va a abrir y mostrar la data del pokemon en el modal
+async function showPokemonData(name, pokemon, modal) {
+  await fetchear(name);
+  const index = pokemonList.length - 1;
+
+  await pokemonList[index].setSprites();
+  await pokemonList[index].getEvolutions();
+  await pokemonList[index].getEvolutionsSprites();
+  await pokemonList[index].incrustStats(pokemon, modal);
+  await pokemonList[index].shinySprite(modal);
+  await pokemonList[index].incrustEvolutions(modal);
+  await pokemonList[index].incrustEvolutionsFetchRequest(modal);
+  await pokemonList[index].getDamageRelations();
+  await pokemonList[index].incrustDamageRelations(modal);
+  await pokemonList[index].incrustBackArrow(modal);
+}
+
+//Listener general para todas las Cards
+async function listenCards() {
   const startTime = performance.now();
 
   //Detiene el loader del modal, sino estaria todo el tiempo haciendo un spin infinito y traeria problemas de rendimiento
@@ -23,17 +56,15 @@ async function consumirApi() {
 
   cards.forEach((card, i) => {
     card.addEventListener("click", async function() {
-      /*Verifica los width del viewport, para solo utilizar los scripts de BodyScrollLock en dispositivos moviles*/
-      var width = Math.max(window.innerWidth || 0);
-      console.log(i);
-      let newBackgroundColor = card.classList[2];
+      const pokeName = card.children[0].textContent;
+      const newBackgroundColor = card.classList[2];
+      //Nuevo color de background para settear en el modal
 
       //Verifica si el modal esta abierto
       if (modal.classList.contains("modal-open")) {
         //Elimina la clase que le da color al fondo del modal
         let OldBackgroundColor = modal.classList[2];
         modal.classList.remove(OldBackgroundColor);
-        console.log("tiene modalOpen");
         //Elimina el color del Loader
         modalLoaderContainer.classList.remove(OldBackgroundColor);
       }
@@ -49,30 +80,12 @@ async function consumirApi() {
       modal.classList.add("modal-open");
       modal.classList.add(newBackgroundColor);
 
-      //Blockea el scroll de fondo
-      if (modalLoader.style.display != "none" && width < 1366) {
-        // bodyScrollLock.disableBodyScroll(modal);
-      }
-
       if (modal.classList.contains("modal-open")) {
-        //Procedimientos de cada pokemon para obtener sus respectivos datos
-
-        await fetchear(i + 1);
-        const index = pokemonList.length - 1;
-
-        await pokemonList[index].setSprites();
-        await pokemonList[index].getEvolutions();
-        await pokemonList[index].getEvolutionsSprites();
-        await pokemonList[index].incrustStats(this, modal);
-        await pokemonList[index].shinySprite(modal);
-        await pokemonList[index].incrustEvolutions(modal);
-        await pokemonList[index].incrustEvolutionsFetchRequest(modal);
-        await pokemonList[index].getDamageRelations();
-        await pokemonList[index].incrustDamageRelations(modal);
-        await pokemonList[index].incrustBackArrow(modal);
+        await showPokemonData(pokeName, card, modal);
       }
 
       // pokemonList = [];
+      //Eso hay que borrarlo cuando no este testeando
     });
   });
 
@@ -81,29 +94,12 @@ async function consumirApi() {
 
   setTimeout(() => {
     loader.style.display = "none";
-    // bodyScrollLock.enableBodyScroll(loader);
-  }, 2000);
+  }, 500);
 }
 
-async function fetchear(id) {
-  try {
-    await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then(data => data.json())
-      .then(async pkmn => {
-        const pokemon = new Pokemon(pkmn);
-        pokemonList.push(pokemon);
-        console.log("s");
-      });
-  } catch (err) {
-    console.log(err);
-  }
-}
+listenCards();
 
-// bodyScrollLock.disableBodyScroll(loader);
-
-consumirApi();
-
-// seteer height adn width a los sprites de las cards, y un alt.
+// setter height and width a los sprites de las cards, y un alt.
 
 cards.forEach((e, i) => {
   e.children[1].children[0].setAttribute("height", "auto");
@@ -130,11 +126,10 @@ cards.forEach((e, i) => {
 //   }
 // });
 
-
 //Pokemones a tener en cuenta
 
-//Oricorio
-//Minior
-//Lycanroc
-//Wishiwashi
+//Oricorio -- Sprite Shiny
+//Minior-- Sprite Shiny
+//Lycanroc-- Sprite Shiny
+//Wishiwashi-- Sprite Shiny
 //

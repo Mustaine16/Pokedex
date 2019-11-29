@@ -109,7 +109,7 @@ body {
   display: block;
 }
 
-.main {
+main {
   background: #f2f2f2;
   display: flex;
   flex-direction: column;
@@ -117,7 +117,7 @@ body {
   align-items: center;
 }
 
-.nav-bar {
+.header-sticky {
   position: sticky;
   top: 0;
   z-index: 5;
@@ -910,6 +910,7 @@ img {
   text-transform: uppercase;
   font-size: 0.8em;
   font-weight: 300;
+  padding: 0.2rem;
 }
 
 .ev {
@@ -941,6 +942,7 @@ img {
 
 .arrow {
   fill: #030e084d;
+  margin: auto;
 }
 
 .arrow-div {
@@ -948,8 +950,9 @@ img {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
   align-self: flex-end;
+  min-height: 115px;
+  max-height: 150px;
 }
 
 .empty {
@@ -1320,7 +1323,7 @@ a:hover {
     background-color: #ef5350;
   }
 
-  .main {
+  main {
     width: 70vw;
     margin-right: auto;
   }
