@@ -93,7 +93,27 @@ class Pokemon {
       this.spriteShiny.src = `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/shiny/${this.name}.png`;
     } else if (this.id > 721) {
       this.sprite.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/normal/${this.name}.png`;
-      this.spriteShiny.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/shiny/${this.name}.png`;
+
+      switch (this.name) {
+        case "oricorio":
+          this.spriteShiny.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/shiny/${this.name}-baile.png`;
+          break;
+
+        case "lycanroc":
+          this.spriteShiny.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/shiny/${this.name}-midday.png`;
+          break;
+
+        case "minior":
+          this.spriteShiny.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/shiny/${this.name}-meteor.png`;
+
+        case "wishiwashi":
+          this.spriteShiny.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/shiny/${this.name}-solo.png`;
+          break;
+
+        default:
+          this.spriteShiny.src = `https://img.pokemondb.net/sprites/ultra-sun-ultra-moon/shiny/${this.name}.png`;
+          break;
+      }
     }
   }
 
@@ -120,7 +140,8 @@ class Pokemon {
             let evoData = data.chain;
 
             evoChain.push({
-              name: evoData.species.name
+              name: evoData.species.name,
+              id: evoData.species.url.split("/")[6]
             });
 
             do {
@@ -130,7 +151,9 @@ class Pokemon {
                 for (let i = 0; i < numberOfEvolutions; i++) {
                   evoChain.push({
                     name: evoData.evolves_to[i].species.name,
-                    evolutionDetails: evoData.evolves_to[i].evolution_details[0]
+                    evolutionDetails:
+                      evoData.evolves_to[i].evolution_details[0],
+                    id: evoData.evolves_to[i].species.url.split("/")[6]
                   });
                 }
               }
@@ -1078,9 +1101,11 @@ class Pokemon {
     //Apends
     pokeBase.appendChild(pokeBaseSprite);
     pokeBase.appendChild(pokeBaseName);
+    pokeBase.dataset.id = this.evolutions[i1].id;
 
     pokeEvolution.appendChild(pokeEvolutionSprite);
     pokeEvolution.appendChild(pokeEvolutionName);
+    pokeEvolution.dataset.id = this.evolutions[i2].id;
 
     arrowDiv.appendChild(arrow);
 
@@ -1133,6 +1158,7 @@ class Pokemon {
         //Left Evo
         preEvo.addEventListener("click", async () => {
           const pokemonName = preEvo.childNodes[1].innerText.toLowerCase();
+          const pokemonId = preEvo.dataset.id;
           let newBackgroundColor;
           let OldBackgroundColor = modal.classList[2];
 
@@ -1159,7 +1185,7 @@ class Pokemon {
 
           //Mostrar la data
           if (modal.classList.contains("modal-open")) {
-            await showPokemonData(pokemonName, preEvo, modal);
+            await showPokemonData(pokemonId, preEvo, modal);
           }
 
           pokemonList = [];
@@ -1168,6 +1194,7 @@ class Pokemon {
         //Right Evo
         evo.addEventListener("click", async () => {
           const pokemonName = evo.childNodes[1].innerText.toLowerCase();
+          const pokemonId = evo.dataset.id;
           let newBackgroundColor;
           let OldBackgroundColor = modal.classList[2];
 
@@ -1194,7 +1221,7 @@ class Pokemon {
 
           //Mostrar la data
           if (modal.classList.contains("modal-open")) {
-            await showPokemonData(pokemonName, evo, modal);
+            await showPokemonData(pokemonId, evo, modal);
           }
 
           pokemonList = [];
