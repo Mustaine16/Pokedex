@@ -56,7 +56,7 @@ async function listenCards() {
 
   cards.forEach((card, i) => {
     card.addEventListener("click", async function() {
-      const pokeName = card.children[0].textContent;
+      const pokemonId = i + 1;
       const newBackgroundColor = card.classList[2];
       //Nuevo color de background para settear en el modal
 
@@ -81,7 +81,7 @@ async function listenCards() {
       modal.classList.add(newBackgroundColor);
 
       if (modal.classList.contains("modal-open")) {
-        await showPokemonData(pokeName, card, modal);
+        await showPokemonData(pokemonId, card, modal);
       }
 
       // pokemonList = [];
